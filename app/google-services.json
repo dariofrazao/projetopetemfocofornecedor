@@ -1,0 +1,143 @@
+{
+  "project_info": {
+    "project_number": "601376974262",
+    "firebase_url": "https://petemfoco-1183e.firebaseio.com",
+    "project_id": "petemfoco-1183e",
+    "storage_bucket": "petemfoco-1183e.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:601376974262:android:a3000940841b8832",
+        "android_client_info": {
+          "package_name": "projetaobcc20172.com.petemfoco"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "601376974262-msbtuicrfd13a9feb8crd08qsam3e5qe.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "projetaobcc20172.com.petemfoco",
+            "certificate_hash": "e28c763074045318f49b9e65989f04125d2d3281"
+          }
+        },
+        {
+          "client_id": "601376974262-uir2vev73l47hlks5k0kmtg7att60isc.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCWbTVklRBVxAAonOut8Ky937wdT7mqeGU"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "601376974262-uir2vev73l47hlks5k0kmtg7att60isc.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:601376974262:android:17e095115e6b6a34",
+        "android_client_info": {
+          "package_name": "projetaobcc20172.com.projetopetemfoco"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "601376974262-akfqpvpqfft5r855h4lu6pdmp96lr166.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "projetaobcc20172.com.projetopetemfoco",
+            "certificate_hash": "e28c763074045318f49b9e65989f04125d2d3281"
+          }
+        },
+        {
+          "client_id": "601376974262-uir2vev73l47hlks5k0kmtg7att60isc.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCWbTVklRBVxAAonOut8Ky937wdT7mqeGU"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "601376974262-uir2vev73l47hlks5k0kmtg7att60isc.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:601376974262:android:768f72296eaacc47",
+        "android_client_info": {
+          "package_name": "projetaobcc20172.com.projetopetemfocofornecedor"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "601376974262-isf789ip5l1u70jjsn3odi1c4tngua7o.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "projetaobcc20172.com.projetopetemfocofornecedor",
+            "certificate_hash": "e28c763074045318f49b9e65989f04125d2d3281"
+          }
+        },
+        {
+          "client_id": "601376974262-uir2vev73l47hlks5k0kmtg7att60isc.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCWbTVklRBVxAAonOut8Ky937wdT7mqeGU"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "601376974262-uir2vev73l47hlks5k0kmtg7att60isc.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

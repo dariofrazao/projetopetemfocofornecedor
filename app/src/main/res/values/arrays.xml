@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="uf">
+        <item>AC</item>
+        <item>AL</item>
+        <item>AP</item>
+        <item>AM</item>
+        <item>BA</item>
+        <item>CE</item>
+        <item>DF</item>
+        <item>ES</item>
+        <item>GO</item>
+        <item>MA</item>
+        <item>MT</item>
+        <item>MS</item>
+        <item>MG</item>
+        <item>PA</item>
+        <item>PB</item>
+        <item>PR</item>
+        <item>PE</item>
+        <item>PI</item>
+        <item>RJ</item>
+        <item>RN</item>
+        <item>RS</item>
+        <item>RO</item>
+        <item>RR</item>
+        <item>SC</item>
+        <item>SP</item>
+        <item>SE</item>
+        <item>TO</item>
+    </string-array>
+
+    <string-array name="horariosFornecedor">
+        <item>Manhã</item>
+        <item>Tarde</item>
+        <item>Noite</item>
+        <item>Comercial</item>
+        <item>24 horas</item>
+    </string-array>
+
+    <string-array name="servicos">
+        <item>Banho</item>
+        <item>Tosa</item>
+        <item>Hospedagem</item>
+        <item>Passeio</item>
+        <item>Vacinação</item>
+    </string-array>
+
+</resources>
