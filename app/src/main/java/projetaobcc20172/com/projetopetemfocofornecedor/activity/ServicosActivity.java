@@ -57,7 +57,7 @@ public class ServicosActivity extends AppCompatActivity {
         toolbar.setNavigationIcon(R.drawable.ic_action_arrow_left_white);
         setSupportActionBar(toolbar);
 
-        cadastroServico =  findViewById(R.id.btnCadastrarFornecedor);
+        cadastroServico =  findViewById(R.id.btnCadastrarServico);
         ListView listView;
         listView = findViewById(R.id.lv_serviços);
 

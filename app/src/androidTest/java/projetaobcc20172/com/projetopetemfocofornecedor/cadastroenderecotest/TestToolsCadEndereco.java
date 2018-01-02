@@ -24,4 +24,8 @@ public class TestToolsCadEndereco {
         public static void selecionarEstado(String estado){
             TestTools.selecionarItemSpinnerComScroll(R.id.ufSpinner,estado);
         }
+
+        public static void clicarCadastrar(){
+            TestTools.clicarBotaoComScroll(R.id.btnCadastrarEndereco);
+        }
 }

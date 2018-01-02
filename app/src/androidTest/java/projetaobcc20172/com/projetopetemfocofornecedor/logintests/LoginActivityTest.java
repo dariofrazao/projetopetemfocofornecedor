@@ -23,8 +23,8 @@ public class LoginActivityTest {
 
     private static String sLoginInvalido = "joaoNaoCadastrado@gmail.com";
     private static String sSenhaInvalida = "senhaInvalida";
-    private static String sLoginValido = "raulpedrouag@gmail.com";
-    private static String sSenhaValida = "123456";
+    private static String sLoginValido = "raulpedrofornecedor@gmail.com";
+    private static String sSenhaValida = "12345678";
 
     @Rule
     public ActivityTestRule<LoginActivity> loginActivityRule = new ActivityTestRule<>(LoginActivity.class);
@@ -35,7 +35,7 @@ public class LoginActivityTest {
         //Desloga caso já esteja logado.
         //Evita erros nos testes
         try{
-            TestTools.clicarBotao(R.id.botao_sair);
+            TestTools.clicarBotao(R.id.btnSair);
         }catch (Exception e){
             e.getMessage();
         }
