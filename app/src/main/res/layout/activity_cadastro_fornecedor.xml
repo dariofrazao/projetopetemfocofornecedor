@@ -155,7 +155,7 @@
                     android:layout_width="match_parent">
 
                     <Spinner
-                        android:id="@+id/horariosSpinner"
+                        android:id="@+id/servicoSpinner"
                         android:layout_margin="4dp"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -213,7 +213,7 @@
                     android:inputType="textPassword" />
 
                 <Button
-                    android:id="@+id/botao_cadastrar_fornecedor"
+                    android:id="@+id/btnCadastrarFornecedor"
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="10dp"

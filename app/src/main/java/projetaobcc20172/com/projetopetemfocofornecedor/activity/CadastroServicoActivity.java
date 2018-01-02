@@ -49,7 +49,7 @@ public class CadastroServicoActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
 
         //Preparar o adaptar do Spinner para exibir os horários de atendimento do fornecedor
-        mSpinnerServico = findViewById(R.id.horariosSpinner);
+        mSpinnerServico = findViewById(R.id.servicoSpinner);
         ArrayAdapter<String> adapter_state = new ArrayAdapter<>(this,
                 android.R.layout.simple_spinner_dropdown_item, getResources().getStringArray(R.array.servicos));
         mSpinnerServico.setAdapter(adapter_state);

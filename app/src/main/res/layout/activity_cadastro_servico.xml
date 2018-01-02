@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:background="@drawable/fundo_degrade"
     tools:context="projetaobcc20172.com.projetopetemfocofornecedor.activity.CadastroServicoActivity"
-    tools:showIn="@layout/activity_cadastro_servico">
+    >
 
     <include
         android:id="@+id/tb_cadastro_serviço"
@@ -56,11 +56,11 @@
                     android:layout_width="match_parent">
 
                     <Spinner
-                        android:id="@+id/horariosSpinner"
-                        android:layout_margin="4dp"
+                        android:id="@+id/servicoSpinner"
+                        style="@style/Widget.AppCompat.DropDownItem.Spinner"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        style="@style/Widget.AppCompat.DropDownItem.Spinner"/>
+                        android:layout_margin="4dp" />
 
                 </LinearLayout>
 

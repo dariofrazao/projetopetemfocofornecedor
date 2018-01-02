@@ -33,11 +33,11 @@
         android:padding="10dp">
 
         <ImageButton
-            android:id="@+id/botao_cadastrar_serviço"
+            android:id="@+id/btnCadastrarFornecedor"
             android:layout_width="60dp"
             android:layout_height="60dp"
-            android:background="@drawable/ic_action_add"
-            android:layout_alignParentRight="true"/>
+            android:layout_alignParentRight="true"
+            android:background="@drawable/ic_action_add" />
 
     </LinearLayout>
 
