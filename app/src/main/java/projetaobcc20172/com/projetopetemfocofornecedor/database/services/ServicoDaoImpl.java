@@ -7,11 +7,9 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.database.DatabaseReference;
 
-import java.util.List;
 
 import projetaobcc20172.com.projetopetemfocofornecedor.R;
 import projetaobcc20172.com.projetopetemfocofornecedor.config.ConfiguracaoFirebase;
-import projetaobcc20172.com.projetopetemfocofornecedor.database.services.ServicoDao;
 import projetaobcc20172.com.projetopetemfocofornecedor.model.Servico;
 import projetaobcc20172.com.projetopetemfocofornecedor.utils.Utils;
 
@@ -95,7 +93,7 @@ public class ServicoDaoImpl implements ServicoDao{
             }
         });
     }
-
+/*
     @Override
     public List<Servico> buscarPorNome(String nome) {
         return null;
@@ -105,8 +103,7 @@ public class ServicoDaoImpl implements ServicoDao{
     public List<Servico> buscarTodosFornecedor(String idFornecedor) {
         return null;
     }
-
-
+*/
     private Context getContexto(){
         return this.mContexto;
     }
