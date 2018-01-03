@@ -29,11 +29,16 @@ public class CadastroServicoActivityTestParam {
     @Parameterized.Parameters
     public static Collection<Object[]> data() {
         return Arrays.asList(new Object[][]{
-                {"Banho","60,00","Deixa seu pet cheirso"},
-                {"Tosa","70,00","Deixa seu pet bonito"},
-                {"Hospedagem","60,00","Hospeda seu pet"},
-                {"Passeio","60,00","Deixa seu pet em forma"},
-                {"Vacinação","30,00","Raiva"},
+                {"Banho","60,00","Deixa seu pet cheirso","Cachorro"},
+                {"Tosa","70,00","Deixa seu pet bonito","Cachorro"},
+                {"Hospedagem","60,00","Hospeda seu pet","Cachorro"},
+                {"Passeio","60,00","Deixa seu pet em forma","Cachorro"},
+                {"Vacinação","30,00","Raiva","Cachorro"},
+                {"Banho","60,00","Deixa seu pet cheirso","Gato"},
+                {"Tosa","70,00","Deixa seu pet bonito","Gato"},
+                {"Hospedagem","60,00","Hospeda seu pet","Gato"},
+                {"Passeio","60,00","Deixa seu pet em forma","Gato"},
+                {"Vacinação","30,00","Raiva","Gato"}
         });
     }
     @Parameterized.Parameter(0)
@@ -42,6 +47,8 @@ public class CadastroServicoActivityTestParam {
     public String mValor;
     @Parameterized.Parameter(2)
     public String mDescricao;
+    @Parameterized.Parameter(3)
+    public String mTipoAnimal;
 
 
     @Before
@@ -62,7 +69,7 @@ public class CadastroServicoActivityTestParam {
 
     @Test
     public void testeCadServico(){
-        TestToolsCadServico.preencherEClicar(this.mNomeServico,this.mValor,this.mDescricao);
+        TestToolsCadServico.preencherEClicar(this.mNomeServico,this.mValor,this.mDescricao,this.mTipoAnimal);
         TestTools.checarToast(R.string.sucesso_cadastro_servico);
     }
 }

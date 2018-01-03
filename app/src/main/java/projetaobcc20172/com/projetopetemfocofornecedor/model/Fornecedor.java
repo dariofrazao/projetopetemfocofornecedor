@@ -3,6 +3,7 @@ package projetaobcc20172.com.projetopetemfocofornecedor.model;
 import com.google.firebase.database.Exclude;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 
 
 /**
@@ -22,6 +23,7 @@ public class Fornecedor implements Serializable {
     private String mSenha2;
     private String mEnderecoFornecedor = "1";
     private Endereco mEndereco;
+    private ArrayList<Servico> mServicos = new ArrayList<Servico>();
 
     public Fornecedor(){}
 
@@ -115,4 +117,18 @@ public class Fornecedor implements Serializable {
     public void setEnderecoFornecedor(String valor) {
         this.mEnderecoFornecedor = valor;
     }
+
+    public void addServico(Servico serv){
+        this.mServicos.add(serv);
+    }
+
+    public ArrayList<Servico> getServicos() {
+        return mServicos;
+    }
+
+    public void setServicos(ArrayList<Servico> servicos) {
+        this.mServicos = servicos;
+    }
+
+
 }

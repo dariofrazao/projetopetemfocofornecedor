@@ -15,12 +15,14 @@ public class Servico {
     private String mNome;
     private String mDescricao;
     private String mValor;
+    private String mTipoPet;
 
     public Servico() {}
 
-    public Servico(String nome, String valor){
+    public Servico(String nome, String valor,String tipoPet){
         this.mNome = nome;
         this.mValor = valor;
+        this.mTipoPet = tipoPet;
     }
 
     @Exclude
@@ -51,9 +53,18 @@ public class Servico {
     public void setValor(String Valor) {
         this.mValor = Valor;
     }
-
+/*
     public void salvar(String idEstabelecimento){
         DatabaseReference referenciaFirebase = ConfiguracaoFirebase.getFirebase();
         referenciaFirebase.child("fornecedor").child( idEstabelecimento ).setValue(this);
+    }
+    */
+
+    public String getTipoPet() {
+        return mTipoPet;
+    }
+
+    public void setTipoPet(String mTipoPet) {
+        this.mTipoPet = mTipoPet;
     }
 }

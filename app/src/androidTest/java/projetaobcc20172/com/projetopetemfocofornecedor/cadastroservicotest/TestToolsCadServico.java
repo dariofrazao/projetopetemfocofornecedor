@@ -17,6 +17,11 @@ public class TestToolsCadServico {
         TestTools.clicarBotao(R.id.btnSalvarServico);
     }
 
+    public static void preencherEClicar(String nomeServico, String valor, String descricao,String tipoAnimal){
+        TestTools.selecionarItemSpinnerComScroll(R.id.tipoAnimalSpinner,tipoAnimal);
+        TestToolsCadServico.preencherEClicar(nomeServico,valor,descricao);
+    }
+
     public static  void clicarMeusServicos(){
         TestTools.clicarBotao(R.id.btnMeusServicos);
     }
