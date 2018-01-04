@@ -19,6 +19,8 @@ import static android.support.test.espresso.intent.matcher.IntentMatchers.hasCom
 import static android.support.test.espresso.matcher.RootMatchers.withDecorView;
 import static android.support.test.espresso.matcher.ViewMatchers.isAssignableFrom;
 import static android.support.test.espresso.matcher.ViewMatchers.isDisplayed;
+import static junit.framework.Assert.assertEquals;
+import static junit.framework.Assert.assertTrue;
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.CoreMatchers.not;
 import static org.hamcrest.core.AllOf.allOf;
@@ -112,5 +114,15 @@ public class TestTools {
         }
         return emailInicio+emailFim;
     }
+
+    //Lança um erro de teste se dois valores não forem iguais
+    public static void verQtElementos(int qtEncontrada,int qtEsperada){
+        assertEquals(qtEncontrada,qtEsperada);
+    }
+
+    public static void qtNaoNula(int qtEncontrada){
+        assertTrue(qtEncontrada>0);
+    }
+
 
 }

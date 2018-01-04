@@ -14,6 +14,7 @@ import java.util.Collection;
 import projetaobcc20172.com.projetopetemfocofornecedor.R;
 import projetaobcc20172.com.projetopetemfocofornecedor.TestTools;
 import projetaobcc20172.com.projetopetemfocofornecedor.activity.LoginActivity;
+import projetaobcc20172.com.projetopetemfocofornecedor.activity.ServicosActivity;
 import projetaobcc20172.com.projetopetemfocofornecedor.logintests.LoginActivityTest;
 
 /**
@@ -71,5 +72,6 @@ public class CadastroServicoActivityTestParam {
     public void testeCadServico(){
         TestToolsCadServico.preencherEClicar(this.mNomeServico,this.mValor,this.mDescricao,this.mTipoAnimal);
         TestTools.checarToast(R.string.sucesso_cadastro_servico);
+        TestTools.qtNaoNula(((ServicosActivity)TestTools.activityAtual()).listView.getCount());
     }
 }
