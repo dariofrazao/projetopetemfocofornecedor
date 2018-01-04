@@ -64,6 +64,7 @@ public class ServicosActivity extends AppCompatActivity {
         // Monta listview e mAdapter
         mServico = new ArrayList<>();
         mAdapter = new ServicoAdapter(ServicosActivity.this, mServico);
+        listView.setAdapter(mAdapter);
 
         // Recuperar serviços do Firebase
         mFirebase = ConfiguracaoFirebase.getFirebase().child("fornecedor").child(idUsuarioLogado).child("servicos");
