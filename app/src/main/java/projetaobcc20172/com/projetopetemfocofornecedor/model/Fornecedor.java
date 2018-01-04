@@ -24,10 +24,14 @@ public class Fornecedor implements Serializable {
     private String mEnderecoFornecedor = "1";
     private Endereco mEndereco;
     private ArrayList<Servico> mServicos = new ArrayList<Servico>();
+    private float mLatitude = 0;
+    private float mLongitude = 0;
+    private float mNota = 0;
 
-    public Fornecedor(){}
+    public Fornecedor() {
+    }
 
-    public Fornecedor(String nome,String email,String cpfCnpj,String telefone,String senha,String senha2,String horarios){
+    public Fornecedor(String nome, String email, String cpfCnpj, String telefone, String senha, String senha2, String horarios) {
         this.mNome = nome;
         this.mEmail = email;
         this.mSenha = senha;
@@ -38,7 +42,9 @@ public class Fornecedor implements Serializable {
     }
 
     @Exclude
-    public String getId() { return mId; }
+    public String getId() {
+        return mId;
+    }
 
     public void setId(String id) {
         this.mId = id;
@@ -118,7 +124,7 @@ public class Fornecedor implements Serializable {
         this.mEnderecoFornecedor = valor;
     }
 
-    public void addServico(Servico serv){
+    public void addServico(Servico serv) {
         this.mServicos.add(serv);
     }
 
@@ -130,5 +136,11 @@ public class Fornecedor implements Serializable {
         this.mServicos = servicos;
     }
 
+    public float getNota() {
+        return mNota;
+    }
 
+    public void setNota(float mNota) {
+        this.mNota = mNota;
+    }
 }
