@@ -5,13 +5,17 @@ import android.support.annotation.NonNull;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.database.ChildEventListener;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 
-import java.util.List;
+
+import java.util.HashMap;
+import java.util.Map;
 
 import projetaobcc20172.com.projetopetemfocofornecedor.R;
 import projetaobcc20172.com.projetopetemfocofornecedor.config.ConfiguracaoFirebase;
-import projetaobcc20172.com.projetopetemfocofornecedor.database.services.ServicoDao;
 import projetaobcc20172.com.projetopetemfocofornecedor.model.Servico;
 import projetaobcc20172.com.projetopetemfocofornecedor.utils.Utils;
 
@@ -32,13 +36,44 @@ public class ServicoDaoImpl implements ServicoDao{
     }
 
     @Override
-    public void inserir(Servico servico, String idFornecedor) {
+    public void inserir(Servico servico, final String idFornecedor) {
         mReferenciaFirebase = mReferenciaFirebase.child("fornecedor").child(idFornecedor);
         mReferenciaFirebase.child("servicos").push().setValue(servico).addOnCompleteListener(new OnCompleteListener<Void>() {
             @Override
             public void onComplete(@NonNull Task<Void> task) {
                 if(task.isSuccessful()){
                     Utils.mostrarMensagemLonga(getContexto(), getContexto().getString(R.string.sucesso_cadastro_servico));
+                    mReferenciaFirebase.child("servicos").addChildEventListener(new ChildEventListener() {
+                        @Override
+                        public void onChildAdded(DataSnapshot dataSnapshot, String s) {
+                            try {
+                                Servico servico = dataSnapshot.getValue(Servico.class);
+                                salvarFornecedorServico(servico,s,idFornecedor);
+                            }catch (Exception e){
+                                System.out.println("ERRO");
+                            }
+                        }
+
+                        @Override
+                        public void onChildChanged(DataSnapshot dataSnapshot, String s) {
+
+                        }
+
+                        @Override
+                        public void onChildRemoved(DataSnapshot dataSnapshot) {
+
+                        }
+
+                        @Override
+                        public void onChildMoved(DataSnapshot dataSnapshot, String s) {
+
+                        }
+
+                        @Override
+                        public void onCancelled(DatabaseError databaseError) {
+
+                        }
+                    });
                 }
                 else{
                     Utils.mostrarMensagemLonga(getContexto(), getContexto().getString(R.string.erro_cadastro_servico));
@@ -50,6 +85,7 @@ public class ServicoDaoImpl implements ServicoDao{
                 }
             }
         });
+
     }
 
     @Override
@@ -95,7 +131,7 @@ public class ServicoDaoImpl implements ServicoDao{
             }
         });
     }
-
+/*
     @Override
     public List<Servico> buscarPorNome(String nome) {
         return null;
@@ -105,7 +141,19 @@ public class ServicoDaoImpl implements ServicoDao{
     public List<Servico> buscarTodosFornecedor(String idFornecedor) {
         return null;
     }
-
+*/
+    //Cria um nó chamadao "servico_fornecedor" que relaciona o servico ao fornecedor
+    //Permitindo a busca de fornecedores pelo servico
+    private void salvarFornecedorServico(Servico servico,String idServico,String idFornecedor){
+        mReferenciaFirebase = ConfiguracaoFirebase.getFirebase().child("servico_fornecedor").child(idServico);
+        mReferenciaFirebase.push();
+        Map<String, String> mapaNomes = new HashMap<>();
+        String nomeServTipoPet = servico.getNome()+"_"+ servico.getTipoPet();
+        mapaNomes.put("nome_tipoPet",nomeServTipoPet);
+        mapaNomes.put("idFornecedor",idFornecedor);
+        mapaNomes.put("valor",servico.getValor());
+        mReferenciaFirebase.setValue(mapaNomes);
+    }
 
     private Context getContexto(){
         return this.mContexto;

@@ -30,7 +30,7 @@ public class CadastrarFonercedorActivityTest {
     private String mEmail = "luar13.pedro@yahoo.com.br";
     private String mSenha = "12345e";
     private String mSenha2 = "12345ew1";
-    private String mTelefone = "96085746";
+    private String mTelefone = "87996085746";
     private String mHorarios = "Noite";
     private String mCpfCnpj = "123456789";
 
@@ -43,7 +43,7 @@ public class CadastrarFonercedorActivityTest {
         //Desloga caso já esteja logado.
         //Evita erros nos testes
         try{
-            TestTools.clicarBotao(R.id.botao_sair);
+            TestTools.clicarBotao(R.id.btnSair);
         }catch (Exception e){
             e.getMessage();
         }
@@ -65,7 +65,7 @@ public class CadastrarFonercedorActivityTest {
 
     @Test
     public void testeCadastroCamposAusentes(){
-        TestTools.clicarBotaoComScroll(R.id.botao_cadastrar_fornecedor);
+        TestTools.clicarBotaoComScroll(R.id.btnCadastrarFornecedor);
         TestTools.checarToast(cadFonecedorActivityRule.getActivity().getString(R.string.erro_cadastro_fornecedor_campos_obrigatorios_Toast));
     }
 

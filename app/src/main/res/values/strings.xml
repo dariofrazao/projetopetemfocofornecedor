@@ -85,6 +85,7 @@
     <string name="preencha_campo_nome">Preencha o campo nome</string>
     <string name="preencha_campo_descricao">Preencha o campo descrição</string>
     <string name="preencha_campo_valor">Preencha o campo valor</string>
+    <string name="preencha_campo_tipoAnimal">Informe um tipo de animal válido</string>
     <string name="sucesso_cadastro_servico">Serviço cadastrado com sucesso!</string>
     <string name="erro_cadastro_servico">Erro ao cadastrar serviço!</string>
 

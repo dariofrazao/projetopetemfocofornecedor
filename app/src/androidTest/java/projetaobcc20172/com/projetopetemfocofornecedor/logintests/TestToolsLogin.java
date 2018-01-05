@@ -12,7 +12,7 @@ public class TestToolsLogin {
     protected static void preencherEclicar(String login, String senha){
         TestTools.digitarCampo(R.id.etLoginEmail,login);
         TestTools.digitarCampo(R.id.etLoginSenha,senha);
-        TestTools.clicarBotao(R.id.botao_login);
+        TestTools.clicarBotao(R.id.btnLogin);
     }
 
 }

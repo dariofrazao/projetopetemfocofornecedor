@@ -53,6 +53,9 @@ public class VerificadorDeObjetos {
         else if(serv.getValor().equals("")){
             throw new ValidacaoException(cad.getString(R.string.preencha_campo_valor));
         }
+        else if(serv.getTipoPet().equals("")){
+            throw new ValidacaoException(cad.getString(R.string.preencha_campo_tipoAnimal));
+        }
         //else if(serv.getDescricao().isEmpty()){
          //   throw new ValidacaoException(cad.getResources().getString(R.string.preencha_campo_descricao));
         //}

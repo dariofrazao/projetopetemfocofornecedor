@@ -73,7 +73,7 @@
                     android:layout_marginBottom="2dp"/>
 
                 <Button
-                    android:id="@+id/botao_meus_servicos"
+                    android:id="@+id/btnMeusServicos"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_margin="4dp"
@@ -87,7 +87,7 @@
                     android:layout_marginBottom="2dp" />
 
                 <Button
-                    android:id="@+id/botao_minhas_promocoes"
+                    android:id="@+id/btnMinhasPromocoes"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_margin="4dp"
@@ -101,7 +101,7 @@
                     android:layout_marginBottom="2dp" />
 
                 <Button
-                    android:id="@+id/botao_sair"
+                    android:id="@+id/btnSair"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_margin="4dp"

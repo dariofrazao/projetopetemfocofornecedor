@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:background="@drawable/fundo_degrade"
     tools:context="projetaobcc20172.com.projetopetemfocofornecedor.activity.CadastroServicoActivity"
-    tools:showIn="@layout/activity_cadastro_servico">
+    >
 
     <include
         android:id="@+id/tb_cadastro_serviço"
@@ -56,11 +56,11 @@
                     android:layout_width="match_parent">
 
                     <Spinner
-                        android:id="@+id/horariosSpinner"
-                        android:layout_margin="4dp"
+                        android:id="@+id/servicoSpinner"
+                        style="@style/Widget.AppCompat.DropDownItem.Spinner"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        style="@style/Widget.AppCompat.DropDownItem.Spinner"/>
+                        android:layout_margin="4dp" />
 
                 </LinearLayout>
 
@@ -69,6 +69,30 @@
                     android:layout_height="1dp"
                     android:layout_marginBottom="2dp"
                     android:layout_marginTop="2dp" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@drawable/gradiente_spinner"
+                    android:orientation="horizontal">
+
+                    <Spinner
+                        android:id="@+id/tipoAnimalSpinner"
+                        style="@style/Widget.AppCompat.DropDownItem.Spinner"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="4dp"
+                        android:visibility="visible" />
+
+                </LinearLayout>
+
+                <View
+                    android:id="@+id/view"
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_marginBottom="2dp"
+                    android:layout_marginTop="2dp"
+                    android:layout_weight="1" />
 
                 <TextView
                     android:id="@+id/tvCadastroValorServico"
@@ -94,15 +118,6 @@
                     android:layout_marginBottom="2dp"
                     android:layout_marginTop="2dp" />
 
-                <TextView
-                    android:id="@+id/tvCadastroDescricaoServico"
-                    android:layout_width="fill_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="6dp"
-                    android:text="@string/prompt_descricao"
-                    android:textAppearance="?android:attr/textAppearanceMedium"
-                    android:textStyle="bold" />
-
 
                 <View
                     android:layout_width="fill_parent"
@@ -118,6 +133,15 @@
                     android:id="@+id/etCadastroDescricaoServico"
                     android:inputType="textMultiLine"
                     android:hint="@string/digite_descricao_servico" />
+
+                <TextView
+                    android:id="@+id/tvCadastroDescricaoServico"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="6dp"
+                    android:text="@string/prompt_descricao"
+                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:textStyle="bold" />
 
                 <View
                     android:layout_width="fill_parent"

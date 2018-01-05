@@ -31,6 +31,7 @@ public class CadastroServicoActivity extends AppCompatActivity {
 
     private EditText mEtValor, mEtDescricao;
     private Spinner mSpinnerServico;
+    private Spinner mSpinnerTipoAnimal;
     private String mIdUsuarioLogado;
     private Servico mServico;
 
@@ -49,10 +50,16 @@ public class CadastroServicoActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
 
         //Preparar o adaptar do Spinner para exibir os horários de atendimento do fornecedor
-        mSpinnerServico = findViewById(R.id.horariosSpinner);
+        mSpinnerServico = findViewById(R.id.servicoSpinner);
+        mSpinnerTipoAnimal = findViewById(R.id.tipoAnimalSpinner);
+
         ArrayAdapter<String> adapter_state = new ArrayAdapter<>(this,
                 android.R.layout.simple_spinner_dropdown_item, getResources().getStringArray(R.array.servicos));
         mSpinnerServico.setAdapter(adapter_state);
+
+        ArrayAdapter<String> adapterTipoAnimais = new ArrayAdapter<>(this,
+                android.R.layout.simple_spinner_dropdown_item, getResources().getStringArray(R.array.tiposAnimais));
+        mSpinnerTipoAnimal.setAdapter(adapterTipoAnimais);
 
         mEtValor = findViewById(R.id.etCadastroValorServico);
         mEtDescricao = findViewById(R.id.etCadastroDescricaoServico);
@@ -84,6 +91,8 @@ public class CadastroServicoActivity extends AppCompatActivity {
             mServico.setNome(mSpinnerServico.getSelectedItem().toString());
             mServico.setValor(mEtValor.getText().toString());
             mServico.setDescricao(mEtDescricao.getText().toString());
+            mServico.setTipoPet(mSpinnerTipoAnimal.getSelectedItem().toString());
+
             VerificadorDeObjetos.vDadosServico(mServico,this);
             //Chamada do DAO para salvar no banco
             ServicoDaoImpl servicoDao =  new ServicoDaoImpl(this);
