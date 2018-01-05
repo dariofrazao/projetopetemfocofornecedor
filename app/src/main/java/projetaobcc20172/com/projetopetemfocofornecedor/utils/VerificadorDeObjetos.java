@@ -48,8 +48,8 @@ public class VerificadorDeObjetos {
     }
 
     public static void vDadosServico(Servico serv, Context cad) throws ValidacaoException {
-        if(serv.getNome().isEmpty()){
-            throw new ValidacaoException(cad.getString(R.string.preencha_campo_nome));
+        if(serv.getNome().equalsIgnoreCase("Selecionar")){
+            throw new ValidacaoException(cad.getString(R.string.error_selecione_um_servico));
         }
         else if(serv.getValor().equals("")){
             throw new ValidacaoException(cad.getString(R.string.preencha_campo_valor));
