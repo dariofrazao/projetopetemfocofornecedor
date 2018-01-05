@@ -125,12 +125,27 @@
                     android:layout_marginTop="8dp" />
 
                 <Button
-                    android:id="@+id/btnSalvarServico"
+                    android:id="@+id/btnCadastrarServico"
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
                     android:background="@drawable/shapebutton"
                     android:text="@string/cadastrar"
                     android:visibility="visible" />
+                <Button
+                    android:id="@+id/btnEditarServico"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/shapebutton"
+                    android:text="@string/action_editar"
+                    android:visibility="invisible" />
+
+                <Button
+                    android:id="@+id/btnSalvarServico"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/shapebutton"
+                    android:text="@string/action_salvar"
+                    android:visibility="invisible" />
 
 
             </LinearLayout>

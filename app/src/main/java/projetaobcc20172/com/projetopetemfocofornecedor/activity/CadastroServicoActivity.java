@@ -2,6 +2,7 @@ package projetaobcc20172.com.projetopetemfocofornecedor.activity;
 
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.graphics.Color;
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
@@ -33,14 +34,16 @@ public class CadastroServicoActivity extends AppCompatActivity {
     private Spinner mSpinnerServico;
     private String mIdUsuarioLogado;
     private Servico mServico;
+    private boolean mIsViewsHabilitadas = true;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_cadastro_servico);
-
         Toolbar toolbar;
         toolbar = findViewById(R.id.tb_cadastro_serviço);
+
+        mIdUsuarioLogado = getPreferences("idFornecedor", CadastroServicoActivity.this);
 
         // Configura toolbar
         toolbar.setTitle(R.string.tb_cadastro_serviço);
@@ -61,13 +64,87 @@ public class CadastroServicoActivity extends AppCompatActivity {
 
         mEtValor.addTextChangedListener(new MascaraDinheiro(mEtValor, mLocal));
 
-        Button btnCadastrar = findViewById(R.id.btnSalvarServico);
+        Button btnCadastrar = findViewById(R.id.btnCadastrarServico);
+        final Button btnEditar = findViewById(R.id.btnEditarServico);
+        final Button btnSalvar = findViewById(R.id.btnSalvarServico);
+
         btnCadastrar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 salvarServico();
             }
         });
+
+        btnEditar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                habilitarViews();
+                btnSalvar.setVisibility(View.VISIBLE);
+                btnEditar.setVisibility(View.GONE);
+            }
+        });
+
+        btnSalvar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Servico servico = new Servico();
+                servico.setValor(mEtValor.getText().toString());
+                servico.setDescricao(mEtDescricao.getText().toString());
+                servico.setNome(mSpinnerServico.getSelectedItem().toString());
+
+                if(!mServico.equals(servico)){
+                    servico.setmId(mServico.getId());
+                    ServicoDaoImpl servicoDao = new ServicoDaoImpl(CadastroServicoActivity.this);
+                    servicoDao.atualizar(servico, mIdUsuarioLogado);
+                    desabilitarViews();
+                }
+                else{
+                    desabilitarViews();
+                    CadastroServicoActivity.super.onBackPressed();
+                }
+            }
+        });
+
+        Intent intent = getIntent();
+        if(intent.hasExtra("servico")){
+            btnCadastrar.setVisibility(View.GONE);
+            btnEditar.setVisibility(View.VISIBLE);
+            mServico = (Servico) intent.getSerializableExtra("servico");
+            setvaluesOnViews();
+            desabilitarViews();
+
+        }
+    }
+
+
+
+    private void setvaluesOnViews() {
+        if(mServico != null){
+            String[] listaServicos = getResources().getStringArray(R.array.servicos);
+            int i = 0;
+            for(String s: listaServicos){
+                if(s.equalsIgnoreCase(mServico.getNome())) break;
+                i++;
+            }
+            mSpinnerServico.setSelection(i);
+            mEtValor.setText(mServico.getValor());
+            mEtDescricao.setText(mServico.getDescricao());
+        }
+
+    }
+
+    private void desabilitarViews(){
+        mSpinnerServico.setEnabled(false);
+        mEtValor.setEnabled(false);
+        mEtDescricao.setEnabled(false);
+        mIsViewsHabilitadas = false;
+
+    }
+    private void habilitarViews(){
+        mSpinnerServico.setEnabled(true);
+        mEtValor.setEnabled(true);
+        mEtDescricao.setEnabled(true);
+        mIsViewsHabilitadas = true;
     }
 
     private boolean verificarCamposPreenchidos(){
@@ -105,7 +182,7 @@ public class CadastroServicoActivity extends AppCompatActivity {
     //Método do botão voltar
     @Override
     public void onBackPressed(){
-        if (verificarCamposPreenchidos()) confirmarSaida();
+        if (verificarCamposPreenchidos() && mIsViewsHabilitadas) confirmarSaida();
         else CadastroServicoActivity.super.onBackPressed();
     }
 

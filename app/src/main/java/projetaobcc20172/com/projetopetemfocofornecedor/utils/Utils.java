@@ -17,8 +17,6 @@ import com.google.firebase.database.FirebaseDatabase;
 
 public class Utils {
 
-    private static FirebaseDatabase mDatabase;
-
     /**
      * Construtor privado, todos os métodos são estáticos
      */

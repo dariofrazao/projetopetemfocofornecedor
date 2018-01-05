@@ -88,4 +88,11 @@
     <string name="sucesso_cadastro_servico">Serviço cadastrado com sucesso!</string>
     <string name="erro_cadastro_servico">Erro ao cadastrar serviço!</string>
 
+
+    <!--Mensagens de informação ao usuário-->
+    <string name="info_confirmar_remocao_servico">Deseja remover o serviço selecionado?</string>
+
+    <!--Strings de ações-->
+    <string name="action_salvar">Salvar</string>
+    <string name="action_editar">Editar</string>
 </resources>

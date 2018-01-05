@@ -8,6 +8,7 @@ import projetaobcc20172.com.projetopetemfocofornecedor.excecoes.ValidacaoExcepti
 import projetaobcc20172.com.projetopetemfocofornecedor.model.Endereco;
 import projetaobcc20172.com.projetopetemfocofornecedor.model.Fornecedor;
 import projetaobcc20172.com.projetopetemfocofornecedor.model.Servico;
+
 /**
  * Created by raul on 10/12/17.
  * Essa classe é responsavel por validar os dados que são recebidos pelo controller
