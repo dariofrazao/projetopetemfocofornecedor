@@ -38,7 +38,6 @@ public class ServicoAdapter extends ArrayAdapter<Servico> {
     public View getView(final int position, View convertView, @NonNull ViewGroup parent) {
 
         View view = null;
-        ViewHolder holder;
         // Verifica se a lista está preenchida
         if (mServicos != null) {
 
@@ -48,18 +47,22 @@ public class ServicoAdapter extends ArrayAdapter<Servico> {
             // Monta view a partir do xml
             assert inflater != null;
             view = inflater.inflate(R.layout.lista_itens, parent, false);
-            holder = new ViewHolder();
 
             // recupera elemento para exibição
-            holder.nome = view.findViewById(R.id.tv_titulo);
-            holder.subtitulo = view.findViewById(R.id.tv_subtitulo);
-            holder.remover = view.findViewById(R.id.iv_remover);
+//            holder.nome = view.findViewById(R.id.tv_titulo);
+//            holder.subtitulo = view.findViewById(R.id.tv_subtitulo);
+//            holder.remover = view.findViewById(R.id.iv_remover);
+
+            TextView nome = view.findViewById(R.id.tv_titulo);
+            TextView subtitulo = view.findViewById(R.id.tv_subtitulo);
+            ImageView remover = view.findViewById(R.id.iv_remover);
 
             Servico servico = mServicos.get(position);
-            holder.nome.setText(servico.getNome());
+            nome.setText(servico.getNome());
             String valorConvertido = servico.getValor();
-            holder.subtitulo.setText(valorConvertido);
-            holder.remover.setOnClickListener(new View.OnClickListener() {
+            subtitulo.setText(valorConvertido);
+
+            remover.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
                     if(customButtonListener != null) {
@@ -67,7 +70,6 @@ public class ServicoAdapter extends ArrayAdapter<Servico> {
                     }
                 }
             });
-
         }
 
         return view;
@@ -77,11 +79,6 @@ public class ServicoAdapter extends ArrayAdapter<Servico> {
         this.customButtonListener = listener;
     }
 
-    public class ViewHolder {
-        TextView nome;
-        TextView subtitulo;
-        ImageView remover;
-    }
 
     public interface CustomButtonListener {
         void onButtonClickListner(Servico servico);

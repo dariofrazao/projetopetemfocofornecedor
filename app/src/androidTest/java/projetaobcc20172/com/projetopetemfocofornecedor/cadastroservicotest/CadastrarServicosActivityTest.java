@@ -8,8 +8,6 @@ import org.junit.Rule;
 import org.junit.Test;
 
 import projetaobcc20172.com.projetopetemfocofornecedor.R;
-import projetaobcc20172.com.projetopetemfocofornecedor.activity.CadastroEnderecoActivity;
-
 import projetaobcc20172.com.projetopetemfocofornecedor.TestTools;
 
 import projetaobcc20172.com.projetopetemfocofornecedor.activity.CadastroServicoActivity;
@@ -30,26 +28,6 @@ public class CadastrarServicosActivityTest {
 
     @Rule
     public ActivityTestRule<CadastroServicoActivity> cadastroServicoActivityActivityTestRule = new ActivityTestRule<>(CadastroServicoActivity.class);
-
-
-    @Before
-    public void setUp() throws Exception {
-        //Desloga caso já esteja logado.
-        //Evita erros nos testes
-        try{
-    //        TestTools.clicarBotao(R.id.botao_sair);
-        }catch (Exception e){
-            e.getMessage();
-        }
-        Thread.sleep(3000);
-    }
-
-
-    private void preencherComInfoCorretas(){
-        TestToolsCadServicos.preencherEclicarCadastrar(this.mNome,this.mValor,this.mDescricao);
-        TestTools.checarToast(R.string.sucesso_cadastro_proxima_etapa_Toast);
-        TestTools.verificarMudancaActivity(ServicosActivity.class.getName());
-    }
 
     @Test
     public void preencherSemValor(){

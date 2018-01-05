@@ -7,8 +7,6 @@ import android.content.DialogInterface;
 import android.net.ConnectivityManager;
 import android.widget.Toast;
 
-import com.google.firebase.database.FirebaseDatabase;
-
 
 /**
  * Classe de Rotinas úteis.
