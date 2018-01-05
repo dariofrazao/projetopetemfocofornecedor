@@ -24,6 +24,15 @@ import projetaobcc20172.com.projetopetemfocofornecedor.logintests.LoginActivityT
 @RunWith(Parameterized.class)
 public class CadastroServicoActivityTestParam {
 
+    @Parameterized.Parameter(0)
+    public String mNomeServico;
+    @Parameterized.Parameter(1)
+    public String mValor;
+    @Parameterized.Parameter(2)
+    public String mDescricao;
+    @Parameterized.Parameter(3)
+    public String mTipoAnimal;
+
     @Rule
     public ActivityTestRule<LoginActivity> loginActivityRule = new ActivityTestRule<>(LoginActivity.class);
 
@@ -42,15 +51,6 @@ public class CadastroServicoActivityTestParam {
                 {"Vacinação","30,00","Raiva","Gato"}
         });
     }
-    @Parameterized.Parameter(0)
-    public String mNomeServico;
-    @Parameterized.Parameter(1)
-    public String mValor;
-    @Parameterized.Parameter(2)
-    public String mDescricao;
-    @Parameterized.Parameter(3)
-    public String mTipoAnimal;
-
 
     @Before
     public void setUp() throws Exception {
