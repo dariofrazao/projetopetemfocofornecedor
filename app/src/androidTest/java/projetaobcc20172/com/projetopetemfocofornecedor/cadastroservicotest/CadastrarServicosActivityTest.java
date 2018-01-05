@@ -3,7 +3,6 @@ package projetaobcc20172.com.projetopetemfocofornecedor.cadastroservicotest;
 import android.support.test.rule.ActivityTestRule;
 
 import org.junit.After;
-import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
 
@@ -11,7 +10,6 @@ import projetaobcc20172.com.projetopetemfocofornecedor.R;
 import projetaobcc20172.com.projetopetemfocofornecedor.TestTools;
 
 import projetaobcc20172.com.projetopetemfocofornecedor.activity.CadastroServicoActivity;
-import projetaobcc20172.com.projetopetemfocofornecedor.activity.ServicosActivity;
 
 /**
  * Created by raul on 12/12/17.
