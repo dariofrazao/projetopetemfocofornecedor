@@ -79,6 +79,7 @@ public class CadastroServicoActivity extends AppCompatActivity {
             public void onClick(View view) {
                 habilitarViews();
                 btnSalvar.setVisibility(View.VISIBLE);
+                btnSalvar.setEnabled(true);
                 btnEditar.setVisibility(View.GONE);
             }
         });
@@ -86,20 +87,34 @@ public class CadastroServicoActivity extends AppCompatActivity {
         btnSalvar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                try {
                 Servico servico = new Servico();
                 servico.setValor(mEtValor.getText().toString());
                 servico.setDescricao(mEtDescricao.getText().toString());
                 servico.setNome(mSpinnerServico.getSelectedItem().toString());
 
-                if(!mServico.equals(servico)){
-                    servico.setmId(mServico.getId());
-                    ServicoDaoImpl servicoDao = new ServicoDaoImpl(CadastroServicoActivity.this);
-                    servicoDao.atualizar(servico, mIdUsuarioLogado);
-                    desabilitarViews();
-                }
-                else{
-                    desabilitarViews();
-                    CadastroServicoActivity.super.onBackPressed();
+                    VerificadorDeObjetos.vDadosServico(servico, CadastroServicoActivity.this);
+
+                    if(!mServico.equals(servico)){
+                        servico.setmId(mServico.getId());
+                        ServicoDaoImpl servicoDao = new ServicoDaoImpl(CadastroServicoActivity.this);
+                        servicoDao.atualizar(servico, mIdUsuarioLogado);
+                        desabilitarViews();
+                        btnSalvar.setEnabled(false);
+                        btnSalvar.setVisibility(View.GONE);
+                        btnEditar.setVisibility(View.VISIBLE);
+                        btnEditar.setEnabled(true);
+                    }
+                    else{
+                        desabilitarViews();
+                        btnSalvar.setEnabled(false);
+                        btnSalvar.setVisibility(View.GONE);
+                        btnEditar.setVisibility(View.VISIBLE);
+                        btnEditar.setEnabled(true);
+                    }
+                } catch (ValidacaoException e) {
+                    e.printStackTrace();
+                    Utils.mostrarMensagemLonga(CadastroServicoActivity.this, e.getMessage());
                 }
             }
         });

@@ -51,7 +51,7 @@ public class VerificadorDeObjetos {
         if(serv.getNome().equalsIgnoreCase("Selecionar")){
             throw new ValidacaoException(cad.getString(R.string.error_selecione_um_servico));
         }
-        else if(serv.getValor().equals("")){
+        else if(serv.getValor().equals("") || serv.getValor().equalsIgnoreCase("R$0,00")){
             throw new ValidacaoException(cad.getString(R.string.preencha_campo_valor));
         }
         //else if(serv.getDescricao().isEmpty()){
