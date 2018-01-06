@@ -76,18 +76,6 @@ public class ServicosActivity extends AppCompatActivity implements ServicoAdapte
         mAdapter.setCustomButtonListener(ServicosActivity.this);
         listView.setAdapter(mAdapter);
 
-        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                Intent intent = new Intent();
-                Bundle bundle = new Bundle();
-                bundle.putSerializable("servico",  mServicos.get(i));
-                intent.putExtras(bundle);
-                intent.setClass(ServicosActivity.this, CadastroServicoActivity.class);
-                startActivity(intent);
-            }
-        });
-
         // Recuperar serviços do Firebase
         mFirebase = ConfiguracaoFirebase.getFirebase().child("fornecedor").child(mIdUsuarioLogado).child("servicos");
 
@@ -145,8 +133,18 @@ public class ServicosActivity extends AppCompatActivity implements ServicoAdapte
     }
 
     @Override
-    public void onButtonClickListner(Servico servico) {
+    public void onButtonRemoverClickListner(Servico servico) {
         confirmarRemocao(servico);
+    }
+
+    @Override
+    public void onButtonEditarClickListner(Servico servico) {
+        Intent intent = new Intent();
+        Bundle bundle = new Bundle();
+        bundle.putSerializable("servico",  servico);
+        intent.putExtras(bundle);
+        intent.setClass(ServicosActivity.this, CadastroServicoActivity.class);
+        startActivity(intent);
     }
 
     /**

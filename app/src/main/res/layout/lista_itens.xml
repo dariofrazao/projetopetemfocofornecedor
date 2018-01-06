@@ -29,11 +29,22 @@
         android:paddingBottom="8dp" />
 </LinearLayout>
     <ImageView
+        android:id="@+id/iv_editar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/ic_edit"
+        android:layout_alignParentRight="true"
+        android:layout_marginRight="70dp"
+        android:layout_marginBottom="@android:dimen/app_icon_size"
+        android:layout_alignParentEnd="false"
+        android:layout_centerVertical="true"/>
+    <ImageView
         android:id="@+id/iv_remover"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:src="@drawable/ic_remove"
         android:layout_alignParentRight="true"
+        android:layout_marginRight="30dp"
         android:layout_marginBottom="@android:dimen/app_icon_size"
         android:layout_alignParentEnd="false"
         android:layout_centerVertical="true"/>

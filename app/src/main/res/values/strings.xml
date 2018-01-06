@@ -98,4 +98,6 @@
     
     <!--String de erros-->
     <string name="error_selecione_um_servico">Selecione um serviço!</string>
+
+    <string name="title_activity_editar_servico">Edição de Servico</string>
 </resources>

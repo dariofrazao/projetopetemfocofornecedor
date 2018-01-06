@@ -65,7 +65,6 @@ public class CadastroServicoActivity extends AppCompatActivity {
 
         Button btnCadastrar = findViewById(R.id.btnCadastrarServico);
         final Button btnEditar = findViewById(R.id.btnEditarServico);
-        final Button btnSalvar = findViewById(R.id.btnSalvarServico);
 
         btnCadastrar.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -77,21 +76,11 @@ public class CadastroServicoActivity extends AppCompatActivity {
         btnEditar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                habilitarViews();
-                btnSalvar.setVisibility(View.VISIBLE);
-                btnSalvar.setEnabled(true);
-                btnEditar.setVisibility(View.GONE);
-            }
-        });
-
-        btnSalvar.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
                 try {
-                Servico servico = new Servico();
-                servico.setValor(mEtValor.getText().toString());
-                servico.setDescricao(mEtDescricao.getText().toString());
-                servico.setNome(mSpinnerServico.getSelectedItem().toString());
+                    Servico servico = new Servico();
+                    servico.setValor(mEtValor.getText().toString());
+                    servico.setDescricao(mEtDescricao.getText().toString());
+                    servico.setNome(mSpinnerServico.getSelectedItem().toString());
 
                     VerificadorDeObjetos.vDadosServico(servico, CadastroServicoActivity.this);
 
@@ -99,19 +88,9 @@ public class CadastroServicoActivity extends AppCompatActivity {
                         servico.setmId(mServico.getId());
                         ServicoDaoImpl servicoDao = new ServicoDaoImpl(CadastroServicoActivity.this);
                         servicoDao.atualizar(servico, mIdUsuarioLogado);
-                        desabilitarViews();
-                        btnSalvar.setEnabled(false);
-                        btnSalvar.setVisibility(View.GONE);
-                        btnEditar.setVisibility(View.VISIBLE);
-                        btnEditar.setEnabled(true);
+
                     }
-                    else{
-                        desabilitarViews();
-                        btnSalvar.setEnabled(false);
-                        btnSalvar.setVisibility(View.GONE);
-                        btnEditar.setVisibility(View.VISIBLE);
-                        btnEditar.setEnabled(true);
-                    }
+                    CadastroServicoActivity.super.onBackPressed();
                 } catch (ValidacaoException e) {
                     e.printStackTrace();
                     Utils.mostrarMensagemLonga(CadastroServicoActivity.this, e.getMessage());
@@ -119,13 +98,16 @@ public class CadastroServicoActivity extends AppCompatActivity {
             }
         });
 
+
+        // Verifica se há algum extra na intent, caso haja será uma edição de dados.
         Intent intent = getIntent();
         if(intent.hasExtra("servico")){
+            toolbar.setTitle(R.string.title_activity_editar_servico);
             btnCadastrar.setVisibility(View.GONE);
             btnEditar.setVisibility(View.VISIBLE);
             mServico = (Servico) intent.getSerializableExtra("servico");
             setvaluesOnViews();
-            desabilitarViews();
+
 
         }
     }
@@ -147,19 +129,6 @@ public class CadastroServicoActivity extends AppCompatActivity {
 
     }
 
-    private void desabilitarViews(){
-        mSpinnerServico.setEnabled(false);
-        mEtValor.setEnabled(false);
-        mEtDescricao.setEnabled(false);
-        mIsViewsHabilitadas = false;
-
-    }
-    private void habilitarViews(){
-        mSpinnerServico.setEnabled(true);
-        mEtValor.setEnabled(true);
-        mEtDescricao.setEnabled(true);
-        mIsViewsHabilitadas = true;
-    }
 
     private boolean verificarCamposPreenchidos(){
         return (!mEtValor.getText().toString().isEmpty()||

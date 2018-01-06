@@ -56,17 +56,27 @@ public class ServicoAdapter extends ArrayAdapter<Servico> {
             TextView nome = view.findViewById(R.id.tv_titulo);
             TextView subtitulo = view.findViewById(R.id.tv_subtitulo);
             ImageView remover = view.findViewById(R.id.iv_remover);
+            ImageView editar = view.findViewById(R.id.iv_editar);
 
             Servico servico = mServicos.get(position);
             nome.setText(servico.getNome());
             String valorConvertido = servico.getValor();
             subtitulo.setText(valorConvertido);
 
+            editar.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    if(customButtonListener != null) {
+                        customButtonListener.onButtonEditarClickListner(mServicos.get(position));
+                    }
+                }
+            });
+
             remover.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
                     if(customButtonListener != null) {
-                        customButtonListener.onButtonClickListner(mServicos.get(position));
+                        customButtonListener.onButtonRemoverClickListner(mServicos.get(position));
                     }
                 }
             });
@@ -81,7 +91,8 @@ public class ServicoAdapter extends ArrayAdapter<Servico> {
 
 
     public interface CustomButtonListener {
-        void onButtonClickListner(Servico servico);
+        void onButtonRemoverClickListner(Servico servico);
+        void onButtonEditarClickListner(Servico servico);
     }
 }
 

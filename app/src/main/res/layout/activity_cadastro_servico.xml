@@ -139,13 +139,6 @@
                     android:text="@string/action_editar"
                     android:visibility="invisible" />
 
-                <Button
-                    android:id="@+id/btnSalvarServico"
-                    android:layout_width="fill_parent"
-                    android:layout_height="wrap_content"
-                    android:background="@drawable/shapebutton"
-                    android:text="@string/action_salvar"
-                    android:visibility="invisible" />
 
 
             </LinearLayout>
