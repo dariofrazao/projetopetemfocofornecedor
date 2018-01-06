@@ -9,6 +9,7 @@ import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.ValueEventListener;
 
 
 import java.util.HashMap;
@@ -37,18 +38,35 @@ public class ServicoDaoImpl implements ServicoDao{
 
     @Override
     public void inserir(Servico servico, final String idFornecedor) {
+        final String[] nomeFornecedor = new String[1];
         mReferenciaFirebase = mReferenciaFirebase.child("fornecedor").child(idFornecedor);
+        mReferenciaFirebase.child("nome").addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                nomeFornecedor[0] = (String) dataSnapshot.getValue();
+
+                // do your stuff here with value
+
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+
+        });
         mReferenciaFirebase.child("servicos").push().setValue(servico).addOnCompleteListener(new OnCompleteListener<Void>() {
             @Override
             public void onComplete(@NonNull Task<Void> task) {
                 if(task.isSuccessful()){
                     Utils.mostrarMensagemLonga(getContexto(), getContexto().getString(R.string.sucesso_cadastro_servico));
+                    //cria um "fornecedor_servico" para todos os novos servicos add
                     mReferenciaFirebase.child("servicos").addChildEventListener(new ChildEventListener() {
                         @Override
                         public void onChildAdded(DataSnapshot dataSnapshot, String s) {
                             try {
                                 Servico servico = dataSnapshot.getValue(Servico.class);
-                                salvarFornecedorServico(servico,s,idFornecedor);
+                                salvarFornecedorServico(servico,s,idFornecedor,nomeFornecedor[0]);
                             }catch (Exception e){
                                 System.out.println("ERRO");
                             }
@@ -144,7 +162,7 @@ public class ServicoDaoImpl implements ServicoDao{
 */
     //Cria um nó chamadao "servico_fornecedor" que relaciona o servico ao fornecedor
     //Permitindo a busca de fornecedores pelo servico
-    private void salvarFornecedorServico(Servico servico,String idServico,String idFornecedor){
+    private void salvarFornecedorServico(Servico servico,String idServico,String idFornecedor,String nomeFornecedor){
         mReferenciaFirebase = ConfiguracaoFirebase.getFirebase().child("servico_fornecedor").child(idServico);
         mReferenciaFirebase.push();
         Map<String, String> mapaNomes = new HashMap<>();
@@ -152,6 +170,7 @@ public class ServicoDaoImpl implements ServicoDao{
         mapaNomes.put("nome_tipoPet",nomeServTipoPet);
         mapaNomes.put("idFornecedor",idFornecedor);
         mapaNomes.put("valor",servico.getValor());
+        mapaNomes.put("nomeFornecedor",nomeFornecedor);
         mReferenciaFirebase.setValue(mapaNomes);
     }
 
