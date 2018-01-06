@@ -2,6 +2,7 @@ package projetaobcc20172.com.projetopetemfocofornecedor.activity;
 
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.graphics.Color;
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
@@ -33,14 +34,16 @@ public class CadastroServicoActivity extends AppCompatActivity {
     private Spinner mSpinnerServico;
     private String mIdUsuarioLogado;
     private Servico mServico;
+    private boolean mIsViewsHabilitadas = true;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_cadastro_servico);
-
         Toolbar toolbar;
         toolbar = findViewById(R.id.tb_cadastro_serviço);
+
+        mIdUsuarioLogado = getPreferences("idFornecedor", CadastroServicoActivity.this);
 
         // Configura toolbar
         toolbar.setTitle(R.string.tb_cadastro_serviço);
@@ -48,8 +51,7 @@ public class CadastroServicoActivity extends AppCompatActivity {
         toolbar.setNavigationIcon(R.drawable.ic_action_arrow_left_white);
         setSupportActionBar(toolbar);
 
-        //Preparar o adaptar do Spinner para exibir os horários de atendimento do fornecedor
-        mSpinnerServico = findViewById(R.id.horariosSpinner);
+        mSpinnerServico = findViewById(R.id.spinner_nome_servico);
         ArrayAdapter<String> adapter_state = new ArrayAdapter<>(this,
                 android.R.layout.simple_spinner_dropdown_item, getResources().getStringArray(R.array.servicos));
         mSpinnerServico.setAdapter(adapter_state);
@@ -61,14 +63,72 @@ public class CadastroServicoActivity extends AppCompatActivity {
 
         mEtValor.addTextChangedListener(new MascaraDinheiro(mEtValor, mLocal));
 
-        Button btnCadastrar = findViewById(R.id.btnSalvarServico);
+        Button btnCadastrar = findViewById(R.id.btnCadastrarServico);
+        final Button btnEditar = findViewById(R.id.btnEditarServico);
+
         btnCadastrar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 salvarServico();
             }
         });
+
+        btnEditar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                try {
+                    Servico servico = new Servico();
+                    servico.setValor(mEtValor.getText().toString());
+                    servico.setDescricao(mEtDescricao.getText().toString());
+                    servico.setNome(mSpinnerServico.getSelectedItem().toString());
+
+                    VerificadorDeObjetos.vDadosServico(servico, CadastroServicoActivity.this);
+
+                    if(!mServico.equals(servico)){
+                        servico.setmId(mServico.getId());
+                        ServicoDaoImpl servicoDao = new ServicoDaoImpl(CadastroServicoActivity.this);
+                        servicoDao.atualizar(servico, mIdUsuarioLogado);
+
+                    }
+                    CadastroServicoActivity.super.onBackPressed();
+                } catch (ValidacaoException e) {
+                    e.printStackTrace();
+                    Utils.mostrarMensagemLonga(CadastroServicoActivity.this, e.getMessage());
+                }
+            }
+        });
+
+
+        // Verifica se há algum extra na intent, caso haja será uma edição de dados.
+        Intent intent = getIntent();
+        if(intent.hasExtra("servico")){
+            toolbar.setTitle(R.string.title_activity_editar_servico);
+            btnCadastrar.setVisibility(View.GONE);
+            btnEditar.setVisibility(View.VISIBLE);
+            mServico = (Servico) intent.getSerializableExtra("servico");
+            setvaluesOnViews();
+
+
+        }
     }
+
+
+
+    private void setvaluesOnViews() {
+        if(mServico != null){
+            String[] listaServicos = getResources().getStringArray(R.array.servicos);
+            int i = 0;
+            for(String s: listaServicos){
+                if(s.equalsIgnoreCase(mServico.getNome())) break;
+                i++;
+            }
+            mSpinnerServico.setSelection(i);
+            mEtValor.setText(mServico.getValor());
+            mEtDescricao.setText(mServico.getDescricao());
+        }
+
+    }
+
 
     private boolean verificarCamposPreenchidos(){
         return (!mEtValor.getText().toString().isEmpty()||
@@ -105,7 +165,7 @@ public class CadastroServicoActivity extends AppCompatActivity {
     //Método do botão voltar
     @Override
     public void onBackPressed(){
-        if (verificarCamposPreenchidos()) confirmarSaida();
+        if (verificarCamposPreenchidos() && mIsViewsHabilitadas) confirmarSaida();
         else CadastroServicoActivity.super.onBackPressed();
     }
 

@@ -11,7 +11,7 @@ import java.util.List;
 
 import projetaobcc20172.com.projetopetemfocofornecedor.R;
 import projetaobcc20172.com.projetopetemfocofornecedor.config.ConfiguracaoFirebase;
-import projetaobcc20172.com.projetopetemfocofornecedor.database.services.ServicoDao;
+
 import projetaobcc20172.com.projetopetemfocofornecedor.model.Servico;
 import projetaobcc20172.com.projetopetemfocofornecedor.utils.Utils;
 
@@ -55,8 +55,8 @@ public class ServicoDaoImpl implements ServicoDao{
     @Override
     public void remover(Servico servico, String idFornecedor) {
         mReferenciaFirebase = mReferenciaFirebase.child("fornecedor").child(idFornecedor);
-        mReferenciaFirebase.child(String.format("%s/%s", "servicos", servico.getId()))
-                .setValue(null).addOnCompleteListener(new OnCompleteListener<Void>() {
+        mReferenciaFirebase.child(String.format("%s/%s", "servicos", servico.getId())).setValue(null)
+                .addOnCompleteListener(new OnCompleteListener<Void>() {
             @Override
             public void onComplete(@NonNull Task<Void> task) {
                 if(task.isSuccessful()){
@@ -78,7 +78,7 @@ public class ServicoDaoImpl implements ServicoDao{
     public void atualizar(Servico servico, String idFornecedor) {
         mReferenciaFirebase = mReferenciaFirebase.child("fornecedor").child(idFornecedor);
         mReferenciaFirebase.child(String.format("%s/%s", "servicos", servico.getId()))
-                .setValue(null).addOnCompleteListener(new OnCompleteListener<Void>() {
+                .setValue(servico).addOnCompleteListener(new OnCompleteListener<Void>() {
             @Override
             public void onComplete(@NonNull Task<Void> task) {
                 if(task.isSuccessful()){
