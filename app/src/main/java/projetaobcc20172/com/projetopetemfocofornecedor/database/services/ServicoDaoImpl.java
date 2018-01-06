@@ -171,6 +171,8 @@ public class ServicoDaoImpl implements ServicoDao{
         mapaNomes.put("idFornecedor",idFornecedor);
         mapaNomes.put("valor",servico.getValor());
         mapaNomes.put("nomeFornecedor",nomeFornecedor);
+        mapaNomes.put("servico",servico.getNome());
+        mapaNomes.put("pet",servico.getTipoPet());
         mReferenciaFirebase.setValue(mapaNomes);
     }
 

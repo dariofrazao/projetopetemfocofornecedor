@@ -1,13 +1,17 @@
 package projetaobcc20172.com.projetopetemfocofornecedor;
 
 import android.app.Activity;
+import android.app.Instrumentation;
 import android.support.test.espresso.Espresso;
 import android.support.test.espresso.UiController;
 import android.support.test.espresso.ViewAction;
 import android.support.test.espresso.action.ViewActions;
 import android.support.test.espresso.intent.Intents;
 import android.support.test.espresso.matcher.ViewMatchers;
+import android.view.KeyEvent;
 import android.view.View;
+import android.widget.ListView;
+import android.widget.TextView;
 
 import org.hamcrest.Matcher;
 
@@ -122,6 +126,32 @@ public class TestTools {
 
     public static void qtNaoNula(int qtEncontrada){
         assertTrue(qtEncontrada>0);
+    }
+
+    public static void pressionarBuscarTeclado(){
+        Instrumentation inst = new Instrumentation();
+        inst.sendKeyDownUpSync(KeyEvent.KEYCODE_SEARCH);
+        inst.sendKeyDownUpSync(KeyEvent.KEYCODE_ENTER);
+    }
+
+    public static void checarListViewComTextView(Activity act,int idListView,int idTextView,String textoSerBuscado,int tAmostra){
+        ListView list =  act.findViewById(idListView);
+        TextView textView;
+        String texto;
+        int amostra = tAmostra;
+        if(amostra>list.getCount()){
+            amostra = list.getCount();
+        }
+        for(int i = 0;i<amostra;i++){
+            textView = list.getChildAt(i).findViewById(idTextView);
+            texto = textView.getText().toString();
+            assertTrue(texto.contains(textoSerBuscado));
+        }
+    }
+
+    public static void checarTamanhoList(Activity act,int idListView,int qtEsperada){
+        ListView list =  act.findViewById(idListView);
+        assertEquals(list.getCount(),qtEsperada);
     }
 
 
