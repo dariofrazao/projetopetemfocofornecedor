@@ -10,6 +10,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -55,8 +56,8 @@ public class ServicoAdapter extends ArrayAdapter<Servico> {
 
             TextView nome = view.findViewById(R.id.tv_titulo);
             TextView subtitulo = view.findViewById(R.id.tv_subtitulo);
-            ImageView remover = view.findViewById(R.id.iv_remover);
-            ImageView editar = view.findViewById(R.id.iv_editar);
+            ImageButton remover = view.findViewById(R.id.ibRemoverServico);
+            ImageButton editar = view.findViewById(R.id.ibEditarServico);
 
             Servico servico = mServicos.get(position);
             nome.setText(servico.getNome());
