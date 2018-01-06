@@ -8,6 +8,7 @@ import projetaobcc20172.com.projetopetemfocofornecedor.excecoes.ValidacaoExcepti
 import projetaobcc20172.com.projetopetemfocofornecedor.model.Endereco;
 import projetaobcc20172.com.projetopetemfocofornecedor.model.Fornecedor;
 import projetaobcc20172.com.projetopetemfocofornecedor.model.Servico;
+
 /**
  * Created by raul on 10/12/17.
  * Essa classe é responsavel por validar os dados que são recebidos pelo controller
@@ -47,10 +48,10 @@ public class VerificadorDeObjetos {
     }
 
     public static void vDadosServico(Servico serv, Context cad) throws ValidacaoException {
-        if(serv.getNome().isEmpty()){
-            throw new ValidacaoException(cad.getString(R.string.preencha_campo_nome));
+        if(serv.getNome().equalsIgnoreCase("Selecionar")){
+            throw new ValidacaoException(cad.getString(R.string.error_selecione_um_servico));
         }
-        else if(serv.getValor().equals("")){
+        else if(serv.getValor().equals("") || serv.getValor().equalsIgnoreCase("R$0,00")){
             throw new ValidacaoException(cad.getString(R.string.preencha_campo_valor));
         }
         //else if(serv.getDescricao().isEmpty()){
