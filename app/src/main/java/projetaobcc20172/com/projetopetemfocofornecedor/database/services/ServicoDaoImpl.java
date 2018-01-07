@@ -74,22 +74,22 @@ public class ServicoDaoImpl implements ServicoDao{
 
                         @Override
                         public void onChildChanged(DataSnapshot dataSnapshot, String s) {
-
+                            assert true;
                         }
 
                         @Override
                         public void onChildRemoved(DataSnapshot dataSnapshot) {
-
+                            assert true;
                         }
 
                         @Override
                         public void onChildMoved(DataSnapshot dataSnapshot, String s) {
-
+                            assert true;
                         }
 
                         @Override
                         public void onCancelled(DatabaseError databaseError) {
-
+                            assert true;
                         }
                     });
                 }
