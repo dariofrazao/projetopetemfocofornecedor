@@ -23,7 +23,7 @@ public class EditarServicoActivityTest {
     @Test
     public void removerTodosInfos(){
         TestToolsCadServicos.clicarEditar();
-        TestToolsCadServicos.preencherEClicarSalvar("Selecionar","","");
+        TestToolsCadServicos.preencherEclicarCadastrar("Selecionar","","");
         TestTools.checarToast(edicaoCadastroServicoActivityRule.getActivity()
                 .getString(R.string.error_selecione_um_servico));
 
@@ -32,7 +32,7 @@ public class EditarServicoActivityTest {
     @Test
     public void removerNome(){
         TestToolsCadServicos.clicarEditar();
-        TestToolsCadServicos.preencherEClicarSalvar("Selecionar","","");
+        TestToolsCadServicos.preencherEclicarCadastrar("Selecionar","","");
         TestTools.checarToast(edicaoCadastroServicoActivityRule.getActivity()
                 .getString(R.string.error_selecione_um_servico));
 

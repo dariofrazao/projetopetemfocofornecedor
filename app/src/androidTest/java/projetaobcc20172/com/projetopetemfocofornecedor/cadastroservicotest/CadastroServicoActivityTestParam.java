@@ -62,15 +62,15 @@ public class CadastroServicoActivityTestParam {
 
         LoginActivityTest log = new LoginActivityTest();
         log.testeUsuarioCadastrado();
-        TestToolsCadServico.clicarMeusServicos();
-        TestToolsCadServico.clicarAddServico();
+        TestToolsCadServicos.clicarMeusServicos();
+        TestToolsCadServicos.clicarAddServico();
         Thread.sleep(1500);
 
     }
 
     @Test
     public void testeCadServico(){
-        TestToolsCadServico.preencherEClicar(this.mNomeServico,this.mValor,this.mDescricao,this.mTipoAnimal);
+        TestToolsCadServicos.preencherEClicar(this.mNomeServico,this.mValor,this.mDescricao,this.mTipoAnimal);
         TestTools.checarToast(R.string.sucesso_cadastro_servico);
         TestTools.qtNaoNula(((ServicosActivity)TestTools.activityAtual()).listView.getCount());
     }
