@@ -109,8 +109,8 @@ public class ServicoDaoImpl implements ServicoDao{
     @Override
     public void remover(Servico servico, String idFornecedor) {
         mReferenciaFirebase = mReferenciaFirebase.child("fornecedor").child(idFornecedor);
-        mReferenciaFirebase.child(String.format("%s/%s", "servicos", servico.getId()))
-                .setValue(null).addOnCompleteListener(new OnCompleteListener<Void>() {
+        mReferenciaFirebase.child(String.format("%s/%s", "servicos", servico.getId())).setValue(null)
+                .addOnCompleteListener(new OnCompleteListener<Void>() {
             @Override
             public void onComplete(@NonNull Task<Void> task) {
                 if(task.isSuccessful()){
@@ -132,7 +132,7 @@ public class ServicoDaoImpl implements ServicoDao{
     public void atualizar(Servico servico, String idFornecedor) {
         mReferenciaFirebase = mReferenciaFirebase.child("fornecedor").child(idFornecedor);
         mReferenciaFirebase.child(String.format("%s/%s", "servicos", servico.getId()))
-                .setValue(null).addOnCompleteListener(new OnCompleteListener<Void>() {
+                .setValue(servico).addOnCompleteListener(new OnCompleteListener<Void>() {
             @Override
             public void onComplete(@NonNull Task<Void> task) {
                 if(task.isSuccessful()){
@@ -149,16 +149,8 @@ public class ServicoDaoImpl implements ServicoDao{
             }
         });
     }
-/*
-    @Override
-    public List<Servico> buscarPorNome(String nome) {
-        return null;
-    }
 
-    @Override
-    public List<Servico> buscarTodosFornecedor(String idFornecedor) {
-        return null;
-    }
+/*
 */
     //Cria um nó chamadao "servico_fornecedor" que relaciona o servico ao fornecedor
     //Permitindo a busca de fornecedores pelo servico

@@ -1,16 +1,13 @@
 package projetaobcc20172.com.projetopetemfocofornecedor.model;
 
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.Exclude;
-
-import projetaobcc20172.com.projetopetemfocofornecedor.config.ConfiguracaoFirebase;
+import java.io.Serializable;
 
 /**
  * Created by Felipe Oliveira on 05/12/17.
  *
  */
 
-public class Servico {
+public class Servico implements Serializable{
     private String mId;
     private String mNome;
     private String mDescricao;
@@ -25,7 +22,7 @@ public class Servico {
         this.mTipoPet = tipoPet;
     }
 
-    @Exclude
+
     public String getId() {
         return mId;
     }
@@ -53,12 +50,23 @@ public class Servico {
     public void setValor(String Valor) {
         this.mValor = Valor;
     }
-/*
-    public void salvar(String idEstabelecimento){
-        DatabaseReference referenciaFirebase = ConfiguracaoFirebase.getFirebase();
-        referenciaFirebase.child("fornecedor").child( idEstabelecimento ).setValue(this);
+
+    public void setmId(String mId) {
+        this.mId = mId;
     }
-    */
+
+    @Override
+    public boolean equals(Object o) {
+        if(o instanceof Servico){
+            Servico servico = (Servico) o;
+            if( servico.getDescricao().equalsIgnoreCase(this.getDescricao())
+                    && servico.getNome().equalsIgnoreCase(this.getNome())
+                    && servico.getValor().equalsIgnoreCase(this.getValor())){
+                return true;
+            }
+        }
+        return false;
+    }
 
     public String getTipoPet() {
         return mTipoPet;
