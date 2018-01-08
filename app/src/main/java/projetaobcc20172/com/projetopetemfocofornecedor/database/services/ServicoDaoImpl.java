@@ -107,13 +107,14 @@ public class ServicoDaoImpl implements ServicoDao{
     }
 
     @Override
-    public void remover(Servico servico, String idFornecedor) {
+    public void remover(final Servico servico, String idFornecedor) {
         mReferenciaFirebase = mReferenciaFirebase.child("fornecedor").child(idFornecedor);
         mReferenciaFirebase.child(String.format("%s/%s", "servicos", servico.getId())).setValue(null)
                 .addOnCompleteListener(new OnCompleteListener<Void>() {
             @Override
             public void onComplete(@NonNull Task<Void> task) {
                 if(task.isSuccessful()){
+                    removerServicoFornecedor(servico.getId()+"");
                     Utils.mostrarMensagemLonga(getContexto(), getContexto().getString(R.string.sucesso_remocao));
                 }
                 else{
@@ -129,14 +130,47 @@ public class ServicoDaoImpl implements ServicoDao{
     }
 
     @Override
-    public void atualizar(Servico servico, String idFornecedor) {
+    public void atualizar(Servico servico, final String idFornecedor) {
         mReferenciaFirebase = mReferenciaFirebase.child("fornecedor").child(idFornecedor);
         mReferenciaFirebase.child(String.format("%s/%s", "servicos", servico.getId()))
                 .setValue(servico).addOnCompleteListener(new OnCompleteListener<Void>() {
             @Override
             public void onComplete(@NonNull Task<Void> task) {
                 if(task.isSuccessful()){
+                    final String[] nomeFornecedor = new String[1];
+                    mReferenciaFirebase.child("servicos").addChildEventListener(new ChildEventListener() {
+                        @Override
+                        public void onChildAdded(DataSnapshot dataSnapshot, String s) {
+                            try {
+                                Servico servico = dataSnapshot.getValue(Servico.class);
+                                salvarFornecedorServico(servico,s,idFornecedor,nomeFornecedor[0]);
+                            }catch (Exception e){
+                                System.out.println("ERRO");
+                            }
+                        }
+
+                        @Override
+                        public void onChildChanged(DataSnapshot dataSnapshot, String s) {
+                            assert true;
+                        }
+
+                        @Override
+                        public void onChildRemoved(DataSnapshot dataSnapshot) {
+                            assert true;
+                        }
+
+                        @Override
+                        public void onChildMoved(DataSnapshot dataSnapshot, String s) {
+                            assert true;
+                        }
+
+                        @Override
+                        public void onCancelled(DatabaseError databaseError) {
+                            assert true;
+                        }
+                    });
                     Utils.mostrarMensagemLonga(getContexto(), getContexto().getString(R.string.sucesso_atualizacao));
+
                 }
                 else{
                     Utils.mostrarMensagemLonga(getContexto(), getContexto().getString(R.string.falha_atualizacao));
@@ -168,6 +202,11 @@ public class ServicoDaoImpl implements ServicoDao{
         mReferenciaFirebase.setValue(mapaNomes);
     }
 
+    private void removerServicoFornecedor(String idServico){
+        mReferenciaFirebase = ConfiguracaoFirebase.getFirebase().child("servico_fornecedor").child(idServico);
+        mReferenciaFirebase.setValue(null);
+
+    }
     private Context getContexto(){
         return this.mContexto;
     }
