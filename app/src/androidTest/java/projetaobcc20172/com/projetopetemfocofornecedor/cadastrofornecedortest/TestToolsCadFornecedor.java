@@ -14,9 +14,10 @@ public class TestToolsCadFornecedor {
         TestTools.digitarCampo(R.id.etCadastroEmailFornecedor, email);
         TestTools.digitarCampoComScroll(R.id.etCadastroTelefoneFornecedor, telefone);
         TestTools.digitarCampoComScroll(R.id.etCadastroCpfCnpjFornecedor, cpfCnpj);
-        TestTools.selecionarItemSpinnerComScroll(R.id.horariosSpinner, horarios);
+        TestTools.selecionarItemSpinnerComScroll(R.id.servicoSpinner, horarios);
         TestTools.digitarCampoComScroll(R.id.etCadastroSenhaFornecedor, senha);
         TestTools.digitarCampoComScroll(R.id.etCadastroSenha2Fornecedor, senha2);
-        TestTools.clicarBotaoComScroll(R.id.botao_cadastrar_fornecedor);
+        TestTools.clicarBotaoComScroll(R.id.btnCadastrarFornecedor);
     }
+
 }

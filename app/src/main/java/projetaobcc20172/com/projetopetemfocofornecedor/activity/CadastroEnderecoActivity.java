@@ -82,7 +82,7 @@ public class CadastroEnderecoActivity extends AppCompatActivity{
         Intent i = getIntent();
         mFornecedor = (Fornecedor) i.getSerializableExtra("Fornecedor");
 
-        Button mBtnCadastrarEndereco = findViewById(R.id.botao_finalizar_cadastro_endereco);
+        Button mBtnCadastrarEndereco = findViewById(R.id.btnCadastrarEndereco);
         mBtnCadastrarEndereco.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

@@ -42,14 +42,22 @@ public class MascaraDinheiro implements TextWatcher{
     public void afterTextChanged(Editable editable) {
         EditText editText = mEditTextWeakReference.get();
         if (editText == null) return;
-        editText.removeTextChangedListener(this);
+        try {
+            editText.removeTextChangedListener(this);
 
-        BigDecimal parsed = formatarParaBigDecimal(editable.toString(), mLocal);
-        String formatted = NumberFormat.getCurrencyInstance(mLocal).format(parsed);
+            BigDecimal parsed = formatarParaBigDecimal(editable.toString(), mLocal);
+            String formatted = NumberFormat.getCurrencyInstance(mLocal).format(parsed);
 
-        editText.setText(formatted);
-        editText.setSelection(formatted.length());
-        editText.addTextChangedListener(this);
+            editText.setText(formatted);
+            editText.setSelection(formatted.length());
+            editText.addTextChangedListener(this);
+        }catch (Exception e){
+            BigDecimal parsed = formatarParaBigDecimal("0", mLocal);
+            String formatted = NumberFormat.getCurrencyInstance(mLocal).format(parsed);
+            editText.setText(formatted);
+            editText.setSelection(formatted.length());
+            editText.addTextChangedListener(this);
+        }
     }
 
     private BigDecimal formatarParaBigDecimal(String value, Locale locale) {

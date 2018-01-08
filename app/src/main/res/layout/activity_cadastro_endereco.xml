@@ -230,7 +230,7 @@
                 </LinearLayout>
 
                 <Button
-                    android:id="@+id/botao_finalizar_cadastro_endereco"
+                    android:id="@+id/btnCadastrarEndereco"
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="10dp"

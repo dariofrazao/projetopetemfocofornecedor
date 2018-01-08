@@ -12,12 +12,14 @@ public class Servico implements Serializable{
     private String mNome;
     private String mDescricao;
     private String mValor;
+    private String mTipoPet;
 
     public Servico() {}
 
-    public Servico(String nome, String valor){
+    public Servico(String nome, String valor,String tipoPet){
         this.mNome = nome;
         this.mValor = valor;
+        this.mTipoPet = tipoPet;
     }
 
 
@@ -59,12 +61,19 @@ public class Servico implements Serializable{
             Servico servico = (Servico) o;
             if( servico.getDescricao().equalsIgnoreCase(this.getDescricao())
                     && servico.getNome().equalsIgnoreCase(this.getNome())
-                    && servico.getValor().equalsIgnoreCase(this.getValor())){
+                    && servico.getValor().equalsIgnoreCase(this.getValor())
+                    && servico.getTipoPet().equalsIgnoreCase(this.getTipoPet())){
                 return true;
             }
         }
         return false;
     }
 
+    public String getTipoPet() {
+        return mTipoPet;
+    }
 
+    public void setTipoPet(String mTipoPet) {
+        this.mTipoPet = mTipoPet;
+    }
 }

@@ -32,6 +32,7 @@ public class CadastroServicoActivity extends AppCompatActivity {
 
     private EditText mEtValor, mEtDescricao;
     private Spinner mSpinnerServico;
+    private Spinner mSpinnerTipoAnimal;
     private String mIdUsuarioLogado;
     private Servico mServico;
     private boolean mIsViewsHabilitadas = true;
@@ -52,9 +53,15 @@ public class CadastroServicoActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
 
         mSpinnerServico = findViewById(R.id.spinner_nome_servico);
+        mSpinnerTipoAnimal = findViewById(R.id.tipoAnimalSpinner);
+
         ArrayAdapter<String> adapter_state = new ArrayAdapter<>(this,
                 android.R.layout.simple_spinner_dropdown_item, getResources().getStringArray(R.array.servicos));
         mSpinnerServico.setAdapter(adapter_state);
+
+        ArrayAdapter<String> adapterTipoAnimais = new ArrayAdapter<>(this,
+                android.R.layout.simple_spinner_dropdown_item, getResources().getStringArray(R.array.tiposAnimais));
+        mSpinnerTipoAnimal.setAdapter(adapterTipoAnimais);
 
         mEtValor = findViewById(R.id.etCadastroValorServico);
         mEtDescricao = findViewById(R.id.etCadastroDescricaoServico);
@@ -81,6 +88,7 @@ public class CadastroServicoActivity extends AppCompatActivity {
                     servico.setValor(mEtValor.getText().toString());
                     servico.setDescricao(mEtDescricao.getText().toString());
                     servico.setNome(mSpinnerServico.getSelectedItem().toString());
+                    servico.setTipoPet(mSpinnerTipoAnimal.getSelectedItem().toString());
 
                     VerificadorDeObjetos.vDadosServico(servico, CadastroServicoActivity.this);
 
@@ -117,12 +125,19 @@ public class CadastroServicoActivity extends AppCompatActivity {
     private void setvaluesOnViews() {
         if(mServico != null){
             String[] listaServicos = getResources().getStringArray(R.array.servicos);
+            String[] listaPets = getResources().getStringArray(R.array.tiposAnimais);
             int i = 0;
             for(String s: listaServicos){
                 if(s.equalsIgnoreCase(mServico.getNome())) break;
                 i++;
             }
             mSpinnerServico.setSelection(i);
+            i= 0;
+            for(String s:listaPets){
+                if(s.equalsIgnoreCase(mServico.getTipoPet())) break;
+                i++;
+            }
+            mSpinnerTipoAnimal.setSelection(i);
             mEtValor.setText(mServico.getValor());
             mEtDescricao.setText(mServico.getDescricao());
         }
@@ -144,6 +159,8 @@ public class CadastroServicoActivity extends AppCompatActivity {
             mServico.setNome(mSpinnerServico.getSelectedItem().toString());
             mServico.setValor(mEtValor.getText().toString());
             mServico.setDescricao(mEtDescricao.getText().toString());
+            mServico.setTipoPet(mSpinnerTipoAnimal.getSelectedItem().toString());
+
             VerificadorDeObjetos.vDadosServico(mServico,this);
             //Chamada do DAO para salvar no banco
             ServicoDaoImpl servicoDao =  new ServicoDaoImpl(this);

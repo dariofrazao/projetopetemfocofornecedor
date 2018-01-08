@@ -3,6 +3,7 @@ package projetaobcc20172.com.projetopetemfocofornecedor.model;
 import com.google.firebase.database.Exclude;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 
 
 /**
@@ -22,10 +23,16 @@ public class Fornecedor implements Serializable {
     private String mSenha2;
     private String mEnderecoFornecedor = "1";
     private Endereco mEndereco;
+    private ArrayList<Servico> mServicos = new ArrayList<>();
 
-    public Fornecedor(){}
+    private float mLatitude = 0;
+    private float mLongitude = 0;
+    private float mNota = 0;
 
-    public Fornecedor(String nome,String email,String cpfCnpj,String telefone,String senha,String senha2,String horarios){
+    public Fornecedor() {
+    }
+
+    public Fornecedor(String nome, String email, String cpfCnpj, String telefone, String senha, String senha2, String horarios) {
         this.mNome = nome;
         this.mEmail = email;
         this.mSenha = senha;
@@ -36,7 +43,9 @@ public class Fornecedor implements Serializable {
     }
 
     @Exclude
-    public String getId() { return mId; }
+    public String getId() {
+        return mId;
+    }
 
     public void setId(String id) {
         this.mId = id;
@@ -114,5 +123,33 @@ public class Fornecedor implements Serializable {
 
     public void setEnderecoFornecedor(String valor) {
         this.mEnderecoFornecedor = valor;
+    }
+
+    public void addServico(Servico serv) {
+        this.mServicos.add(serv);
+    }
+
+    public ArrayList<Servico> getServicos() {
+        return mServicos;
+    }
+
+    public void setServicos(ArrayList<Servico> servicos) {
+        this.mServicos = servicos;
+    }
+
+    public float getNota() {
+        return mNota;
+    }
+
+    public void setNota(float mNota) {
+        this.mNota = mNota;
+    }
+
+    public float getmLatitude() {
+        return mLatitude;
+    }
+
+    public float getmLongitude() {
+        return mLongitude;
     }
 }

@@ -67,10 +67,10 @@ public class CadastroFornecedorActivity extends AppCompatActivity {
         mSenha = findViewById(R.id.etCadastroSenhaFornecedor);
         mSenha2 = findViewById(R.id.etCadastroSenha2Fornecedor);
         Button botaoCadastrar;
-        botaoCadastrar = findViewById(R.id.botao_cadastrar_fornecedor);
+        botaoCadastrar = findViewById(R.id.btnCadastrarFornecedor);
 
         //Preparar o adaptar do Spinner para exibir os horários de atendimento do fornecedor
-        mSpinnerHorarios = findViewById(R.id.horariosSpinner);
+        mSpinnerHorarios = findViewById(R.id.servicoSpinner);
         ArrayAdapter<String> adapter_state = new ArrayAdapter<>(this,
                 android.R.layout.simple_spinner_dropdown_item, getResources().getStringArray(R.array.horariosFornecedor));
         mSpinnerHorarios.setAdapter(adapter_state);

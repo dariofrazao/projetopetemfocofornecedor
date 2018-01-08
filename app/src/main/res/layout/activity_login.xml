@@ -94,7 +94,7 @@
                     android:layout_marginBottom="2dp"/>
 
                 <Button
-                    android:id="@+id/botao_login"
+                    android:id="@+id/btnLogin"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_margin="4dp"
@@ -108,7 +108,7 @@
                     android:layout_marginBottom="2dp" />
 
                 <Button
-                    android:id="@+id/botao_cadastrar_fornecedor"
+                    android:id="@+id/btnCadastrarFornecedor"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_margin="4dp"

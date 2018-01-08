@@ -1,7 +1,6 @@
 package projetaobcc20172.com.projetopetemfocofornecedor.database.services;
 
 
-import java.util.List;
 
 import projetaobcc20172.com.projetopetemfocofornecedor.model.Servico;
 
@@ -15,7 +14,9 @@ public interface ServicoDao {
     void inserir(Servico servico, String idFornecedor);
     void remover(Servico servico, String idFornecedor);
     void atualizar(Servico servico, String idFornecedor);
+    /*
     List<Servico> buscarPorNome(String nome);
     List<Servico> buscarTodosFornecedor(String idFornecedor);
+    */
 
 }
