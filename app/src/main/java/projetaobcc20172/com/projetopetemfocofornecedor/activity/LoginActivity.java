@@ -52,8 +52,8 @@ public class LoginActivity extends AppCompatActivity {
         mSenha = findViewById(R.id.etLoginSenha);
         Button mLogin;
         Button mCadastrarFornecedor;
-        mLogin = findViewById(R.id.botao_login);
-        mCadastrarFornecedor = findViewById(R.id.botao_cadastrar_fornecedor);
+        mLogin = findViewById(R.id.btnLogin);
+        mCadastrarFornecedor = findViewById(R.id.btnCadastrarFornecedor);
 
         mCadastrarFornecedor.setOnClickListener(new View.OnClickListener() {
             @Override

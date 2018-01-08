@@ -47,4 +47,10 @@
         <item>Vacinação</item>
     </string-array>
 
+    <string-array name="tiposAnimais">
+        <item>Selecionar</item>
+        <item>Cachorro</item>
+        <item>Gato</item>
+    </string-array>
+
 </resources>

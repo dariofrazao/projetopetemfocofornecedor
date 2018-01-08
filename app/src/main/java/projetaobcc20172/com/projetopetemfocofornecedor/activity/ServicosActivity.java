@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.preference.PreferenceManager;
+import android.support.annotation.VisibleForTesting;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
@@ -45,6 +46,8 @@ public class ServicosActivity extends AppCompatActivity implements ServicoAdapte
     private ArrayList<Servico> mServicos;
     private ServicoAdapter mAdapter;
     private ValueEventListener mValueEventListenerServico;
+    @VisibleForTesting(otherwise = VisibleForTesting.PRIVATE)//permite que essa variavel seja vista pela classe de teste
+    public ListView listView;
     private String mIdUsuarioLogado;
 
     @Override
@@ -70,9 +73,8 @@ public class ServicosActivity extends AppCompatActivity implements ServicoAdapte
         toolbar.setNavigationIcon(R.drawable.ic_action_arrow_left_white);
         setSupportActionBar(toolbar);
 
-        cadastroServico =  findViewById(R.id.botao_cadastrar_serviço);
-        ListView listView;
-        listView = findViewById(R.id.lv_serviços);
+        cadastroServico =  findViewById(R.id.btnCadastrarServico);
+        this.listView = findViewById(R.id.lv_serviços);
 
         // Monta listview e mAdapter
         mServicos = new ArrayList<>();

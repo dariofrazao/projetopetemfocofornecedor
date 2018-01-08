@@ -5,11 +5,13 @@ import android.support.test.rule.ActivityTestRule;
 
 import org.junit.Before;
 import org.junit.Rule;
+import org.junit.Test;
 
 import projetaobcc20172.com.projetopetemfocofornecedor.R;
 import projetaobcc20172.com.projetopetemfocofornecedor.activity.CadastroEnderecoActivity;
 import projetaobcc20172.com.projetopetemfocofornecedor.activity.LoginActivity;
 import projetaobcc20172.com.projetopetemfocofornecedor.TestTools;
+import projetaobcc20172.com.projetopetemfocofornecedor.logintests.LoginActivityTest;
 
 /**
  * Created by raul on 09/12/17.
@@ -24,7 +26,7 @@ public class EnderecoActivityTest {
     private static String sCidade = "Naboo";
     private static String sUf = "PE";
     private static String sCep = "55299-525";
-    private static int sBotaoCadEnd = R.id.botao_finalizar_cadastro_endereco;
+
 
     @Rule
     public ActivityTestRule<CadastroEnderecoActivity> cadEndActivityRule = new ActivityTestRule<>(CadastroEnderecoActivity.class);
@@ -40,10 +42,10 @@ public class EnderecoActivityTest {
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
-        TestTools.clicarBotaoComScroll(sBotaoCadEnd);
-        TestTools.checarToast(R.string.sucesso_cadastro_Fornecedor);
+        TestToolsCadEndereco.clicarCadastrar();
         TestTools.verificarMudancaActivity(LoginActivity.class.getName());
-        //TestTools.clicarBotao(R.id.botao_sair);
+        //TestTools.checarToast(R.string.sucesso_cadastro_Fornecedor);
+        //TestTools.clicarBotao(R.id.btnSair);
     }
 
     public void testeEnderecoCorreto(){
@@ -74,42 +76,42 @@ public class EnderecoActivityTest {
         this.clicarEVerificarCorreto();
     }
 
-   // @Test
+    @Test
     public void testeEnderecoCamposEmBranco(){
-        TestTools.clicarBotaoComScroll(sBotaoCadEnd);
+        TestToolsCadEndereco.clicarCadastrar();
         TestTools.checarToast(R.string.erro_cadastro_endereco_campos_obrigatorios_Toast);
     }
 
-    //@Test
+    @Test
     public void testeEnderecoCampoObgLogradouro(){
         TestToolsCadEndereco.preencher("", sNumero, sComplemento, sBairro,
                 sCidade, sUf, sCep);
-        TestTools.clicarBotaoComScroll(sBotaoCadEnd);
+        TestToolsCadEndereco.clicarCadastrar();
         TestTools.checarToast(R.string.erro_cadastro_endereco_campos_obrigatorios_Toast);
     }
 
-    //@Test
+    @Test
     public void testeEnderecoCampoObgBairro(){
         TestToolsCadEndereco.preencher(sLogradouro, sNumero, sComplemento,"",
                 sCidade, sUf, sCep);
-        TestTools.clicarBotaoComScroll(sBotaoCadEnd);
+        TestToolsCadEndereco.clicarCadastrar();
         TestTools.checarToast(R.string.erro_cadastro_endereco_campos_obrigatorios_Toast);
     }
 
-    //@Test
+    @Test
     public void testeEnderecoCampoObgCidade(){
         TestToolsCadEndereco.preencher(sLogradouro, sNumero, sComplemento, sBairro,
                 "", sUf, sCep);
-        TestTools.clicarBotaoComScroll(sBotaoCadEnd);
+        TestToolsCadEndereco.clicarCadastrar();
         TestTools.checarToast(R.string.erro_cadastro_endereco_campos_obrigatorios_Toast);
     }
 
 
-    //@Test
+    @Test
     public void testeEnderecoCampoObgCep(){
         TestToolsCadEndereco.preencher(sLogradouro, sNumero, sComplemento, sBairro,
                 sCidade, sUf,"");
-        TestTools.clicarBotao(sBotaoCadEnd);
+        TestToolsCadEndereco.clicarCadastrar();
         TestTools.checarToast(R.string.erro_cadastro_endereco_campos_obrigatorios_Toast);
     }
 }

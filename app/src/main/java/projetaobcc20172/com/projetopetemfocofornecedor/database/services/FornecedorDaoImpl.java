@@ -93,7 +93,7 @@ public class FornecedorDaoImpl implements FornecedorDao{
         });
     }
     */
-
+/*
     @Override
     public List<Fornecedor> buscarPorNome(String nome) {
         return null;
@@ -103,7 +103,7 @@ public class FornecedorDaoImpl implements FornecedorDao{
     public List<Fornecedor> buscarTodosFornecedor(String idFornecedor) {
         return null;
     }
-
+*/
 
     private Context getContexto(){
         return this.mContexto;
