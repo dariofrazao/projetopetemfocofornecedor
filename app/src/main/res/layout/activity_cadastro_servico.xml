@@ -56,7 +56,7 @@
                     android:layout_width="match_parent">
 
                     <Spinner
-                        android:id="@+id/horariosSpinner"
+                        android:id="@+id/spinner_nome_servico"
                         android:layout_margin="4dp"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -125,12 +125,20 @@
                     android:layout_marginTop="8dp" />
 
                 <Button
-                    android:id="@+id/btnSalvarServico"
+                    android:id="@+id/btnCadastrarServico"
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
                     android:background="@drawable/shapebutton"
                     android:text="@string/cadastrar"
                     android:visibility="visible" />
+                <Button
+                    android:id="@+id/btnEditarServico"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/shapebutton"
+                    android:text="@string/action_editar"
+                    android:visibility="invisible" />
+
 
 
             </LinearLayout>
