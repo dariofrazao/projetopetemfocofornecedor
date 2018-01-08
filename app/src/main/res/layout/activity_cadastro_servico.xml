@@ -126,14 +126,6 @@
                     android:layout_marginTop="2dp" />
 
 
-                <EditText
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:ems="10"
-                    android:id="@+id/etCadastroDescricaoServico"
-                    android:inputType="textMultiLine"
-                    android:hint="@string/digite_descricao_servico" />
-
                 <TextView
                     android:id="@+id/tvCadastroDescricaoServico"
                     android:layout_width="fill_parent"
@@ -142,6 +134,14 @@
                     android:text="@string/prompt_descricao"
                     android:textAppearance="?android:attr/textAppearanceMedium"
                     android:textStyle="bold" />
+
+                <EditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:ems="10"
+                    android:id="@+id/etCadastroDescricaoServico"
+                    android:inputType="textMultiLine"
+                    android:hint="@string/digite_descricao_servico" />
 
                 <View
                     android:layout_width="fill_parent"
