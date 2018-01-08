@@ -23,6 +23,7 @@
 
     <!--Strings relacionadas a cadastro de fornecedor-->
     <string name="tb_cadastro_fornecedor">Cadastro de Fornecedor</string>
+    <string name="tb_editar_fornecedor">Edição de Fornecedor</string>
     <string name="botao_cadastrar_fornecedor">Cadastrar Fornecedor</string>
     <string name="sucesso_cadastro_Fornecedor">Sucesso ao cadastrar fornecedor</string>
     <string name="digite_seu_telefone">Digite seu telefone</string>
@@ -97,7 +98,7 @@
     <!--Strings de ações-->
     <string name="action_salvar">Salvar</string>
     <string name="action_editar">Editar</string>
-    
+
     <!--String de erros-->
     <string name="error_selecione_um_servico">Selecione um serviço!</string>
 

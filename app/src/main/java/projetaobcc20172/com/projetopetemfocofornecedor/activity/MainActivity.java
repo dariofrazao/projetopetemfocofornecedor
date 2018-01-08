@@ -2,6 +2,7 @@ package projetaobcc20172.com.projetopetemfocofornecedor.activity;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
@@ -25,7 +26,11 @@ import com.google.firebase.database.ValueEventListener;
 
 import projetaobcc20172.com.projetopetemfocofornecedor.R;
 import projetaobcc20172.com.projetopetemfocofornecedor.config.ConfiguracaoFirebase;
+import projetaobcc20172.com.projetopetemfocofornecedor.database.services.FornecedorDaoImpl;
+import projetaobcc20172.com.projetopetemfocofornecedor.database.services.ServicoDaoImpl;
 import projetaobcc20172.com.projetopetemfocofornecedor.model.Fornecedor;
+import projetaobcc20172.com.projetopetemfocofornecedor.model.Servico;
+import projetaobcc20172.com.projetopetemfocofornecedor.utils.Utils;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -33,7 +38,9 @@ public class MainActivity extends AppCompatActivity {
     private FirebaseAuth mAutenticacao;
     private DatabaseReference mFirebase;
     private static FirebaseDatabase mDatabase;
-    Fornecedor fornecedorSelecionado;
+    private String idUsuarioLogado = null;
+    private Fornecedor fornecedor;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,7 +53,6 @@ public class MainActivity extends AppCompatActivity {
 
         Toolbar toolbar;
         toolbar = findViewById(R.id.tb_main);
-        final Fornecedor fornecedorAtual;
 
         // Configura toolbar
         toolbar.setTitle("Pet Em Foco");
@@ -61,8 +67,9 @@ public class MainActivity extends AppCompatActivity {
         mTvSubtitulo2 = findViewById(R.id.tvSubtitulo2Fornecedor);
 
         //Recuperar id do fornecedor logado
-        final String idUsuarioLogado;
         idUsuarioLogado = getPreferences("idFornecedor", this);
+        fornecedor = new Fornecedor();
+
 
         // Recuperar serviços do Firebase
         mFirebase = ConfiguracaoFirebase.getFirebase().child("fornecedor").child(idUsuarioLogado);
@@ -102,7 +109,7 @@ public class MainActivity extends AppCompatActivity {
         });
 
 
-        toolbar.setOnMenuItemClickListener(new AdapterView.OnItemSelectedListener() {
+        /*toolbar.setOnMenuItemClickListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
 
@@ -112,11 +119,57 @@ public class MainActivity extends AppCompatActivity {
             public void onNothingSelected(AdapterView<?> adapterView) {
 
             }
-        });
+        });*/
 
     }
 
+    //chama o menu de edição de perfil de fornecedor
+    @Override
+    @SuppressLint("ResourceType")
+    public boolean onCreateOptionsMenu(Menu menu){
+        getMenuInflater().inflate(R.layout.menu_main, menu);
+        return super.onCreateOptionsMenu(menu);
+    }
 
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item){
+        int id = item.getItemId();
+        if(id == R.id.action_editar){
+            Intent intent = new Intent(MainActivity.this,EditarFornecedorActivity.class);
+            startActivity(intent);
+        }
+        return true;
+    }
+
+    private void removerFornecedor(Fornecedor fornecedor){
+
+        FornecedorDaoImpl forcedorDao = new FornecedorDaoImpl(this);
+        forcedorDao.remover(fornecedor, idUsuarioLogado);
+    }
+
+
+    public void confirmarRemocao(final Fornecedor fornecedor){
+        DialogInterface.OnClickListener dialogClickListener = new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                switch (which){
+                    case DialogInterface.BUTTON_POSITIVE:
+                        // Botão sim foi clicado
+                        removerFornecedor(fornecedor);
+                        break;
+                    case DialogInterface.BUTTON_NEGATIVE:
+                        // Botão não foi clicado
+                        break;
+                    default:
+                        break;
+                }
+            }
+        };
+
+        Utils.mostrarPerguntaSimNao(this, getString(R.string.atencao),
+                getString(R.string.info_confirmar_remocao_servico), dialogClickListener,
+                dialogClickListener);
+    }
 
     //Método para deslogar fornecedor da aplicação e retornar a tela de Login
     private void deslogarFornecedor(){
@@ -136,25 +189,5 @@ public class MainActivity extends AppCompatActivity {
         return preferences.getString(key, null);
     }
 
-    //chama o menu de edição de perfil de fornecedor
-    @Override
-    @SuppressLint("ResourceType")
-    public boolean onCreateOptionsMenu(Menu menu){
-        getMenuInflater().inflate(R.layout.menu_main, menu);
-        return super.onCreateOptionsMenu(menu);
-    }
 
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item){
-        int id = item.getItemId();
-
-        if (id == R.id.action_editar){
-            return true;
-        }
-        if (id == R.id.action_eliminar){
-            return true;
-        }
-
-        return  super.onOptionsItemSelected(item);
-    }
 }

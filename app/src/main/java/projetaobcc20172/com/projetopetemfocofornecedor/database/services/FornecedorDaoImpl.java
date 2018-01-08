@@ -50,12 +50,10 @@ public class FornecedorDaoImpl implements FornecedorDao{
             }
         });
     }
-    /*
+
     @Override
-    public void remover(Usuario usuario, String idFornecedor) {
-        referenciaFornecedor = referenciaFirebase.child("usuarios");
-        referenciaFornecedor.child(String.format("%s/%s", "servicos", usuario.getId()))
-                .setValue(null).addOnCompleteListener(new OnCompleteListener<Void>() {
+    public void remover(Fornecedor fornecedor, String idFornecedor) {
+        mReferenciaFirebase.child("fornecedor").child(fornecedor.getId()).setValue(fornecedor).addOnCompleteListener(new OnCompleteListener<Void>() {
             @Override
             public void onComplete(@NonNull Task<Void> task) {
                 if(task.isSuccessful()){
@@ -72,7 +70,7 @@ public class FornecedorDaoImpl implements FornecedorDao{
             }
         });
     }
-
+/*
     @Override
     public void atualizar(Usuario usuario, String idFornecedor) {
         referenciaFornecedor = referenciaFirebase.child("usuarios");

@@ -39,9 +39,9 @@ import projetaobcc20172.com.projetopetemfocofornecedor.utils.VerificadorDeObjeto
 /**
  * Activity de cadastro de fornecedor
  */
-public class CadastroFornecedorActivity extends AppCompatActivity {
+public class EditarFornecedorActivity extends AppCompatActivity {
 
-    private EditText mNome, mEmail, mSenha, mSenha2, mTelefone, mCpfCnpj;
+    private EditText mTelefone;
     private Spinner mSpinnerHorarios;
     private Fornecedor mFornecedor;
     private FirebaseAuth mAutenticacao;
@@ -56,43 +56,39 @@ public class CadastroFornecedorActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_cadastro_fornecedor);
 
+        Intent intent = getIntent();
+
         Toolbar toolbar;
         toolbar = findViewById(R.id.tb_cadastro_fornecedor);
-        mNome = findViewById(R.id.etCadastroNomeFornecedor);
-        mEmail = findViewById(R.id.etCadastroEmailFornecedor);
+
         mTelefone = findViewById(R.id.etCadastroTelefoneFornecedor);
         mTelefone.addTextChangedListener(MaskUtil.mask(mTelefone, MaskUtil.FORMAT_FONE));
-        mCpfCnpj = findViewById(R.id.etCadastroCpfCnpjFornecedor);
-        mCpfCnpj.addTextChangedListener(MaskUtil.mask(mCpfCnpj, MaskUtil.FORMAT_CNPJ));
-        mSenha = findViewById(R.id.etCadastroSenhaFornecedor);
-        mSenha2 = findViewById(R.id.etCadastroSenha2Fornecedor);
-        Button botaoCadastrar;
-        botaoCadastrar = findViewById(R.id.botao_cadastrar_fornecedor);
+        mTelefone.setText(intent.getStringExtra("telefone"));
+
+        Button botaoEditar;
+        botaoEditar = findViewById(R.id.botao_editar_fornecedor);
 
         //Preparar o adaptar do Spinner para exibir os horários de atendimento do fornecedor
         mSpinnerHorarios = findViewById(R.id.horariosSpinner);
         ArrayAdapter<String> adapter_state = new ArrayAdapter<>(this,
                 android.R.layout.simple_spinner_dropdown_item, getResources().getStringArray(R.array.horariosFornecedor));
         mSpinnerHorarios.setAdapter(adapter_state);
+        String horarios = intent.getStringExtra("horarios");
+        int posicaoHorarios = adapter_state.getPosition(horarios);
+        mSpinnerHorarios.setSelection(posicaoHorarios);
 
-        botaoCadastrar.setOnClickListener(new View.OnClickListener() {
+        botaoEditar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent();
                 mFornecedor = new Fornecedor();
-                mFornecedor.setNome(mNome.getText().toString() );
-                mFornecedor.setEmail(mEmail.getText().toString());
                 mFornecedor.setTelefone(mTelefone.getText().toString());
-                mFornecedor.setCpfCnpj(mCpfCnpj.getText().toString());
                 mFornecedor.setHorarios(mSpinnerHorarios.getSelectedItem().toString());
-                mFornecedor.setSenha(mSenha.getText().toString());
-                mFornecedor.setSenha2(mSenha2.getText().toString());
                 cadastrarFornecedor();
             }
         });
 
         // Configura toolbar
-        toolbar.setTitle(R.string.tb_cadastro_fornecedor);
+        toolbar.setTitle(R.string.tb_editar_fornecedor);
         toolbar.setTitleTextColor(Color.WHITE);
         toolbar.setNavigationIcon(R.drawable.ic_action_arrow_left_white);
         setSupportActionBar(toolbar);
@@ -112,14 +108,14 @@ public class CadastroFornecedorActivity extends AppCompatActivity {
             mAutenticacao.createUserWithEmailAndPassword(
                     mFornecedor.getEmail(),
                     mFornecedor.getSenha()
-            ).addOnCompleteListener(CadastroFornecedorActivity.this, new OnCompleteListener<AuthResult>() {
+            ).addOnCompleteListener(EditarFornecedorActivity.this, new OnCompleteListener<AuthResult>() {
                 @Override
                 public void onComplete(@NonNull Task<AuthResult> task) {
 
                     if (task.isSuccessful()) {
                         String identificadorFornecedor = Base64Custom.codificarBase64(mFornecedor.getEmail());
                         mFornecedor.setId(identificadorFornecedor);
-                        mToast = Toast.makeText(CadastroFornecedorActivity.this, R.string.sucesso_cadastro_proxima_etapa_Toast, Toast.LENGTH_SHORT);
+                        mToast = Toast.makeText(EditarFornecedorActivity.this, R.string.sucesso_cadastro_proxima_etapa_Toast, Toast.LENGTH_SHORT);
                         mToast.show();
                         //Aqui será chamado a continuação do cadastro do fornecedor, levando-o ao cadastro do endereço
                         abrirCadastroEndereco(mFornecedor);
@@ -140,7 +136,7 @@ public class CadastroFornecedorActivity extends AppCompatActivity {
                             e.printStackTrace();
                         }
 
-                        mToast = Toast.makeText(CadastroFornecedorActivity.this, erro, Toast.LENGTH_SHORT);
+                        mToast = Toast.makeText(EditarFornecedorActivity.this, erro, Toast.LENGTH_SHORT);
                         mToast.show();
                     }
 
@@ -155,7 +151,7 @@ public class CadastroFornecedorActivity extends AppCompatActivity {
     //Método que chama a activity para cadastrar o endereço, passando os dados básicos aqui cadastrados
     public void abrirCadastroEndereco(Fornecedor fornecedor){
         mAutenticacao.signOut();
-        Intent intent = new Intent(CadastroFornecedorActivity.this, CadastroEnderecoActivity.class);
+        Intent intent = new Intent(EditarFornecedorActivity.this, CadastroEnderecoActivity.class);
         intent.putExtra("Fornecedor", fornecedor);
         startActivity(intent);
         finish();

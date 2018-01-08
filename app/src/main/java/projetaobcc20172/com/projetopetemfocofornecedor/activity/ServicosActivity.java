@@ -1,6 +1,7 @@
 package projetaobcc20172.com.projetopetemfocofornecedor.activity;
 
 
+import android.annotation.SuppressLint;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -9,6 +10,8 @@ import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 
 import android.widget.AdapterView;
@@ -31,6 +34,7 @@ import projetaobcc20172.com.projetopetemfocofornecedor.adapter.ServicoAdapter;
 import projetaobcc20172.com.projetopetemfocofornecedor.config.ConfiguracaoFirebase;
 import projetaobcc20172.com.projetopetemfocofornecedor.database.services.ServicoDaoImpl;
 
+import projetaobcc20172.com.projetopetemfocofornecedor.model.Fornecedor;
 import projetaobcc20172.com.projetopetemfocofornecedor.model.Servico;
 import projetaobcc20172.com.projetopetemfocofornecedor.utils.Utils;
 
@@ -125,6 +129,36 @@ public class ServicosActivity extends AppCompatActivity implements ServicoAdapte
         onBackPressed();
         return true;
     }
+
+
+    @Override
+    @SuppressLint("ResourceType")
+    public boolean onCreateOptionsMenu(Menu menu){
+        getMenuInflater().inflate(R.layout.menu_main, menu);
+        return super.onCreateOptionsMenu(menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item){
+        int id = item.getItemId();
+
+        if (id == R.id.action_editar){
+            Intent intent = new Intent();
+            intent.setClass(ServicosActivity.this, CadastroServicoActivity.class);
+            startActivity(intent);
+            return true;
+        }
+        if (id == R.id.action_eliminar){
+            Servico servico = null;
+            confirmarRemocao(servico);
+            
+            return true;
+        }
+
+        return  super.onOptionsItemSelected(item);
+    }
+
+
 
     private void removerServico(Servico servico){
 
