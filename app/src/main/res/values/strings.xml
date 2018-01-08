@@ -30,6 +30,8 @@
     <string name="prompt_telefone">Telefone</string>
     <string name="prompt_cpf_cnpj">CPF/CNPJ</string>
     <string name="prompt_horario">Horário de Funcionamento</string>
+    <string name="prompt_action_editar">Editar Perfil</string>
+    <string name="prompt_action_eliminar">Eliminar Perfil</string>
     <string name="erro_cadastro_fornecedor_email_invalido_Toast">Erro ao cadastrar fornecedor: Email indicado não é válido.</string>
     <string name="erro_cadastro_fornecedor_senha_invalida_Toast">Erro ao cadastrar fornecedor: Escolha uma senha que contenha pelo menos 6 caracteres.</string>
     <string name="erro_cadastro_fornecedor_email_usado_Toast">Erro ao cadastrar fornecedor: Já existe uma conta com esse e-mail.</string>

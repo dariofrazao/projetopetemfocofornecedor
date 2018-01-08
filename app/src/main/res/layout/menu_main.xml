@@ -1,0 +1,20 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="5dp"
+    android:layout_height="35dp"
+    tools:context=".activity.MainActivity">
+
+
+    <item android:id="@+id/action_editar"
+        android:orderInCategory="100"
+        app:showAsAction="never"
+        android:title="@string/prompt_action_editar"
+        tools:ignore="MissingPrefix" />
+
+    <item android:id="@+id/action_eliminar"
+        android:orderInCategory="100"
+        app:showAsAction="never"
+        android:title="@string/prompt_action_eliminar"
+        tools:ignore="MissingPrefix" />
+</menu>
