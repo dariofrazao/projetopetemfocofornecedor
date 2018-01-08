@@ -1,4 +1,4 @@
-package projetaobcc20172.com.projetopetemfocofornecedor.cadastroservicotest;
+package projetaobcc20172.com.projetopetemfocofornecedor.servicostest;
 
 import android.support.test.rule.ActivityTestRule;
 
@@ -62,15 +62,15 @@ public class CadastroServicoActivityTestParam {
 
         LoginActivityTest log = new LoginActivityTest();
         log.testeUsuarioCadastrado();
-        TestToolsCadServicos.clicarMeusServicos();
-        TestToolsCadServicos.clicarAddServico();
+        TestToolsServicos.clicarMeusServicos();
+        TestToolsServicos.clicarAddServico();
         Thread.sleep(1500);
 
     }
 
     @Test
     public void testeCadServico(){
-        TestToolsCadServicos.preencherEClicar(this.mNomeServico,this.mValor,this.mDescricao,this.mTipoAnimal);
+        TestToolsServicos.preencherEClicar(this.mNomeServico,this.mValor,this.mDescricao,this.mTipoAnimal);
         TestTools.checarToast(R.string.sucesso_cadastro_servico);
         TestTools.qtNaoNula(((ServicosActivity)TestTools.activityAtual()).listView.getCount());
     }

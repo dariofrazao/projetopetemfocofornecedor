@@ -61,7 +61,8 @@ public class Servico implements Serializable{
             Servico servico = (Servico) o;
             if( servico.getDescricao().equalsIgnoreCase(this.getDescricao())
                     && servico.getNome().equalsIgnoreCase(this.getNome())
-                    && servico.getValor().equalsIgnoreCase(this.getValor())){
+                    && servico.getValor().equalsIgnoreCase(this.getValor())
+                    && servico.getTipoPet().equalsIgnoreCase(this.getTipoPet())){
                 return true;
             }
         }

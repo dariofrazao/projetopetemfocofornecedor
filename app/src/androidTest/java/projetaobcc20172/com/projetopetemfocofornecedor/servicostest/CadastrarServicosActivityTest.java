@@ -1,4 +1,4 @@
-package projetaobcc20172.com.projetopetemfocofornecedor.cadastroservicotest;
+package projetaobcc20172.com.projetopetemfocofornecedor.servicostest;
 
 import android.support.test.rule.ActivityTestRule;
 
@@ -10,6 +10,7 @@ import projetaobcc20172.com.projetopetemfocofornecedor.R;
 import projetaobcc20172.com.projetopetemfocofornecedor.TestTools;
 
 import projetaobcc20172.com.projetopetemfocofornecedor.activity.CadastroServicoActivity;
+import projetaobcc20172.com.projetopetemfocofornecedor.activity.ServicosActivity;
 
 /**
  * Created by raul on 12/12/17.
@@ -29,16 +30,26 @@ public class CadastrarServicosActivityTest {
 
     @Test
     public void preencherSemValor(){
-        TestToolsCadServicos.preencherEclicarCadastrar(this.mNome,"", this.mDescricao);
+        TestToolsServicos.preencherEclicarCadastrar(this.mNome,"", this.mDescricao);
         TestTools.checarToast(cadastroServicoActivityActivityTestRule.getActivity().getString(R.string.preencha_campo_valor));
     }
 
     @Test
     public void preencherSemNome(){
-        TestToolsCadServicos.preencherEclicarCadastrar("Selecionar", this.mValor, this.mDescricao);
+        TestToolsServicos.preencherEclicarCadastrar("Selecionar", this.mValor, this.mDescricao);
         TestTools.checarToast(cadastroServicoActivityActivityTestRule.getActivity().getString(R.string.error_selecione_um_servico));
     }
 
+    @Test
+    public void preencherSemPet(){
+        TestToolsServicos.preencherEClicar(this.mNome, this.mValor, this.mDescricao,"Selecionar");
+        TestTools.checarToast(cadastroServicoActivityActivityTestRule.getActivity().getString(R.string.preencha_campo_tipoAnimal));
+    }
+
+
+    public void testeCadServico() throws InterruptedException {
+        TestToolsServicos.preencherEClicar("Banho","60","ok","Gato");
+    }
 
     @After
     public void tearDown() throws Exception {

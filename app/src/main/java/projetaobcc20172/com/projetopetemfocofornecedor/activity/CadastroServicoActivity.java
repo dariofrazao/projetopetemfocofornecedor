@@ -88,6 +88,7 @@ public class CadastroServicoActivity extends AppCompatActivity {
                     servico.setValor(mEtValor.getText().toString());
                     servico.setDescricao(mEtDescricao.getText().toString());
                     servico.setNome(mSpinnerServico.getSelectedItem().toString());
+                    servico.setTipoPet(mSpinnerTipoAnimal.getSelectedItem().toString());
 
                     VerificadorDeObjetos.vDadosServico(servico, CadastroServicoActivity.this);
 
@@ -124,12 +125,19 @@ public class CadastroServicoActivity extends AppCompatActivity {
     private void setvaluesOnViews() {
         if(mServico != null){
             String[] listaServicos = getResources().getStringArray(R.array.servicos);
+            String[] listaPets = getResources().getStringArray(R.array.tiposAnimais);
             int i = 0;
             for(String s: listaServicos){
                 if(s.equalsIgnoreCase(mServico.getNome())) break;
                 i++;
             }
             mSpinnerServico.setSelection(i);
+            i= 0;
+            for(String s:listaPets){
+                if(s.equalsIgnoreCase(mServico.getTipoPet())) break;
+                i++;
+            }
+            mSpinnerTipoAnimal.setSelection(i);
             mEtValor.setText(mServico.getValor());
             mEtDescricao.setText(mServico.getDescricao());
         }
