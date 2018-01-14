@@ -140,7 +140,7 @@ public class ServicoDaoImpl implements ServicoDao{
 
             @Override
             public void onCancelled(DatabaseError databaseError) {
-
+                assert true;
             }
         });
     }
