@@ -8,7 +8,6 @@ import org.junit.Test;
 
 import projetaobcc20172.com.projetopetemfocofornecedor.R;
 import projetaobcc20172.com.projetopetemfocofornecedor.TestTools;
-
 import projetaobcc20172.com.projetopetemfocofornecedor.activity.CadastroServicoActivity;
 
 /**

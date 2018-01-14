@@ -13,6 +13,7 @@ public class Servico implements Serializable{
     private String mDescricao;
     private String mValor;
     private String mTipoPet;
+    private String mIdFornecedor;
 
     public Servico() {}
 
@@ -75,5 +76,13 @@ public class Servico implements Serializable{
 
     public void setTipoPet(String mTipoPet) {
         this.mTipoPet = mTipoPet;
+    }
+
+    public void setIdFornecedor(String idFornecedor){
+        this.mIdFornecedor = idFornecedor;
+    }
+
+    public String getIdFornecedor(){
+        return this.mIdFornecedor;
     }
 }

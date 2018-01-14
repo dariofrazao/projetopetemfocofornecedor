@@ -16,7 +16,6 @@ import android.widget.TextView;
 import java.util.ArrayList;
 
 import projetaobcc20172.com.projetopetemfocofornecedor.R;
-
 import projetaobcc20172.com.projetopetemfocofornecedor.model.Servico;
 
 //Classe que monta uma View para exibir os serviços cadastrados do fornecedor

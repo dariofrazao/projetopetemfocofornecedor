@@ -15,6 +15,7 @@ public class Preferencias {
 
     private final String CHAVE_IDENTIFICADOR = "identificadorUsuarioLogado"; //Variável para identificar usuário logado
     private final String CHAVE_NOME = "nomeUsuarioLogado"; //Nome do usuário logado
+    private final String CHAVE_EMAIL = "emailUsuarioLogado";
 
     public Preferencias( Context contextoParametro){
 
@@ -32,6 +33,13 @@ public class Preferencias {
 
     }
 
+    public void salvarDadosUser(String identificadorUsuario,String nomeUsuario,String email){
+        this.salvarDados(identificadorUsuario);
+        editor.putString(CHAVE_NOME, nomeUsuario); //Colocar nas preferências a chave com o nome do usuário
+        editor.putString(CHAVE_EMAIL,email);
+        editor.commit(); //Salvar as alterações nas preferências
+    }
+
     public String getIdentificador(){
         return preferences.getString(CHAVE_IDENTIFICADOR, null);
     }
@@ -39,5 +47,6 @@ public class Preferencias {
     public String getNome(){
         return preferences.getString(CHAVE_NOME, null);
     }
+
 
 }

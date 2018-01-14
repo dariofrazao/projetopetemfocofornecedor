@@ -23,6 +23,7 @@ import com.google.firebase.database.ValueEventListener;
 
 import projetaobcc20172.com.projetopetemfocofornecedor.R;
 import projetaobcc20172.com.projetopetemfocofornecedor.config.ConfiguracaoFirebase;
+import projetaobcc20172.com.projetopetemfocofornecedor.helper.Preferencias;
 import projetaobcc20172.com.projetopetemfocofornecedor.model.Fornecedor;
 import projetaobcc20172.com.projetopetemfocofornecedor.helper.Base64Custom;
 

@@ -4,7 +4,9 @@ import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.SharedPreferences;
 import android.net.ConnectivityManager;
+import android.preference.PreferenceManager;
 import android.widget.Toast;
 
 
@@ -82,5 +84,20 @@ public class Utils {
 
         builder.show();
     }
+
+    //Método que salva o id do fornecedor nas preferências para login automático ao abrir aplicativo
+    public static void salvarPreferenciasFornecedor(String key, String value,Context context){
+        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(context);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.putString(key, value);
+        editor.commit();
+    }
+
+    //Método que recupera o id do fornecedor logado
+    public static boolean getPreferencesKeyFornecedor(Context context) {
+        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(context);
+        return preferences.contains("idFornecedor");
+    }
+
 
 }

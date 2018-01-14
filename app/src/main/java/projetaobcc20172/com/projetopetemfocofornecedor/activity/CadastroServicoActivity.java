@@ -3,10 +3,10 @@ package projetaobcc20172.com.projetopetemfocofornecedor.activity;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.graphics.Color;
 import android.content.SharedPreferences;
-import android.preference.PreferenceManager;
+import android.graphics.Color;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
@@ -120,8 +120,6 @@ public class CadastroServicoActivity extends AppCompatActivity {
         }
     }
 
-
-
     private void setvaluesOnViews() {
         if(mServico != null){
             String[] listaServicos = getResources().getStringArray(R.array.servicos);
@@ -208,8 +206,8 @@ public class CadastroServicoActivity extends AppCompatActivity {
         };
 
         Utils.mostrarPerguntaSimNao(this, getString(R.string.atencao),
-                    getString(R.string.pergunta_confirma_dados_serao_perdidos), dialogClickListener,
-                    dialogClickListener);
+                getString(R.string.pergunta_confirma_dados_serao_perdidos), dialogClickListener,
+                dialogClickListener);
     }
 
     //Método que recupera o id do fornecedor logado, para salvar o Serviço no nó do fornecedor que o está cadastrando
@@ -219,9 +217,9 @@ public class CadastroServicoActivity extends AppCompatActivity {
     }
 
     private void abrirTelaPrincipal() {
-        //Intent intent = new Intent(CadastroServicoActivity.this, ServicosActivity.class);
+        Intent intent = new Intent(CadastroServicoActivity.this, ServicosActivity.class);
         //intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
-        //startActivity(intent);
+        startActivity(intent);
         finish();
     }
 }
