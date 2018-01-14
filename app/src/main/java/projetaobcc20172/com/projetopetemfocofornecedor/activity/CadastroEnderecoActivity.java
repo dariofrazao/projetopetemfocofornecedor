@@ -146,7 +146,7 @@ public class CadastroEnderecoActivity extends AppCompatActivity{
         startActivity(intent);
         finish();
     }
-
+/*
     //Método que salva o id do fornecedor nas preferências
     private void salvarPreferencias(String key, String value){
         SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
@@ -154,6 +154,7 @@ public class CadastroEnderecoActivity extends AppCompatActivity{
         editor.putString(key, value);
         editor.commit();
     }
+    */
 
     //Método que trava os campos de endereço enquanto a busca pelo cep é realizada
     public void lockFields (boolean isToLock){

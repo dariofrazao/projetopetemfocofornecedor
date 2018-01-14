@@ -29,7 +29,6 @@ public class MainActivity extends AppCompatActivity {
     private TextView mTvTitulo, mTvSubtitulo, mTvSubtitulo2;
     private FirebaseAuth mAutenticacao;
     private DatabaseReference mFirebase;
-    private static FirebaseDatabase mDatabase;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
