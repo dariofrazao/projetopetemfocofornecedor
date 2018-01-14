@@ -39,43 +39,14 @@ public class ServicoDaoImpl implements ServicoDao{
     }
 
     @Override
-    public void inserir(Servico servico, final String idFornecedor) {
+    public void inserir(final Servico servico, final String idFornecedor) {
         servico.setIdFornecedor(idFornecedor);
-        mReferenciaFirebase.child("servicos").push().setValue(servico).addOnCompleteListener(new OnCompleteListener<Void>() {
+        DatabaseReference ref = mReferenciaFirebase.child("servicos").push();
+        final String id = ref.getKey();
+        ref.setValue(servico).addOnCompleteListener(new OnCompleteListener<Void>() {
             @Override
             public void onComplete(@NonNull Task<Void> task) {
                 if(task.isSuccessful()){
-                    //cria um "fornecedor_servico" para todos os novos servicos add
-                    mReferenciaFirebase.child("servicos").addChildEventListener(new ChildEventListener() {
-                        @Override
-                        public void onChildAdded(DataSnapshot dataSnapshot, String s) {
-                            if (dataSnapshot.getValue() != null) {
-                                Servico servico = dataSnapshot.getValue(Servico.class);
-                                salvarFornecedorServico(servico, dataSnapshot.getKey(), idFornecedor);
-                            }
-
-                        }
-
-                        @Override
-                        public void onChildChanged(DataSnapshot dataSnapshot, String s) {
-                            assert true;
-                        }
-
-                        @Override
-                        public void onChildRemoved(DataSnapshot dataSnapshot) {
-                            assert true;
-                        }
-
-                        @Override
-                        public void onChildMoved(DataSnapshot dataSnapshot, String s) {
-                            assert true;
-                        }
-
-                        @Override
-                        public void onCancelled(DatabaseError databaseError) {
-                            assert true;
-                        }
-                    });
                     Utils.mostrarMensagemLonga(getContexto(), getContexto().getString(R.string.sucesso_cadastro_servico));
                 }
                 else{
@@ -85,6 +56,11 @@ public class ServicoDaoImpl implements ServicoDao{
                     } catch (Exception e) {
                         e.printStackTrace();
                     }
+                }
+                if(task.isComplete()){
+                    //cria um "fornecedor_servico" para todos os novos servicos add
+                    servico.setmId(id);
+                    salvarFornecedorServico(servico,servico.getId(),servico.getIdFornecedor());
                 }
 
             }
@@ -122,37 +98,7 @@ public class ServicoDaoImpl implements ServicoDao{
             @Override
             public void onComplete(@NonNull Task<Void> task) {
                 if(task.isSuccessful()){
-                    mReferenciaFirebase.child("servicos").addChildEventListener(new ChildEventListener() {
-                        @Override
-                        public void onChildAdded(DataSnapshot dataSnapshot, String s) {
-                            try {
-                                servico.setmId(dataSnapshot.getKey());
-                                atualizarFornecedorServico(servico);
-                            }catch (Exception e){
-                                System.out.println("ERRO");
-                            }
-                        }
-
-                        @Override
-                        public void onChildChanged(DataSnapshot dataSnapshot, String s) {
-                            assert true;
-                        }
-
-                        @Override
-                        public void onChildRemoved(DataSnapshot dataSnapshot) {
-                            assert true;
-                        }
-
-                        @Override
-                        public void onChildMoved(DataSnapshot dataSnapshot, String s) {
-                            assert true;
-                        }
-
-                        @Override
-                        public void onCancelled(DatabaseError databaseError) {
-                            assert true;
-                        }
-                    });
+                    atualizarFornecedorServico(servico);
                     Utils.mostrarMensagemLonga(getContexto(), getContexto().getString(R.string.sucesso_atualizacao));
 
                 }
@@ -173,8 +119,8 @@ public class ServicoDaoImpl implements ServicoDao{
     //Cria um nó chamadao "servico_fornecedor" que relaciona o servico ao fornecedor
     //Permitindo a busca de fornecedores pelo servico
     private void salvarFornecedorServico(Servico servico,String idServico,String idFornecedor){
-        mReferenciaFirebase = ConfiguracaoFirebase.getFirebase().child("servico_fornecedor").child(idServico);
-        mReferenciaFirebase.push();
+        DatabaseReference ref = ConfiguracaoFirebase.getFirebase().child("servico_fornecedor").child(idServico);
+        ref.push();
         Map<String, String> mapaNomes = new HashMap<>();
         String nomeServTipoPet = servico.getNome()+"_"+ servico.getTipoPet();
         mapaNomes.put("nome_tipoPet",nomeServTipoPet);
@@ -183,7 +129,7 @@ public class ServicoDaoImpl implements ServicoDao{
         mapaNomes.put("nomeFornecedor",mPreferencias.getNome());
         mapaNomes.put("servico",servico.getNome());
         mapaNomes.put("pet",servico.getTipoPet());
-        mReferenciaFirebase.setValue(mapaNomes);
+        ref.setValue(mapaNomes);
     }
 
     private void atualizarFornecedorServico(final Servico servico){
@@ -200,8 +146,7 @@ public class ServicoDaoImpl implements ServicoDao{
         });
     }
     private void removerServicoFornecedor(String idServico){
-        mReferenciaFirebase = ConfiguracaoFirebase.getFirebase().child("servico_fornecedor").child(idServico);
-        mReferenciaFirebase.setValue(null);
+        ConfiguracaoFirebase.getFirebase().child("servico_fornecedor").child(idServico).setValue(null);
 
     }
     private Context getContexto(){

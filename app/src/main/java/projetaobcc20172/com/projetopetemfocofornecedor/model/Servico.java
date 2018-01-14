@@ -1,5 +1,7 @@
 package projetaobcc20172.com.projetopetemfocofornecedor.model;
 
+import com.google.firebase.database.Exclude;
+
 import java.io.Serializable;
 
 /**
@@ -23,7 +25,7 @@ public class Servico implements Serializable{
         this.mTipoPet = tipoPet;
     }
 
-
+    @Exclude
     public String getId() {
         return mId;
     }
