@@ -98,7 +98,7 @@ public class CadastroServicoActivity extends AppCompatActivity {
                         servicoDao.atualizar(servico, mIdUsuarioLogado);
 
                     }
-                    CadastroServicoActivity.super.onBackPressed();
+                    abrirTelaPrincipal();
                 } catch (ValidacaoException e) {
                     e.printStackTrace();
                     Utils.mostrarMensagemLonga(CadastroServicoActivity.this, e.getMessage());
@@ -115,7 +115,6 @@ public class CadastroServicoActivity extends AppCompatActivity {
             btnEditar.setVisibility(View.VISIBLE);
             mServico = (Servico) intent.getSerializableExtra("servico");
             setvaluesOnViews();
-
 
         }
     }
@@ -181,7 +180,11 @@ public class CadastroServicoActivity extends AppCompatActivity {
     @Override
     public void onBackPressed(){
         if (verificarCamposPreenchidos() && mIsViewsHabilitadas) confirmarSaida();
-        else CadastroServicoActivity.super.onBackPressed();
+        else{
+            //CadastroServicoActivity.super.onBackPressed();
+            this.abrirTelaPrincipal();
+            finish();
+        }
     }
 
     //Método que exibe pergunta de confirmação ao fornecedor caso ele clique no botão de voltar com as

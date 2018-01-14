@@ -48,13 +48,13 @@ public class VerificadorDeObjetos {
     }
 
     public static void vDadosServico(Servico serv, Context cad) throws ValidacaoException {
-        if(serv.getNome().equalsIgnoreCase("Selecionar")){
+        if(serv.getNome().equalsIgnoreCase("Selecionar") || serv.getNome().equalsIgnoreCase("")){
             throw new ValidacaoException(cad.getString(R.string.error_selecione_um_servico));
         }
         else if(serv.getValor().equals("") || serv.getValor().equalsIgnoreCase("R$0,00")){
             throw new ValidacaoException(cad.getString(R.string.preencha_campo_valor));
         }
-        else if(serv.getTipoPet().equalsIgnoreCase("Selecionar")){
+        else if(serv.getTipoPet().equalsIgnoreCase("Selecionar") || serv.getTipoPet().equalsIgnoreCase("")){
             throw new ValidacaoException(cad.getString(R.string.preencha_campo_tipoAnimal));
         }
         //else if(serv.getDescricao().isEmpty()){

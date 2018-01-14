@@ -72,7 +72,7 @@ public class ServicosActivity extends AppCompatActivity implements ServicoAdapte
         mAdapter.setCustomButtonListener(ServicosActivity.this);
         listView.setAdapter(mAdapter);
 
-        this.buscarServicos();
+        this.carregarServicos();
         //Ação do botão de cadastrar o serviço, que abre a tela para o seu cadastro
         cadastroServico.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -95,6 +95,9 @@ public class ServicosActivity extends AppCompatActivity implements ServicoAdapte
 
         ServicoDaoImpl servicoDao =  new ServicoDaoImpl(this);
         servicoDao.remover(servico, mIdUsuarioLogado);
+        mServicos.remove(servico);
+        mAdapter.notifyDataSetChanged();
+
     }
 
     @Override
@@ -140,7 +143,7 @@ public class ServicosActivity extends AppCompatActivity implements ServicoAdapte
     }
 
 
-    private void buscarServicos(){
+    private void carregarServicos(){
         // Recuperar serviços do Firebase
         mServicos.clear();
         Query query = ConfiguracaoFirebase.getFirebase().child("servicos").orderByChild("idFornecedor").equalTo(mIdUsuarioLogado);
