@@ -36,13 +36,9 @@ public class EditarFornecedorActivity extends AppCompatActivity {
 
     private EditText mTelefone;
     private Spinner mSpinnerHorarios;
-    private FirebaseAuth mAutenticacao;
     private Fornecedor mFornecedorAnterior;
     private boolean mIsViewsHabilitadas = true;
 
-    //permite que essa variavel seja vista pela classe de teste
-    @VisibleForTesting(otherwise = VisibleForTesting.PRIVATE)
-    private Toast mToast;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -91,7 +87,7 @@ public class EditarFornecedorActivity extends AppCompatActivity {
     //Método para cadastrar o fornecedor no FirebaseAuthentication
     private void editarFornecedor() {
 
-        mAutenticacao = ConfiguracaoFirebase.getFirebaseAutenticacao();
+        FirebaseAuth mAutenticacao = ConfiguracaoFirebase.getFirebaseAutenticacao();
 
         //Recuperar id do usuário logado
         String mIdFornecedorLogado;

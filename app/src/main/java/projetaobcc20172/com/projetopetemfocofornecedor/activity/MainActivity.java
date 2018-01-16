@@ -36,7 +36,6 @@ public class MainActivity extends AppCompatActivity {
     private TextView mTvTitulo, mTvSubtitulo, mTvSubtitulo2;
     private FirebaseAuth mAutenticacao;
     private DatabaseReference mFirebase;
-    private String idUsuarioLogado = null;
     private Fornecedor fornecedor;
 
     @Override
@@ -64,7 +63,7 @@ public class MainActivity extends AppCompatActivity {
         mTvSubtitulo2 = findViewById(R.id.tvSubtitulo2Fornecedor);
 
         //Recuperar id do fornecedor logado
-        idUsuarioLogado = getPreferences("idFornecedor", this);
+        String idUsuarioLogado = getPreferences("idFornecedor", this);
 
 
         // Recuperar dados do Firebase
@@ -91,9 +90,7 @@ public class MainActivity extends AppCompatActivity {
             }
 
             @Override
-            public void onCancelled(DatabaseError databaseError) {
-                Assert True;
-            }
+            public void onCancelled(DatabaseError databaseError) { }
         });
 
         mMeusServicos.setOnClickListener(new View.OnClickListener() {

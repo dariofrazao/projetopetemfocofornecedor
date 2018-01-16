@@ -92,9 +92,8 @@ public class FornecedorDaoImpl implements FornecedorDao{
             }
 
             @Override
-            public void onCancelled(DatabaseError databaseError) {
-                Assert True;
-            } });
+            public void onCancelled(DatabaseError databaseError) { }
+        });
     }
 
     private Context getContexto(){
