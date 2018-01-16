@@ -1,8 +1,11 @@
 package projetaobcc20172.com.projetopetemfocofornecedor.activity;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.annotation.NonNull;
 import android.support.annotation.VisibleForTesting;
 import android.support.v7.app.AppCompatActivity;
@@ -78,10 +81,11 @@ public class CadastroFornecedorActivity extends AppCompatActivity {
         botaoCadastrar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent();
                 mFornecedor = new Fornecedor();
-                mFornecedor.setNome(mNome.getText().toString() );
                 mFornecedor.setEmail(mEmail.getText().toString());
+                String identificadorFornecedor = Base64Custom.codificarBase64(mFornecedor.getEmail());
+                mFornecedor.setId(identificadorFornecedor);
+                mFornecedor.setNome(mNome.getText().toString() );
                 mFornecedor.setTelefone(mTelefone.getText().toString());
                 mFornecedor.setCpfCnpj(mCpfCnpj.getText().toString());
                 mFornecedor.setHorarios(mSpinnerHorarios.getSelectedItem().toString());
@@ -107,6 +111,7 @@ public class CadastroFornecedorActivity extends AppCompatActivity {
     //Método para cadastrar o fornecedor no FirebaseAuthentication
     private void cadastrarFornecedor() {
         try {
+
             VerificadorDeObjetos.vDadosFornecedor(mFornecedor, this);
             mAutenticacao = ConfiguracaoFirebase.getFirebaseAutenticacao();
             mAutenticacao.createUserWithEmailAndPassword(
@@ -117,12 +122,13 @@ public class CadastroFornecedorActivity extends AppCompatActivity {
                 public void onComplete(@NonNull Task<AuthResult> task) {
 
                     if (task.isSuccessful()) {
-                        String identificadorFornecedor = Base64Custom.codificarBase64(mFornecedor.getEmail());
-                        mFornecedor.setId(identificadorFornecedor);
+
+
                         mToast = Toast.makeText(CadastroFornecedorActivity.this, R.string.sucesso_cadastro_proxima_etapa_Toast, Toast.LENGTH_SHORT);
                         mToast.show();
                         //Aqui será chamado a continuação do cadastro do fornecedor, levando-o ao cadastro do endereço
                         abrirCadastroEndereco(mFornecedor);
+
                     } else {
 
                         String erro = "";
@@ -156,7 +162,7 @@ public class CadastroFornecedorActivity extends AppCompatActivity {
     public void abrirCadastroEndereco(Fornecedor fornecedor){
         mAutenticacao.signOut();
         Intent intent = new Intent(CadastroFornecedorActivity.this, CadastroEnderecoActivity.class);
-        intent.putExtra("Fornecedor", fornecedor);
+        intent.putExtra("fornecedor", fornecedor);
         startActivity(intent);
         finish();
     }

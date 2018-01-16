@@ -132,36 +132,6 @@ public class ServicosActivity extends AppCompatActivity implements ServicoAdapte
         return true;
     }
 
-
-    @Override
-    @SuppressLint("ResourceType")
-    public boolean onCreateOptionsMenu(Menu menu){
-        getMenuInflater().inflate(R.layout.menu_main, menu);
-        return super.onCreateOptionsMenu(menu);
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item){
-        int id = item.getItemId();
-
-        if (id == R.id.action_editar){
-            Intent intent = new Intent();
-            intent.setClass(ServicosActivity.this, CadastroServicoActivity.class);
-            startActivity(intent);
-            return true;
-        }
-        if (id == R.id.action_eliminar){
-            Servico servico = null;
-            confirmarRemocao(servico);
-            
-            return true;
-        }
-
-        return  super.onOptionsItemSelected(item);
-    }
-
-
-
     private void removerServico(Servico servico){
 
         ServicoDaoImpl servicoDao =  new ServicoDaoImpl(this);
