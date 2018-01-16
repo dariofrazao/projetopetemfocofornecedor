@@ -39,7 +39,6 @@ public class CadastroEnderecoActivity extends AppCompatActivity{
     private Fornecedor mFornecedor;
     private Util mUtil;
     private Endereco mEndereco;
-    private String mIdUsuarioLogado;
 
     @VisibleForTesting(otherwise = VisibleForTesting.PRIVATE)
     //permite que essa variavel seja vista pela classe de teste
@@ -80,7 +79,7 @@ public class CadastroEnderecoActivity extends AppCompatActivity{
 
         //Receber os dados do fornecedor da outra activity
         Intent i = getIntent();
-        mFornecedor = (Fornecedor) i.getSerializableExtra("Fornecedor");
+        mFornecedor = (Fornecedor) i.getSerializableExtra("fornecedor");
 
         Button mBtnCadastrarEndereco = findViewById(R.id.btnCadastrarEndereco);
         mBtnCadastrarEndereco.setOnClickListener(new View.OnClickListener() {
@@ -119,16 +118,12 @@ public class CadastroEnderecoActivity extends AppCompatActivity{
     private void cadastrarEnderecoFornecedor(){
             try {
 
-                //Recuperar id do fornecedor logado
-                mIdUsuarioLogado = getPreferences("idFornecedor", CadastroEnderecoActivity.this);
-
                 VerificadorDeObjetos.vDadosObrEndereco(mEndereco);
                 mFornecedor.setEndereco(mEndereco);
                 FornecedorDaoImpl fornecedorDao =  new FornecedorDaoImpl(this);
 
                 //Chamada do DAO para salvar no banco
-                fornecedorDao.inserir(mFornecedor, mIdUsuarioLogado);
-                //salvarPreferencias("idFornecedor", mFornecedor.getId());
+                fornecedorDao.inserir(mFornecedor, mFornecedor.getId());
                 abrirLoginFornecedor();
 
             } catch (CampoObrAusenteException e) {
@@ -147,13 +142,6 @@ public class CadastroEnderecoActivity extends AppCompatActivity{
         finish();
     }
 
-    //Método que salva o id do fornecedor nas preferências
-    private void salvarPreferencias(String key, String value){
-        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
-        SharedPreferences.Editor editor = sharedPreferences.edit();
-        editor.putString(key, value);
-        editor.commit();
-    }
 
     //Método que trava os campos de endereço enquanto a busca pelo cep é realizada
     public void lockFields (boolean isToLock){

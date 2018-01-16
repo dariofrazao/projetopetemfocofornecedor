@@ -1,6 +1,9 @@
 package projetaobcc20172.com.projetopetemfocofornecedor.model;
 
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.Exclude;
+import com.google.firebase.database.FirebaseDatabase;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -23,6 +26,8 @@ public class Fornecedor implements Serializable {
     private String mSenha2;
     private String mEnderecoFornecedor = "1";
     private Endereco mEndereco;
+
+    @Exclude
     private ArrayList<Servico> mServicos = new ArrayList<>();
 
     private float mLatitude = 0;
@@ -33,6 +38,7 @@ public class Fornecedor implements Serializable {
     }
 
     public Fornecedor(String nome, String email, String cpfCnpj, String telefone, String senha, String senha2, String horarios) {
+
         this.mNome = nome;
         this.mEmail = email;
         this.mSenha = senha;
@@ -42,7 +48,7 @@ public class Fornecedor implements Serializable {
         this.mTelefone = telefone;
     }
 
-    @Exclude
+
     public String getId() {
         return mId;
     }
@@ -152,4 +158,5 @@ public class Fornecedor implements Serializable {
     public float getmLongitude() {
         return mLongitude;
     }
+
 }
