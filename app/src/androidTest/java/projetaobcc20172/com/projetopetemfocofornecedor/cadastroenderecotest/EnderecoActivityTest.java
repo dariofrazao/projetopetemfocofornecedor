@@ -8,10 +8,9 @@ import org.junit.Rule;
 import org.junit.Test;
 
 import projetaobcc20172.com.projetopetemfocofornecedor.R;
+import projetaobcc20172.com.projetopetemfocofornecedor.TestTools;
 import projetaobcc20172.com.projetopetemfocofornecedor.activity.CadastroEnderecoActivity;
 import projetaobcc20172.com.projetopetemfocofornecedor.activity.LoginActivity;
-import projetaobcc20172.com.projetopetemfocofornecedor.TestTools;
-import projetaobcc20172.com.projetopetemfocofornecedor.logintests.LoginActivityTest;
 
 /**
  * Created by raul on 09/12/17.

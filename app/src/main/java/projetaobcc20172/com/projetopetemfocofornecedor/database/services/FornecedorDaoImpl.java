@@ -2,10 +2,11 @@ package projetaobcc20172.com.projetopetemfocofornecedor.database.services;
 
 import android.content.Context;
 import android.support.annotation.NonNull;
+
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.database.DatabaseReference;
-import java.util.List;
+
 import projetaobcc20172.com.projetopetemfocofornecedor.R;
 import projetaobcc20172.com.projetopetemfocofornecedor.config.ConfiguracaoFirebase;
 import projetaobcc20172.com.projetopetemfocofornecedor.model.Fornecedor;

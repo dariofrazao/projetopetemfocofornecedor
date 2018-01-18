@@ -4,9 +4,9 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
+import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.Button;
@@ -16,24 +16,23 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import projetaobcc20172.com.projetopetemfocofornecedor.R;
 import projetaobcc20172.com.projetopetemfocofornecedor.config.ConfiguracaoFirebase;
+import projetaobcc20172.com.projetopetemfocofornecedor.helper.Preferencias;
+
 
 public class MainActivity extends AppCompatActivity {
 
     private TextView mTvTitulo, mTvSubtitulo, mTvSubtitulo2;
     private FirebaseAuth mAutenticacao;
     private DatabaseReference mFirebase;
-    private static FirebaseDatabase mDatabase;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
         mAutenticacao = ConfiguracaoFirebase.getFirebaseAutenticacao();
         Button sair;
         Button meusServicos;
@@ -69,6 +68,8 @@ public class MainActivity extends AppCompatActivity {
                 mTvTitulo.setText(nome);
                 mTvSubtitulo.setText("E-mail: " + email);
                 mTvSubtitulo2.setText("Fone: " + telefone);
+                Preferencias p = new Preferencias(MainActivity.this);
+                p.salvarDadosUser(idUsuarioLogado,nome,email);
             }
 
             @Override

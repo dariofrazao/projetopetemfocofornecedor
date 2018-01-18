@@ -27,8 +27,8 @@ import projetaobcc20172.com.projetopetemfocofornecedor.R;
 import projetaobcc20172.com.projetopetemfocofornecedor.config.ConfiguracaoFirebase;
 import projetaobcc20172.com.projetopetemfocofornecedor.excecoes.ValidacaoException;
 import projetaobcc20172.com.projetopetemfocofornecedor.helper.Base64Custom;
-import projetaobcc20172.com.projetopetemfocofornecedor.utils.MaskUtil;
 import projetaobcc20172.com.projetopetemfocofornecedor.model.Fornecedor;
+import projetaobcc20172.com.projetopetemfocofornecedor.utils.MaskUtil;
 import projetaobcc20172.com.projetopetemfocofornecedor.utils.Utils;
 import projetaobcc20172.com.projetopetemfocofornecedor.utils.VerificadorDeObjetos;
 

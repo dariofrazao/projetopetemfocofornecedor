@@ -12,7 +12,6 @@ import org.mockito.junit.MockitoRule;
 
 import java.util.Arrays;
 
-
 import projetaobcc20172.com.projetopetemfocofornecedor.excecoes.ValidacaoException;
 import projetaobcc20172.com.projetopetemfocofornecedor.model.Fornecedor;
 import projetaobcc20172.com.projetopetemfocofornecedor.utils.VerificadorDeObjetos;

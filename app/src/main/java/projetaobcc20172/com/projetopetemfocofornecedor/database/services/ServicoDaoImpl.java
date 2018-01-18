@@ -5,18 +5,17 @@ import android.support.annotation.NonNull;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
-import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.ValueEventListener;
-
 
 import java.util.HashMap;
 import java.util.Map;
 
 import projetaobcc20172.com.projetopetemfocofornecedor.R;
 import projetaobcc20172.com.projetopetemfocofornecedor.config.ConfiguracaoFirebase;
+import projetaobcc20172.com.projetopetemfocofornecedor.helper.Preferencias;
 import projetaobcc20172.com.projetopetemfocofornecedor.model.Servico;
 import projetaobcc20172.com.projetopetemfocofornecedor.utils.Utils;
 
@@ -30,68 +29,24 @@ public class ServicoDaoImpl implements ServicoDao{
 
     private DatabaseReference mReferenciaFirebase;
     private final Context mContexto;
+    private final Preferencias mPreferencias;
 
     public ServicoDaoImpl(Context contexto){
         this.mReferenciaFirebase = ConfiguracaoFirebase.getFirebase();
         this.mContexto = contexto;
+        this.mPreferencias =  new Preferencias(this.mContexto);
     }
 
     @Override
-    public void inserir(Servico servico, final String idFornecedor) {
-        final String[] nomeFornecedor = new String[1];
-        mReferenciaFirebase = mReferenciaFirebase.child("fornecedor").child(idFornecedor);
-        mReferenciaFirebase.child("nome").addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                nomeFornecedor[0] = (String) dataSnapshot.getValue();
-
-                // do your stuff here with value
-
-            }
-
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-                assert true;
-            }
-
-        });
-        mReferenciaFirebase.child("servicos").push().setValue(servico).addOnCompleteListener(new OnCompleteListener<Void>() {
+    public void inserir(final Servico servico, final String idFornecedor) {
+        servico.setIdFornecedor(idFornecedor);
+        DatabaseReference ref = mReferenciaFirebase.child("servicos").push();
+        final String id = ref.getKey();
+        ref.setValue(servico).addOnCompleteListener(new OnCompleteListener<Void>() {
             @Override
             public void onComplete(@NonNull Task<Void> task) {
                 if(task.isSuccessful()){
                     Utils.mostrarMensagemLonga(getContexto(), getContexto().getString(R.string.sucesso_cadastro_servico));
-                    //cria um "fornecedor_servico" para todos os novos servicos add
-                    mReferenciaFirebase.child("servicos").addChildEventListener(new ChildEventListener() {
-                        @Override
-                        public void onChildAdded(DataSnapshot dataSnapshot, String s) {
-                            try {
-                                Servico servico = dataSnapshot.getValue(Servico.class);
-                                salvarFornecedorServico(servico,s,idFornecedor,nomeFornecedor[0]);
-                            }catch (Exception e){
-                                System.out.println("ERRO");
-                            }
-                        }
-
-                        @Override
-                        public void onChildChanged(DataSnapshot dataSnapshot, String s) {
-                            assert true;
-                        }
-
-                        @Override
-                        public void onChildRemoved(DataSnapshot dataSnapshot) {
-                            assert true;
-                        }
-
-                        @Override
-                        public void onChildMoved(DataSnapshot dataSnapshot, String s) {
-                            assert true;
-                        }
-
-                        @Override
-                        public void onCancelled(DatabaseError databaseError) {
-                            assert true;
-                        }
-                    });
                 }
                 else{
                     Utils.mostrarMensagemLonga(getContexto(), getContexto().getString(R.string.erro_cadastro_servico));
@@ -101,6 +56,12 @@ public class ServicoDaoImpl implements ServicoDao{
                         e.printStackTrace();
                     }
                 }
+                if(task.isComplete()){
+                    //cria um "fornecedor_servico" para todos os novos servicos add
+                    servico.setmId(id);
+                    salvarFornecedorServico(servico,servico.getId(),servico.getIdFornecedor());
+                }
+
             }
         });
 
@@ -108,67 +69,35 @@ public class ServicoDaoImpl implements ServicoDao{
 
     @Override
     public void remover(final Servico servico, String idFornecedor) {
-        mReferenciaFirebase = mReferenciaFirebase.child("fornecedor").child(idFornecedor);
         mReferenciaFirebase.child(String.format("%s/%s", "servicos", servico.getId())).setValue(null)
                 .addOnCompleteListener(new OnCompleteListener<Void>() {
-            @Override
-            public void onComplete(@NonNull Task<Void> task) {
-                if(task.isSuccessful()){
-                    removerServicoFornecedor(servico.getId()+"");
-                    Utils.mostrarMensagemLonga(getContexto(), getContexto().getString(R.string.sucesso_remocao));
-                }
-                else{
-                    Utils.mostrarMensagemLonga(getContexto(), getContexto().getString(R.string.falha_remocao));
-                    try {
-                        throw  task.getException();
-                    } catch (Exception e) {
-                        e.printStackTrace();
+                    @Override
+                    public void onComplete(@NonNull Task<Void> task) {
+                        if(task.isSuccessful()){
+                            removerServicoFornecedor(servico.getId()+"");
+                            Utils.mostrarMensagemLonga(getContexto(), getContexto().getString(R.string.sucesso_remocao));
+                        }
+                        else{
+                            Utils.mostrarMensagemLonga(getContexto(), getContexto().getString(R.string.falha_remocao));
+                            try {
+                                throw  task.getException();
+                            } catch (Exception e) {
+                                e.printStackTrace();
+                            }
+                        }
                     }
-                }
-            }
-        });
+                });
     }
 
     @Override
-    public void atualizar(Servico servico, final String idFornecedor) {
-        mReferenciaFirebase = mReferenciaFirebase.child("fornecedor").child(idFornecedor);
+    public void atualizar(final Servico servico, final String idFornecedor) {
+        servico.setIdFornecedor(idFornecedor);
         mReferenciaFirebase.child(String.format("%s/%s", "servicos", servico.getId()))
                 .setValue(servico).addOnCompleteListener(new OnCompleteListener<Void>() {
             @Override
             public void onComplete(@NonNull Task<Void> task) {
                 if(task.isSuccessful()){
-                    final String[] nomeFornecedor = new String[1];
-                    mReferenciaFirebase.child("servicos").addChildEventListener(new ChildEventListener() {
-                        @Override
-                        public void onChildAdded(DataSnapshot dataSnapshot, String s) {
-                            try {
-                                Servico servico = dataSnapshot.getValue(Servico.class);
-                                salvarFornecedorServico(servico,s,idFornecedor,nomeFornecedor[0]);
-                            }catch (Exception e){
-                                System.out.println("ERRO");
-                            }
-                        }
-
-                        @Override
-                        public void onChildChanged(DataSnapshot dataSnapshot, String s) {
-                            assert true;
-                        }
-
-                        @Override
-                        public void onChildRemoved(DataSnapshot dataSnapshot) {
-                            assert true;
-                        }
-
-                        @Override
-                        public void onChildMoved(DataSnapshot dataSnapshot, String s) {
-                            assert true;
-                        }
-
-                        @Override
-                        public void onCancelled(DatabaseError databaseError) {
-                            assert true;
-                        }
-                    });
+                    atualizarFornecedorServico(servico);
                     Utils.mostrarMensagemLonga(getContexto(), getContexto().getString(R.string.sucesso_atualizacao));
 
                 }
@@ -184,27 +113,39 @@ public class ServicoDaoImpl implements ServicoDao{
         });
     }
 
-/*
-*/
+    /*
+    */
     //Cria um nó chamadao "servico_fornecedor" que relaciona o servico ao fornecedor
     //Permitindo a busca de fornecedores pelo servico
-    private void salvarFornecedorServico(Servico servico,String idServico,String idFornecedor,String nomeFornecedor){
-        mReferenciaFirebase = ConfiguracaoFirebase.getFirebase().child("servico_fornecedor").child(idServico);
-        mReferenciaFirebase.push();
+    private void salvarFornecedorServico(Servico servico,String idServico,String idFornecedor){
+        DatabaseReference ref = ConfiguracaoFirebase.getFirebase().child("servico_fornecedor").child(idServico);
+        ref.push();
         Map<String, String> mapaNomes = new HashMap<>();
         String nomeServTipoPet = servico.getNome()+"_"+ servico.getTipoPet();
         mapaNomes.put("nome_tipoPet",nomeServTipoPet);
         mapaNomes.put("idFornecedor",idFornecedor);
         mapaNomes.put("valor",servico.getValor());
-        mapaNomes.put("nomeFornecedor",nomeFornecedor);
+        mapaNomes.put("nomeFornecedor",mPreferencias.getNome());
         mapaNomes.put("servico",servico.getNome());
         mapaNomes.put("pet",servico.getTipoPet());
-        mReferenciaFirebase.setValue(mapaNomes);
+        ref.setValue(mapaNomes);
     }
 
+    private void atualizarFornecedorServico(final Servico servico){
+        ConfiguracaoFirebase.getFirebase().child("servico_fornecedor").child(servico.getId()).addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                salvarFornecedorServico(servico,servico.getId(),servico.getIdFornecedor());
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+                assert true;
+            }
+        });
+    }
     private void removerServicoFornecedor(String idServico){
-        mReferenciaFirebase = ConfiguracaoFirebase.getFirebase().child("servico_fornecedor").child(idServico);
-        mReferenciaFirebase.setValue(null);
+        ConfiguracaoFirebase.getFirebase().child("servico_fornecedor").child(idServico).setValue(null);
 
     }
     private Context getContexto(){

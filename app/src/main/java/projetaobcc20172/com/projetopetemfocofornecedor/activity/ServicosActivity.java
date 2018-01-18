@@ -5,33 +5,28 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
+import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.annotation.VisibleForTesting;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
-
-import android.widget.AdapterView;
 import android.widget.ImageButton;
-
 import android.widget.ListView;
-import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 
-import java.io.Serializable;
 import java.util.ArrayList;
 
 import projetaobcc20172.com.projetopetemfocofornecedor.R;
 import projetaobcc20172.com.projetopetemfocofornecedor.adapter.ServicoAdapter;
 import projetaobcc20172.com.projetopetemfocofornecedor.config.ConfiguracaoFirebase;
 import projetaobcc20172.com.projetopetemfocofornecedor.database.services.ServicoDaoImpl;
-
 import projetaobcc20172.com.projetopetemfocofornecedor.model.Servico;
 import projetaobcc20172.com.projetopetemfocofornecedor.utils.Utils;
 
@@ -50,7 +45,6 @@ public class ServicosActivity extends AppCompatActivity implements ServicoAdapte
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_servicos);
-
         mAutenticacao = ConfiguracaoFirebase.getFirebaseAutenticacao();
 
         //Recuperar id do fornecedor logado
@@ -78,48 +72,17 @@ public class ServicosActivity extends AppCompatActivity implements ServicoAdapte
         mAdapter.setCustomButtonListener(ServicosActivity.this);
         listView.setAdapter(mAdapter);
 
-        // Recuperar serviços do Firebase
-        mFirebase = ConfiguracaoFirebase.getFirebase().child("fornecedor").child(mIdUsuarioLogado).child("servicos");
-
-        mValueEventListenerServico = new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                mServicos.clear();
-
-                //Recupera serviços
-                for (DataSnapshot dados : dataSnapshot.getChildren()) {
-                    Servico servico = dados.getValue(Servico.class);
-                    servico.setmId(dados.getKey());
-                    mServicos.add(servico);
-                }
-                //Notificar o adaptar que exibe a lista de serviços se houver alteração no banco
-                mAdapter.notifyDataSetChanged();
-            }
-
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-                Toast.makeText(ServicosActivity.this, "Erro na leitura do banco de dados", Toast.LENGTH_SHORT).show();
-            }
-        };
-
-        cadastroServico.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent();
-                intent.setClass(ServicosActivity.this, CadastroServicoActivity.class);
-                startActivity(intent);
-            }
-        });
-        mFirebase.addValueEventListener(mValueEventListenerServico);
-
+        this.carregarServicos();
         //Ação do botão de cadastrar o serviço, que abre a tela para o seu cadastro
         cadastroServico.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(ServicosActivity.this, CadastroServicoActivity.class);
                 startActivity(intent);
+                finish();
             }
         });
+
     }
 
     @Override
@@ -132,6 +95,9 @@ public class ServicosActivity extends AppCompatActivity implements ServicoAdapte
 
         ServicoDaoImpl servicoDao =  new ServicoDaoImpl(this);
         servicoDao.remover(servico, mIdUsuarioLogado);
+        mServicos.remove(servico);
+        mAdapter.notifyDataSetChanged();
+
     }
 
     @Override
@@ -147,6 +113,7 @@ public class ServicosActivity extends AppCompatActivity implements ServicoAdapte
         intent.putExtras(bundle);
         intent.setClass(ServicosActivity.this, CadastroServicoActivity.class);
         startActivity(intent);
+        finish();
     }
 
     /**
@@ -173,5 +140,29 @@ public class ServicosActivity extends AppCompatActivity implements ServicoAdapte
         Utils.mostrarPerguntaSimNao(this, getString(R.string.atencao),
                 getString(R.string.info_confirmar_remocao_servico), dialogClickListener,
                 dialogClickListener);
+    }
+
+
+    private void carregarServicos(){
+        // Recuperar serviços do Firebase
+        mServicos.clear();
+        Query query = ConfiguracaoFirebase.getFirebase().child("servicos").orderByChild("idFornecedor").equalTo(mIdUsuarioLogado);
+        query.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                for (DataSnapshot dados : dataSnapshot.getChildren()) {
+                    Servico servico = dados.getValue(Servico.class);
+                    servico.setmId(dados.getKey());
+                    mServicos.add(servico);
+
+                }
+                mAdapter.notifyDataSetChanged();
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+                assert true;
+            }
+        });
     }
 }
