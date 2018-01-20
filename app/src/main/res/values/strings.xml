@@ -8,7 +8,7 @@
     <string name="repita_sua_senha">Repita sua senha</string>
     <string name="nome">Nome</string>
     <string name="confirmar_sua_senha">Confirme sua senha</string>
-    <string name="sucesso_cadastro_proxima_etapa_Toast">Sucesso! Pronto para a próxima etapa</string>
+    <string name="sucesso_cadastro_proxima_etapa_Toast">SucessoSucesso! Pronto para a próxima etapa</string>
     <string name="sucesso_cadastro">Cadastro Efetuado com Sucesso!</string>
     <string name="erro_ao_cadastrar">Erro ao cadastrar</string>
     <string name="erro_ao_atualizar">Erro ao atualizar</string>
@@ -40,6 +40,9 @@
     <string name="erro_cadastro_fornecedor_senhas_diferentes_Toast">Erro ao cadastrar fornecedor: Os campos de senha devem ser iguais.</string>
     <string name="erro_cadastro_fornecedor_sem_conexao">Erro ao cadastrar fornecedor: Verifique a sua conexão</string>
     <string name="erro_cadastro_fornecedor_nome_fornecedor_Toast">Erro ao cadastrar fornecedor: O nome de fornecedor inválido.</string>
+
+    <!--Strings relacionadas a editar fornecedor-->
+    <string name="erro_editar_fornecedor_campos_obrigatorios_Toast">Erro ao editar fornecedor: Preencha todos os campos</string>
 
     <!--Strings relacionadas a login-->
     <string name="prompt_email">Email</string>

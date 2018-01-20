@@ -86,8 +86,7 @@
                         style="@style/Widget.AppCompat.DropDownItem.Spinner"/>
 
                 </LinearLayout>
-
-
+                
                 <Button
                     android:id="@+id/botao_editar_fornecedor"
                     android:layout_width="fill_parent"

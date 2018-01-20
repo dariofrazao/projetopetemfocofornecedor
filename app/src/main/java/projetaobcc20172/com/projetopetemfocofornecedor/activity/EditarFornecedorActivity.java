@@ -1,5 +1,6 @@
 package projetaobcc20172.com.projetopetemfocofornecedor.activity;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -20,7 +21,6 @@ import com.google.firebase.auth.FirebaseAuth;
 import projetaobcc20172.com.projetopetemfocofornecedor.R;
 import projetaobcc20172.com.projetopetemfocofornecedor.config.ConfiguracaoFirebase;
 import projetaobcc20172.com.projetopetemfocofornecedor.database.services.FornecedorDaoImpl;
-import projetaobcc20172.com.projetopetemfocofornecedor.database.services.ServicoDaoImpl;
 import projetaobcc20172.com.projetopetemfocofornecedor.utils.MaskUtil;
 import projetaobcc20172.com.projetopetemfocofornecedor.model.Fornecedor;
 import projetaobcc20172.com.projetopetemfocofornecedor.utils.Utils;
@@ -39,6 +39,9 @@ public class EditarFornecedorActivity extends AppCompatActivity {
     private Fornecedor mFornecedorAnterior;
     private boolean mIsViewsHabilitadas = true;
 
+    //permite que essa variavel seja vista pela classe de teste
+    @VisibleForTesting(otherwise = VisibleForTesting.PRIVATE)
+    public Toast mToast;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -86,7 +89,6 @@ public class EditarFornecedorActivity extends AppCompatActivity {
 
     //Método para cadastrar o fornecedor no FirebaseAuthentication
     private void editarFornecedor() {
-
         FirebaseAuth mAutenticacao = ConfiguracaoFirebase.getFirebaseAutenticacao();
 
         //Recuperar id do usuário logado
@@ -95,10 +97,17 @@ public class EditarFornecedorActivity extends AppCompatActivity {
         mFornecedorAnterior.setHorarios(mSpinnerHorarios.getSelectedItem().toString());
         mFornecedorAnterior.setTelefone(mTelefone.getText().toString());
 
-        FornecedorDaoImpl fornecedorDao = new FornecedorDaoImpl(EditarFornecedorActivity.this);
-        fornecedorDao.atualizar(mFornecedorAnterior, mIdFornecedorLogado);
-        abrirTelaPrincipal();
+        //se algum campo estiver vazio, mostra mensagem e nao permite editar ate que o campo seja preenchido
+        if (mFornecedorAnterior.getTelefone().toString().isEmpty() || mFornecedorAnterior.getHorarios().toString().isEmpty()){
+            mToast = Toast.makeText(EditarFornecedorActivity.this, R.string.erro_editar_fornecedor_campos_obrigatorios_Toast, Toast.LENGTH_SHORT);
+            mToast.show();
+        }else{
+            FornecedorDaoImpl fornecedorDao = new FornecedorDaoImpl(EditarFornecedorActivity.this);
+            fornecedorDao.atualizar(mFornecedorAnterior, mIdFornecedorLogado);
+            abrirTelaPrincipal();
+        }
     }
+
 
     private void abrirTelaPrincipal() {
         Intent intent = new Intent(EditarFornecedorActivity.this, MainActivity.class);
@@ -156,6 +165,11 @@ public class EditarFornecedorActivity extends AppCompatActivity {
     public static String getPreferences(String key, Context context) {
         SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(context);
         return preferences.getString(key, null);
+    }
+
+    //metodo gera Toast's
+    public void gerarToast() {
+         Toast toast = Toast.makeText(EditarFornecedorActivity.this, R.string.erro_editar_fornecedor_campos_obrigatorios_Toast, Toast.LENGTH_SHORT);
     }
 
 }
