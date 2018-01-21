@@ -65,10 +65,13 @@ public class MainActivity extends AppCompatActivity {
                 String nome = (String)dataSnapshot.child("nome").getValue();
                 String email = (String)dataSnapshot.child("email").getValue();
                 String telefone = (String)dataSnapshot.child("telefone").getValue();
+                double latitude = (double)dataSnapshot.child("mLatitude").getValue();
+                double longitude = (double)dataSnapshot.child("mLongitude").getValue();
                 mTvTitulo.setText(nome);
                 mTvSubtitulo.setText("E-mail: " + email);
                 mTvSubtitulo2.setText("Fone: " + telefone);
                 Preferencias p = new Preferencias(MainActivity.this);
+                p.salvarPosicao((float)latitude,(float)longitude);
                 p.salvarDadosUser(idUsuarioLogado,nome,email);
             }
 
