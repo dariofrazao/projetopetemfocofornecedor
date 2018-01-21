@@ -1,8 +1,6 @@
 package projetaobcc20172.com.projetopetemfocofornecedor;
-
-
 import android.content.Context;
-
+import com.google.android.gms.maps.model.LatLng;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -10,38 +8,37 @@ import org.junit.runners.Parameterized;
 import org.mockito.Mock;
 import org.mockito.junit.MockitoJUnit;
 import org.mockito.junit.MockitoRule;
-
 import java.util.Arrays;
 
+import projetaobcc20172.com.projetopetemfocofornecedor.excecoes.CampoObrAusenteException;
 import projetaobcc20172.com.projetopetemfocofornecedor.excecoes.ValidacaoException;
 import projetaobcc20172.com.projetopetemfocofornecedor.model.Servico;
 import projetaobcc20172.com.projetopetemfocofornecedor.utils.VerificadorDeObjetos;
 
+/**
+ * Created by Alexsandro on 20/01/2018.
+ */
 
 @RunWith(Parameterized.class)
-public class UnitTestCadastroServico {
-
-    @Rule
-    public MockitoRule rule = MockitoJUnit.rule();
+public class UnitTestCadastroInsercaoCoordenadasGeograficas {
 
     @Parameterized.Parameter
-    public Servico servicoTest;
-
-    @Mock
-    private Context mMockContext;
+    public LatLng mLatLngTest;
 
     @Parameterized.Parameters
-    public static Iterable<? extends Object> data() {
+    public static Iterable<?> data() {
+        double latitude = -8.55555888;
+        double longitude = 9.45454588;
         return Arrays.asList(
-                new Servico("","",""),
-                new Servico("teste","",""),
-                new Servico("","12",""),
-                new Servico("","12","Cachorro"));
+                new LatLng(latitude,longitude),
+                new LatLng(latitude,0),
+                new LatLng(0,longitude),
+                new LatLng(0,0));
     }
 
     @Test(expected=ValidacaoException.class)
     public void testCampoObg() throws ValidacaoException {
-        VerificadorDeObjetos.vDadosServico(servicoTest, mMockContext);
+        VerificadorDeObjetos.vDadosObrCoordenadasGeograficas(mLatLngTest);
     }
 
 }

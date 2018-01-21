@@ -15,7 +15,10 @@ public class Endereco {
     private String uf;
     private String cep;
 
-    public Endereco(String logradouro,String bairro,String localidade,String uf) {
+    private double mLatitude = 0;
+    private double mLongitude = 0;
+
+    public Endereco(String logradouro, String bairro, String localidade, String uf) {
         this.logradouro = logradouro;
         this.bairro = bairro;
         this.localidade = localidade;
@@ -89,5 +92,21 @@ public class Endereco {
 
     public void setCep(String cep) {
         this.cep = cep;
+    }
+
+    public double getmLatitude() {
+        return mLatitude;
+    }
+
+    public void setmLatitude(double mLatitude) {
+        this.mLatitude = mLatitude;
+    }
+
+    public double getmLongitude() {
+        return mLongitude;
+    }
+
+    public void setmLongitude(double mLongitude) {
+        this.mLongitude = mLongitude;
     }
 }

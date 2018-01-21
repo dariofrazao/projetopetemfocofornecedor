@@ -37,6 +37,8 @@
     <string name="erro_cadastro_fornecedor_senhas_diferentes_Toast">Erro ao cadastrar fornecedor: Os campos de senha devem ser iguais.</string>
     <string name="erro_cadastro_fornecedor_sem_conexao">Erro ao cadastrar fornecedor: Verifique a sua conexão</string>
     <string name="erro_cadastro_fornecedor_nome_fornecedor_Toast">Erro ao cadastrar fornecedor: O nome de fornecedor inválido.</string>
+    <string name="tb_geolocalizacao_titulo">Localização</string>
+    <string name="google_maps_key">AIzaSyA5ajs6LhgYb3YfbuQ-hyDrUq4GYMjMkT0</string>
 
     <!--Strings relacionadas a login-->
     <string name="prompt_email">Email</string>
@@ -68,6 +70,7 @@
     <string name="escolha_sua_uf">Escolha seu estado</string>
     <string name="finalizar_cadastro">Finalizar Cadastro</string>
     <string name="erro_cadastro_endereco_campos_obrigatorios_Toast">Erro ao cadastrar endereço: Preencha pelo menos o logradouro, bairro e cidade</string>
+    <string name="erro_coordenadas_geograficas_campos_obrigatorios_Toast">Erro ao informar uma Coordenada Geografica</string>
 
     <!--Strings relacionadas a serviço-->
     <string name="tb_cadastro_serviço">Cadastro de Serviço</string>
@@ -96,9 +99,9 @@
     <!--Strings de ações-->
     <string name="action_salvar">Salvar</string>
     <string name="action_editar">Editar</string>
-    
+
     <!--String de erros-->
     <string name="error_selecione_um_servico">Selecione um serviço!</string>
-
     <string name="title_activity_editar_servico">Edição de Servico</string>
+    <string name="confirmar_edicao_geolocalizacao">CONFIRMAR</string>
 </resources>
