@@ -38,7 +38,6 @@ import projetaobcc20172.com.projetopetemfocofornecedor.utils.VerificadorDeObjeto
 public class CadastroEnderecoActivity extends AppCompatActivity{
     public static LatLng localizacao;
     private EditText mLogradouro, mNumero, mComplemento, mBairro, mLocalidade, mCep;
-    private ImageButton mImageButtonEditarGeolocalizacao;
     private Spinner mSpinnerUf;
     private Fornecedor mFornecedor;
     private Util mUtil;
@@ -53,6 +52,8 @@ public class CadastroEnderecoActivity extends AppCompatActivity{
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_cadastro_endereco);
+
+        ImageButton mImageButtonEditarGeolocalizacao;
 
         Toolbar toolbar;
         toolbar = findViewById(R.id.tb_endereco);

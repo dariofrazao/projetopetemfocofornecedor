@@ -1,18 +1,10 @@
 package projetaobcc20172.com.projetopetemfocofornecedor;
-import android.content.Context;
 import com.google.android.gms.maps.model.LatLng;
-import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
-import org.mockito.Mock;
-import org.mockito.junit.MockitoJUnit;
-import org.mockito.junit.MockitoRule;
 import java.util.Arrays;
-
-import projetaobcc20172.com.projetopetemfocofornecedor.excecoes.CampoObrAusenteException;
 import projetaobcc20172.com.projetopetemfocofornecedor.excecoes.ValidacaoException;
-import projetaobcc20172.com.projetopetemfocofornecedor.model.Servico;
 import projetaobcc20172.com.projetopetemfocofornecedor.utils.VerificadorDeObjetos;
 
 /**

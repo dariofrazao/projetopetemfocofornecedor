@@ -27,8 +27,7 @@ import projetaobcc20172.com.projetopetemfocofornecedor.utils.VerificadorDeObjeto
 
 public class GeolocalizacaoActivity extends AppCompatActivity {
     private MapView mapView;
-    private Toast mToast;
-    private LatLng mLocalizacaoFornecedor;
+     private LatLng mLocalizacaoFornecedor;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -81,9 +80,7 @@ public class GeolocalizacaoActivity extends AppCompatActivity {
     }
 
     private void setUpMap(GoogleMap googleMap) {
-        googleMap = configuracaoMap(googleMap);
-        final GoogleMap mGoogleMap = googleMap;
-
+        final GoogleMap mGoogleMap = configuracaoMap(googleMap);
         mGoogleMap.setOnMapLongClickListener(new GoogleMap.OnMapLongClickListener() {
             @Override
             public void onMapLongClick(LatLng latLng) {
@@ -191,6 +188,7 @@ public class GeolocalizacaoActivity extends AppCompatActivity {
     }
     @Override
     public void onBackPressed(){
+        Toast mToast;
         try {
             // Verifica as coordenadas do fornecedor
             VerificadorDeObjetos.vDadosObrCoordenadasGeograficas(mLocalizacaoFornecedor);
