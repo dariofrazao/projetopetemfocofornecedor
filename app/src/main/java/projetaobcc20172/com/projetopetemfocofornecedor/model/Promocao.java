@@ -15,10 +15,6 @@ public class Promocao implements Serializable{
     private String mData;
     private String mFornecedorId;
 
-    public Promocao() {
-
-    }
-
     public String getId() {
         return mId;
     }

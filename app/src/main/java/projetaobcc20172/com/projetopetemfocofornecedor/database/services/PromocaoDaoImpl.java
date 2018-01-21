@@ -82,7 +82,7 @@ public class PromocaoDaoImpl implements PromocaoDao{
 
             @Override
             public void onCancelled(DatabaseError databaseError) {
-
+                assert true;
             }
         });
     }
@@ -113,7 +113,7 @@ public class PromocaoDaoImpl implements PromocaoDao{
 
             @Override
             public void onCancelled(DatabaseError databaseError) {
-
+                assert true;
             }
         });
     }

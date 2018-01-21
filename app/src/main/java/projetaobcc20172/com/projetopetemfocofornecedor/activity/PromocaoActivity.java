@@ -13,10 +13,8 @@ import android.view.View;
 import android.widget.ImageButton;
 import android.widget.ListView;
 
-import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 
@@ -32,7 +30,6 @@ import projetaobcc20172.com.projetopetemfocofornecedor.utils.Utils;
 
 public class PromocaoActivity extends AppCompatActivity implements PromocaoAdapter.CustomButtonListener{
 
-    private FirebaseAuth mAutenticacao;
     private ArrayList<Promocao> mPromocoes;
     private PromocaoAdapter mAdapter;
     @VisibleForTesting(otherwise = VisibleForTesting.PRIVATE)//permite que essa variavel seja vista pela classe de teste
@@ -43,8 +40,6 @@ public class PromocaoActivity extends AppCompatActivity implements PromocaoAdapt
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_promocao);
-
-        mAutenticacao = ConfiguracaoFirebase.getFirebaseAutenticacao();
 
         SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
         mIdUsuarioLogado = preferences.getString("idFornecedor", "");

@@ -9,7 +9,6 @@ import android.graphics.Color;
 import android.os.Build;
 import android.preference.PreferenceManager;
 import android.support.annotation.RequiresApi;
-import android.support.annotation.VisibleForTesting;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
@@ -18,8 +17,6 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
-import android.widget.Toast;
-
 
 import java.util.Calendar;
 import java.util.Locale;
@@ -38,14 +35,10 @@ public class CadastroPromocaoActivity extends AppCompatActivity {
     private EditText mData;
     private EditText mDescricao;
     private EditText mValor;
-    private Button mCadastrarPromocao;
-    private Button mEditarPromocao;
     private DatePickerDialog mDatePickerDialog;
     private boolean mIsViewsHabilitadas = true;
     private String mIdUsuarioLogado;
     private Promocao mPromocao;
-    @VisibleForTesting(otherwise = VisibleForTesting.PRIVATE) //permite que essa variavel seja vista pela classe de teste
-    private Toast mToast;
 
 
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
@@ -56,7 +49,6 @@ public class CadastroPromocaoActivity extends AppCompatActivity {
         Toolbar toolbar;
         toolbar = findViewById(R.id.tb_main);
 
-        final String idUsuarioLogado;
         SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(CadastroPromocaoActivity.this);
         mIdUsuarioLogado = preferences.getString("id", "");
 
@@ -76,19 +68,19 @@ public class CadastroPromocaoActivity extends AppCompatActivity {
         mData.setInputType(InputType.TYPE_NULL);
         mData.setFocusable(false);
 
-        mCadastrarPromocao = findViewById(R.id.btnCadastroPromocao);
-        mEditarPromocao = findViewById(R.id.btnEditarPromocao);
+        Button btnCadastrarPromocao = findViewById(R.id.btnCadastroPromocao);
+        Button btnEditarPromocao = findViewById(R.id.btnEditarPromocao);
         //funcao responsavel por preencher o campo de mData com a mData selecionada do datapicker
         getDateFromActivityListener();
 
-        mCadastrarPromocao.setOnClickListener(new View.OnClickListener() {
+        btnCadastrarPromocao.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 salvarPromocao();
             }
         });
 
-        mEditarPromocao.setOnClickListener(new View.OnClickListener() {
+        btnEditarPromocao.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 try{
@@ -117,8 +109,8 @@ public class CadastroPromocaoActivity extends AppCompatActivity {
         Intent intent = getIntent();
         if(intent.hasExtra("promocao")){
             toolbar.setTitle("Editar Promocao");
-            mCadastrarPromocao.setVisibility(View.GONE);
-            mEditarPromocao.setVisibility(View.VISIBLE);
+            btnCadastrarPromocao.setVisibility(View.GONE);
+            btnEditarPromocao.setVisibility(View.VISIBLE);
             mPromocao = (Promocao) intent.getSerializableExtra("promocao");
             setvaluesOnViews();
         }
@@ -136,7 +128,7 @@ public class CadastroPromocaoActivity extends AppCompatActivity {
 
     }
 
-    void salvarPromocao(){
+    private void salvarPromocao(){
         try {
             mIdUsuarioLogado = getPreferences("idFornecedor", CadastroPromocaoActivity.this);
             mPromocao = new Promocao();
@@ -163,14 +155,14 @@ public class CadastroPromocaoActivity extends AppCompatActivity {
         final int mYear = c.get(Calendar.YEAR); // current year
         final int mMonth = c.get(Calendar.MONTH); // current month
         final int mDay = c.get(Calendar.DAY_OF_MONTH); // current day
-
+        final DatePickerDialog[] data = new DatePickerDialog[1];
         //inicia o campo com a mData atual
         mData.setText(String.format("%d/%d/%d", mDay, mMonth + 1, mYear));
 
         mData.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                mDatePickerDialog = new DatePickerDialog(CadastroPromocaoActivity.this,
+                data[0] = new DatePickerDialog(CadastroPromocaoActivity.this,
                         new DatePickerDialog.OnDateSetListener() {
 
                             @Override

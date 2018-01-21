@@ -13,7 +13,6 @@ import java.util.ArrayList;
 
 import projetaobcc20172.com.projetopetemfocofornecedor.R;
 import projetaobcc20172.com.projetopetemfocofornecedor.model.Promocao;
-import projetaobcc20172.com.projetopetemfocofornecedor.model.Servico;
 
 /**
  * Created by Cloves on 19/01/2018.
