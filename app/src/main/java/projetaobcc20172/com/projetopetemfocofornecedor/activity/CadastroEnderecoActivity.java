@@ -16,8 +16,11 @@ import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.Spinner;
 import android.widget.Toast;
+
+import com.google.android.gms.maps.model.LatLng;
 
 import projetaobcc20172.com.projetopetemfocofornecedor.R;
 import projetaobcc20172.com.projetopetemfocofornecedor.database.services.FornecedorDaoImpl;
@@ -33,7 +36,7 @@ import projetaobcc20172.com.projetopetemfocofornecedor.utils.VerificadorDeObjeto
  * Activity de cadastro de endereço
  */
 public class CadastroEnderecoActivity extends AppCompatActivity{
-
+    public static LatLng localizacao;
     private EditText mLogradouro, mNumero, mComplemento, mBairro, mLocalidade, mCep;
     private Spinner mSpinnerUf;
     private Fornecedor mFornecedor;
@@ -50,6 +53,8 @@ public class CadastroEnderecoActivity extends AppCompatActivity{
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_cadastro_endereco);
 
+        ImageButton mImageButtonEditarGeolocalizacao;
+
         Toolbar toolbar;
         toolbar = findViewById(R.id.tb_endereco);
 
@@ -59,6 +64,7 @@ public class CadastroEnderecoActivity extends AppCompatActivity{
         mNumero = findViewById(R.id.etCadastroNumeroEndereco);
         mComplemento = findViewById(R.id.etCadastroComplementoEndereco);
         mBairro = findViewById(R.id.etCadastroBairroEndereco);
+        mImageButtonEditarGeolocalizacao = findViewById(R.id.ib_editar_localizacao_geografica);
 
         mCep.addTextChangedListener(new ZipCodeListener(this));
         mCep.addTextChangedListener(MaskUtil.mask(mCep, MaskUtil.FORMAT_CEP));
@@ -102,6 +108,14 @@ public class CadastroEnderecoActivity extends AppCompatActivity{
             }
         });
 
+        mImageButtonEditarGeolocalizacao.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                editarGeolicalizacao(mFornecedor);
+            }
+        });
+
         // Configura toolbar
         toolbar.setTitle(R.string.tb_cadastro_endereco);
         toolbar.setTitleTextColor(Color.WHITE);
@@ -118,10 +132,10 @@ public class CadastroEnderecoActivity extends AppCompatActivity{
     //Método que recupera os dados básicos do fornecedor, adicionando o endereço e chamando o DAO para salvar no banco
     private void cadastrarEnderecoFornecedor(){
             try {
-
                 //Recuperar id do fornecedor logado
                 mIdUsuarioLogado = getPreferences("idFornecedor", CadastroEnderecoActivity.this);
-
+                mEndereco.setmLatitude(localizacao.latitude);
+                mEndereco.setmLongitude(localizacao.longitude);
                 VerificadorDeObjetos.vDadosObrEndereco(mEndereco);
                 mFornecedor.setEndereco(mEndereco);
                 FornecedorDaoImpl fornecedorDao =  new FornecedorDaoImpl(this);
@@ -197,5 +211,23 @@ public class CadastroEnderecoActivity extends AppCompatActivity{
     public static String getPreferences(String key, Context context) {
         SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(context);
         return preferences.getString(key, null);
+    }
+
+    //Método que chama a activity para editar geolocalização passando o o fornecedor
+    public void editarGeolicalizacao(Fornecedor fornecedor){
+        Intent intent = new Intent(CadastroEnderecoActivity.this, CadastroGeolocalizacaoActivity.class);
+//        intent.putExtra("Fornecedor", fornecedor);
+        startActivity(intent);
+    }
+
+    @Override
+    public void onSaveInstanceState(Bundle savedInstanceState){
+        // Salva o estado atual do jogo do usuário
+        savedInstanceState.putAll(savedInstanceState);
+        super.onSaveInstanceState(savedInstanceState);
+    }
+
+    public void onRestoreInstanceState(Bundle savedInstanceState) {
+        super.onRestoreInstanceState(savedInstanceState);
     }
 }
