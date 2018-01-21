@@ -14,22 +14,18 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.ValueEventListener;
-
-import junit.framework.Assert;
-
-import java.util.ArrayList;
-
 import projetaobcc20172.com.projetopetemfocofornecedor.R;
 import projetaobcc20172.com.projetopetemfocofornecedor.config.ConfiguracaoFirebase;
 import projetaobcc20172.com.projetopetemfocofornecedor.model.Endereco;
 import projetaobcc20172.com.projetopetemfocofornecedor.model.Fornecedor;
-import projetaobcc20172.com.projetopetemfocofornecedor.model.Servico;
+
 
 public class MainActivity extends AppCompatActivity {
 
@@ -90,7 +86,9 @@ public class MainActivity extends AppCompatActivity {
             }
 
             @Override
-            public void onCancelled(DatabaseError databaseError) { }
+            public void onCancelled(DatabaseError databaseError) {
+                Toast.makeText(MainActivity.this, "Erro na leitura do banco de dados", Toast.LENGTH_SHORT).show();
+            }
         });
 
         mMeusServicos.setOnClickListener(new View.OnClickListener() {

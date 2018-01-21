@@ -1,7 +1,5 @@
 package projetaobcc20172.com.projetopetemfocofornecedor.editarfornecedortest;
 
-import net.bytebuddy.pool.TypePool;
-
 import projetaobcc20172.com.projetopetemfocofornecedor.R;
 import projetaobcc20172.com.projetopetemfocofornecedor.TestTools;
 

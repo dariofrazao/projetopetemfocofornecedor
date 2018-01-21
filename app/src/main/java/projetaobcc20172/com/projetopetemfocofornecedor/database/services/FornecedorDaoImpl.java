@@ -1,6 +1,5 @@
 package projetaobcc20172.com.projetopetemfocofornecedor.database.services;
 
-import android.app.Activity;
 import android.content.Context;
 import android.support.annotation.NonNull;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -9,16 +8,9 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.ValueEventListener;
-
-import junit.framework.Assert;
-
-import java.util.ArrayList;
-
 import projetaobcc20172.com.projetopetemfocofornecedor.R;
 import projetaobcc20172.com.projetopetemfocofornecedor.config.ConfiguracaoFirebase;
-import projetaobcc20172.com.projetopetemfocofornecedor.model.Endereco;
 import projetaobcc20172.com.projetopetemfocofornecedor.model.Fornecedor;
-import projetaobcc20172.com.projetopetemfocofornecedor.model.Servico;
 import projetaobcc20172.com.projetopetemfocofornecedor.utils.Utils;
 
 /**
@@ -92,7 +84,9 @@ public class FornecedorDaoImpl implements FornecedorDao{
             }
 
             @Override
-            public void onCancelled(DatabaseError databaseError) { }
+            public void onCancelled(DatabaseError databaseError) {
+                assert true;
+            }
         });
     }
 

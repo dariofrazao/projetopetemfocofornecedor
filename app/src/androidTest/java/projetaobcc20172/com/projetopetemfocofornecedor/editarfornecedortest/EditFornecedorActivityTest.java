@@ -3,7 +3,6 @@ package projetaobcc20172.com.projetopetemfocofornecedor.editarfornecedortest;
 import android.support.test.rule.ActivityTestRule;
 import android.support.test.runner.AndroidJUnit4;
 import android.test.suitebuilder.annotation.LargeTest;
-
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Rule;
@@ -19,6 +18,9 @@ import projetaobcc20172.com.projetopetemfocofornecedor.activity.LoginActivity;
 @LargeTest
 @RunWith(AndroidJUnit4.class)
 public class EditFornecedorActivityTest {
+
+    @Rule
+    public ActivityTestRule<LoginActivity> editFornecedorActivityRule = new ActivityTestRule<>(LoginActivity.class);
 
     //Essas variaveis guardam valores que são preenchidos nos campos
     private String mTelefone = "87992756888";
@@ -38,8 +40,6 @@ public class EditFornecedorActivityTest {
         }
     }
 
-    @Rule
-    public ActivityTestRule<LoginActivity> editFornecedorActivityRule = new ActivityTestRule<>(LoginActivity.class);
 
     @Test //testa editar fornecedor com todos os campo preenchidos
     public void editarFornecedorCamposPreenchidos() throws InterruptedException {

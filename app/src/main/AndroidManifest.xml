@@ -32,9 +32,12 @@
         <activity
             android:name=".activity.CadastroFornecedorActivity"
             android:windowSoftInputMode="stateHidden" />
-        <activity android:name=".activity.CadastroEnderecoActivity" />
-        <activity android:name=".activity.ServicosActivity" />
-        <activity android:name=".activity.EditarFornecedorActivity"></activity>
+        <activity
+            android:name=".activity.CadastroEnderecoActivity" />
+        <activity
+            android:name=".activity.ServicosActivity" />
+        <activity
+            android:name=".activity.EditarFornecedorActivity"/>
     </application>
 
 </manifest>
