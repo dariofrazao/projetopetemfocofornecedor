@@ -2,6 +2,8 @@ package projetaobcc20172.com.projetopetemfocofornecedor.utils;
 
 import android.content.Context;
 
+import com.google.android.gms.maps.model.LatLng;
+
 import projetaobcc20172.com.projetopetemfocofornecedor.R;
 import projetaobcc20172.com.projetopetemfocofornecedor.excecoes.CampoObrAusenteException;
 import projetaobcc20172.com.projetopetemfocofornecedor.excecoes.ValidacaoException;
@@ -34,17 +36,23 @@ public class VerificadorDeObjetos {
 
     //Método responsável por avaliar se um obj endereco possui todas os atributos obrigatorios
     public static void vDadosObrEndereco(Endereco end) throws CampoObrAusenteException {
-        if (        end.getLogradouro().isEmpty()
-                    ||
-                    end.getBairro().isEmpty()
-                    ||
-                    end.getLocalidade().isEmpty()
-                    ||
-                    end.getUf().isEmpty()
-                    || end.getCep().isEmpty()
-                    ) {
-                throw new CampoObrAusenteException();
-            }
+        if (
+                end.getLogradouro().isEmpty()
+                        ||
+                        end.getBairro().isEmpty()
+                        ||
+                        end.getLocalidade().isEmpty()
+                        ||
+                        end.getUf().isEmpty()
+                        ||
+                        end.getCep().isEmpty()
+                        ||
+                        end.getmLatitude() == 0
+                        ||
+                        end.getmLongitude() == 0
+                ) {
+            throw new CampoObrAusenteException();
+        }
     }
 
     public static void vDadosServico(Servico serv, Context cad) throws ValidacaoException {
@@ -62,5 +70,10 @@ public class VerificadorDeObjetos {
         //}
     }
 
-
+    //Método responsável por avaliar se as coordenadas geograficas esta preencidas
+    public static void vDadosObrCoordenadasGeograficas(LatLng localizacao) throws ValidacaoException {
+        if (localizacao.latitude == 0 || localizacao.longitude == 0) {
+            throw new ValidacaoException();
+        }
+    }
 }
