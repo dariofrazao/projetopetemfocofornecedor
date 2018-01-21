@@ -58,7 +58,7 @@
             />
 
         <activity
-            android:name=".activity.GeolocalizacaoActivity"
+            android:name=".activity.CadastroGeolocalizacaoActivity"
             android:windowSoftInputMode="stateHidden"
         />
 
