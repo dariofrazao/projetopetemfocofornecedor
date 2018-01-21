@@ -36,6 +36,7 @@ public class MainActivity extends AppCompatActivity {
         mAutenticacao = ConfiguracaoFirebase.getFirebaseAutenticacao();
         Button sair;
         Button meusServicos;
+        Button minhasPromocoes;
 
         Toolbar toolbar;
         toolbar = findViewById(R.id.tb_main);
@@ -47,6 +48,7 @@ public class MainActivity extends AppCompatActivity {
 
         sair = findViewById(R.id.btnSair);
         meusServicos =  findViewById(R.id.btnMeusServicos);
+        minhasPromocoes = findViewById(R.id.btnMinhasPromocoes);
 
         mTvTitulo = findViewById(R.id.tvTituloFornecedor);
         mTvSubtitulo = findViewById(R.id.tvSubtituloFornecedor);
@@ -75,6 +77,15 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onCancelled(DatabaseError databaseError) {
 
+            }
+        });
+
+        minhasPromocoes.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent();
+                intent.setClass(MainActivity.this, PromocaoActivity.class);
+                startActivity(intent);
             }
         });
 

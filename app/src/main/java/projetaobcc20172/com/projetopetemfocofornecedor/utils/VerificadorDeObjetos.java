@@ -7,6 +7,7 @@ import projetaobcc20172.com.projetopetemfocofornecedor.excecoes.CampoObrAusenteE
 import projetaobcc20172.com.projetopetemfocofornecedor.excecoes.ValidacaoException;
 import projetaobcc20172.com.projetopetemfocofornecedor.model.Endereco;
 import projetaobcc20172.com.projetopetemfocofornecedor.model.Fornecedor;
+import projetaobcc20172.com.projetopetemfocofornecedor.model.Promocao;
 import projetaobcc20172.com.projetopetemfocofornecedor.model.Servico;
 
 /**
@@ -62,5 +63,14 @@ public class VerificadorDeObjetos {
         //}
     }
 
+    public static void vDadosPromocao(Promocao promo, Context cad) throws ValidacaoException{
+        if(promo.getTitulo().equals("")){
+            throw new ValidacaoException("Informe um título para promoção");
+        }else if(promo.getDescricao().equals("")){
+            throw new ValidacaoException("Informe uma descrição para promoção");
+        }else if(promo.getValor().equals("")){
+            throw new ValidacaoException("Informe um valor para promoção");
+        }
+    }
 
 }
