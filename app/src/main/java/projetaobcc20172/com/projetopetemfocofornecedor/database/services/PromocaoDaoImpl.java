@@ -50,7 +50,6 @@ public class PromocaoDaoImpl implements PromocaoDao{
                 }
             }
         });
-
     }
 
     @Override

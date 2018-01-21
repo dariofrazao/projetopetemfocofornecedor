@@ -63,6 +63,7 @@ public class CadastroPromocaoActivity extends AppCompatActivity {
         mValor = findViewById(R.id.etValor);
         Locale mLocal = new Locale("pt", "BR");
         mValor.addTextChangedListener(new MascaraDinheiro(mValor, mLocal));
+        mValor.setInputType(InputType.TYPE_CLASS_NUMBER);
         mData = findViewById(R.id.etData);
         mData.setShowSoftInputOnFocus(false);
         mData.setInputType(InputType.TYPE_NULL);
