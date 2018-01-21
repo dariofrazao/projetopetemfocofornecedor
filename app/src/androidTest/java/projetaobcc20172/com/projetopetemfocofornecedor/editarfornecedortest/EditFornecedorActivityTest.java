@@ -64,82 +64,18 @@ public class EditFornecedorActivityTest {
 
     @Test //testa editar fornecedor com todos os campo preenchidos
     public void editarFornecedorCamposPreenchidos() throws InterruptedException {
-        login();
-        clicarItemMenuEditar();
+        TestTools.login(mEmail, mSenha);
+        TestTools.clicarItemMenuEditar();
         TestToolsEditFornecedor.preencherEclicar(this.mTelefone, this.mHorarios);
         TestTools.checarToast(R.string.sucesso_atualizacao);
     }
 
     @Test //testa editar fornecedor com algum campo vazio
     public void editarFornecedorCamposNaoPreenchidos() throws InterruptedException {
-        login();
-        clicarItemMenuEditar();
+        TestTools.login(mEmail, mSenha);
+        TestTools.clicarItemMenuEditar();
         TestToolsEditFornecedor.preencherEclicar(this.mCampovazio, this.mHorarios);
         TestTools.checarToast(R.string.erro_editar_fornecedor_campos_obrigatorios_Toast);
-    }
-
-    public void login(){
-        ViewInteraction appCompatEditText = onView(
-                allOf(withId(R.id.etLoginEmail),
-                        childAtPosition(
-                                childAtPosition(
-                                        withId(R.id.scrollView),
-                                        0),
-                                4)));
-        appCompatEditText.perform(scrollTo(), replaceText(mEmail), closeSoftKeyboard());
-
-        ViewInteraction appCompatEditText2 = onView(
-                allOf(withId(R.id.etLoginSenha),
-                        childAtPosition(
-                                childAtPosition(
-                                        withId(R.id.scrollView),
-                                        0),
-                                7)));
-        appCompatEditText2.perform(scrollTo(), replaceText(mSenha), closeSoftKeyboard());
-        appCompatEditText2.perform(pressImeActionButton());
-
-        ViewInteraction appCompatButton = onView(
-                allOf(withId(R.id.btnLogin), withText("Entrar"),
-                        childAtPosition(
-                                childAtPosition(
-                                        withId(R.id.scrollView),
-                                        0),
-                                9)));
-        appCompatButton.perform(scrollTo(), click());
-    }
-
-    public void clicarItemMenuEditar(){
-        openActionBarOverflowOrOptionsMenu(getInstrumentation().getTargetContext());
-
-        ViewInteraction appCompatTextView = onView(
-                allOf(withId(R.id.title), withText("Editar Perfil"),
-                        childAtPosition(
-                                childAtPosition(
-                                        withClassName(is("android.support.v7.view.menu.ListMenuItemView")),
-                                        0),
-                                0),
-                        isDisplayed()));
-        appCompatTextView.perform(click());
-    }
-
-    private static Matcher<View> childAtPosition(
-            final Matcher<View> parentMatcher, final int position) {
-
-        return new TypeSafeMatcher<View>() {
-            @Override
-            public void describeTo(Description description) {
-                description.appendText("Child at position " + position + " in parent ");
-                parentMatcher.describeTo(description);
-            }
-
-            @Override
-            public boolean matchesSafely(View view) {
-                ViewParent parent = view.getParent();
-                return parent instanceof ViewGroup && parentMatcher.matches(parent)
-                        && view.equals(((ViewGroup) parent).getChildAt(position));
-            }
-        };
-
     }
 
     @After
