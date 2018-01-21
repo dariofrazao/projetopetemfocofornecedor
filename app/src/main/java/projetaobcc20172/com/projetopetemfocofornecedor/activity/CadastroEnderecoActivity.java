@@ -215,7 +215,7 @@ public class CadastroEnderecoActivity extends AppCompatActivity{
 
     //Método que chama a activity para editar geolocalização passando o o fornecedor
     public void editarGeolicalizacao(Fornecedor fornecedor){
-        Intent intent = new Intent(CadastroEnderecoActivity.this, GeolocalizacaoActivity.class);
+        Intent intent = new Intent(CadastroEnderecoActivity.this, CadastroGeolocalizacaoActivity.class);
 //        intent.putExtra("Fornecedor", fornecedor);
         startActivity(intent);
     }

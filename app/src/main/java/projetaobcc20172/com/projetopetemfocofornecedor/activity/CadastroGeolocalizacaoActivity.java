@@ -25,8 +25,8 @@ import projetaobcc20172.com.projetopetemfocofornecedor.R;
 import projetaobcc20172.com.projetopetemfocofornecedor.excecoes.ValidacaoException;
 import projetaobcc20172.com.projetopetemfocofornecedor.utils.VerificadorDeObjetos;
 
-public class GeolocalizacaoActivity extends AppCompatActivity {
-    private MapView mapView;
+public class CadastroGeolocalizacaoActivity extends AppCompatActivity {
+    private MapView mMapView;
      private LatLng mLocalizacaoFornecedor;
 
     @Override
@@ -36,7 +36,7 @@ public class GeolocalizacaoActivity extends AppCompatActivity {
 
         // Associa os componetes ao layout XML
         Toolbar toolbar = findViewById(R.id.tb_geolocalizacao);
-        mapView = findViewById(R.id.map_view);
+        mMapView = findViewById(R.id.map_view);
         Button mButtonConfirmar = findViewById(R.id.btnConfirmarEdicao);
 
         // Configura toolbar
@@ -49,14 +49,14 @@ public class GeolocalizacaoActivity extends AppCompatActivity {
         MapsInitializer.initialize(this);
 
         // Gets to GoogleMap from the MapView and does initialization stuff
-        mapView.getMapAsync(new OnMapReadyCallback() {
+        mMapView.getMapAsync(new OnMapReadyCallback() {
 
             @Override
             public void onMapReady(GoogleMap googleMap) {
                 setUpMap(googleMap);
             }
         });
-        mapView.onCreate(savedInstanceState);
+        mMapView.onCreate(savedInstanceState);
 
         // Confirmar e retornar o fornecedor com as coordenadas geograficas
         mButtonConfirmar.setOnClickListener(new View.OnClickListener() {
@@ -76,7 +76,7 @@ public class GeolocalizacaoActivity extends AppCompatActivity {
     @Override
     protected void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
-        mapView.onSaveInstanceState(outState);
+        mMapView.onSaveInstanceState(outState);
     }
 
     private void setUpMap(GoogleMap googleMap) {
@@ -168,23 +168,23 @@ public class GeolocalizacaoActivity extends AppCompatActivity {
     @Override
     public void onLowMemory() {
         super.onLowMemory();
-        mapView.onLowMemory();
+        mMapView.onLowMemory();
     }
 
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        mapView.onDestroy();
+        mMapView.onDestroy();
     }
     @Override
     protected void onResume() {
         super.onResume();
-        mapView.onResume();
+        mMapView.onResume();
     }
     @Override
     protected void onPause() {
         super.onPause();
-        mapView.onPause();
+        mMapView.onPause();
     }
     @Override
     public void onBackPressed(){
@@ -196,10 +196,10 @@ public class GeolocalizacaoActivity extends AppCompatActivity {
             super.onBackPressed();
             finish();
         } catch (ValidacaoException e) {
-            mToast = Toast.makeText(GeolocalizacaoActivity.this, R.string.erro_coordenadas_geograficas_campos_obrigatorios_Toast, Toast.LENGTH_SHORT);
+            mToast = Toast.makeText(CadastroGeolocalizacaoActivity.this, R.string.erro_coordenadas_geograficas_campos_obrigatorios_Toast, Toast.LENGTH_SHORT);
             mToast.show();
         } catch (Exception e) {
-            mToast = Toast.makeText(GeolocalizacaoActivity.this, R.string.erro_coordenadas_geograficas_campos_obrigatorios_Toast, Toast.LENGTH_SHORT);
+            mToast = Toast.makeText(CadastroGeolocalizacaoActivity.this, R.string.erro_coordenadas_geograficas_campos_obrigatorios_Toast, Toast.LENGTH_SHORT);
             mToast.show();
         }
     }
