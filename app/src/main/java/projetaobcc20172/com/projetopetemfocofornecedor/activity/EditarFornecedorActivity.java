@@ -30,7 +30,7 @@ import projetaobcc20172.com.projetopetemfocofornecedor.utils.Utils;
  */
 
 /**
- * Activity de cadastro de fornecedor
+ * Activity de edicao de estabelecimento
  */
 public class EditarFornecedorActivity extends AppCompatActivity {
 
@@ -87,7 +87,7 @@ public class EditarFornecedorActivity extends AppCompatActivity {
         });
     }
 
-    //Método para cadastrar o fornecedor no FirebaseAuthentication
+    //Método para editar o fornecedor no FirebaseAuthentication
     private void editarFornecedor() {
         FirebaseAuth mAutenticacao = ConfiguracaoFirebase.getFirebaseAutenticacao();
 
@@ -107,7 +107,6 @@ public class EditarFornecedorActivity extends AppCompatActivity {
             abrirTelaPrincipal();
         }
     }
-
 
     private void abrirTelaPrincipal() {
         Intent intent = new Intent(EditarFornecedorActivity.this, MainActivity.class);
@@ -161,15 +160,10 @@ public class EditarFornecedorActivity extends AppCompatActivity {
 
     }
 
-    //Método que recupera o id do usuário logado, para editar o pet no nó do usuário que o está cadastrando
+    //Método que recupera o id do usuário logado
     public static String getPreferences(String key, Context context) {
         SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(context);
         return preferences.getString(key, null);
-    }
-
-    //metodo gera Toast's
-    public void gerarToast() {
-         Toast toast = Toast.makeText(EditarFornecedorActivity.this, R.string.erro_editar_fornecedor_campos_obrigatorios_Toast, Toast.LENGTH_SHORT);
     }
 
 }
