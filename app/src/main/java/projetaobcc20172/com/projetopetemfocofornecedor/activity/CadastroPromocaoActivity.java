@@ -114,7 +114,6 @@ public class CadastroPromocaoActivity extends AppCompatActivity {
             mPromocao = (Promocao) intent.getSerializableExtra("promocao");
             setvaluesOnViews();
         }
-
     }
 
     private void setvaluesOnViews() {
@@ -123,9 +122,7 @@ public class CadastroPromocaoActivity extends AppCompatActivity {
             mValor.setText(mPromocao.getValor()+"");
             mDescricao.setText(mPromocao.getDescricao());
             mData.setText(mPromocao.getData());
-
         }
-
     }
 
     private void salvarPromocao(){
@@ -155,14 +152,13 @@ public class CadastroPromocaoActivity extends AppCompatActivity {
         final int mYear = c.get(Calendar.YEAR); // current year
         final int mMonth = c.get(Calendar.MONTH); // current month
         final int mDay = c.get(Calendar.DAY_OF_MONTH); // current day
-        final DatePickerDialog[] data = new DatePickerDialog[1];
         //inicia o campo com a mData atual
         mData.setText(String.format("%d/%d/%d", mDay, mMonth + 1, mYear));
 
         mData.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                data[0] = new DatePickerDialog(CadastroPromocaoActivity.this,
+                mDatePickerDialog = new DatePickerDialog(CadastroPromocaoActivity.this,
                         new DatePickerDialog.OnDateSetListener() {
 
                             @Override
