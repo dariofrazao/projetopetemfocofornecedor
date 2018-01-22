@@ -62,6 +62,9 @@
             android:windowSoftInputMode="stateHidden"
         />
 
+            android:windowSoftInputMode="stateHidden" />
+        <activity android:name=".activity.CadastroPromocaoActivity" />
+        <activity android:name=".activity.PromocaoActivity"></activity>
     </application>
 
 </manifest>
