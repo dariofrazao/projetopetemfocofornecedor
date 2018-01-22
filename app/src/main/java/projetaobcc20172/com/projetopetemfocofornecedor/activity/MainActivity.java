@@ -21,6 +21,7 @@ import com.google.firebase.database.ValueEventListener;
 import projetaobcc20172.com.projetopetemfocofornecedor.R;
 import projetaobcc20172.com.projetopetemfocofornecedor.config.ConfiguracaoFirebase;
 import projetaobcc20172.com.projetopetemfocofornecedor.helper.Preferencias;
+import projetaobcc20172.com.projetopetemfocofornecedor.model.Endereco;
 
 
 public class MainActivity extends AppCompatActivity {
@@ -65,10 +66,12 @@ public class MainActivity extends AppCompatActivity {
                 String nome = (String)dataSnapshot.child("nome").getValue();
                 String email = (String)dataSnapshot.child("email").getValue();
                 String telefone = (String)dataSnapshot.child("telefone").getValue();
+                Endereco end = (Endereco)dataSnapshot.child("endereco").getValue(Endereco.class);
                 mTvTitulo.setText(nome);
                 mTvSubtitulo.setText("E-mail: " + email);
                 mTvSubtitulo2.setText("Fone: " + telefone);
                 Preferencias p = new Preferencias(MainActivity.this);
+                p.salvarPosicao((float)end.getmLatitude(),(float)end.getmLongitude());
                 p.salvarDadosUser(idUsuarioLogado,nome,email);
             }
 

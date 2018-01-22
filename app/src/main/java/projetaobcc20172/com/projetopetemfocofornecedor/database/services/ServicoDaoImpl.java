@@ -128,6 +128,8 @@ public class ServicoDaoImpl implements ServicoDao{
         mapaNomes.put("nomeFornecedor",mPreferencias.getNome());
         mapaNomes.put("servico",servico.getNome());
         mapaNomes.put("pet",servico.getTipoPet());
+        mapaNomes.put("latitude",mPreferencias.getLatitude()+"");
+        mapaNomes.put("longitude",mPreferencias.getLongitude()+"");
         ref.setValue(mapaNomes);
     }
 
