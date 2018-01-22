@@ -101,6 +101,7 @@
 
     <!--Mensagens de informação ao usuário-->
     <string name="info_confirmar_remocao_servico">Deseja remover o serviço selecionado?</string>
+    <string name="info_confirmar_remocao_promocao">Deseja remover a promoção selecionado?</string>
 
     <!--Strings de ações-->
     <string name="action_salvar">Salvar</string>

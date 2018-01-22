@@ -8,7 +8,6 @@ import android.graphics.Color;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -26,8 +25,8 @@ import com.google.firebase.database.ValueEventListener;
 import projetaobcc20172.com.projetopetemfocofornecedor.R;
 import projetaobcc20172.com.projetopetemfocofornecedor.config.ConfiguracaoFirebase;
 import projetaobcc20172.com.projetopetemfocofornecedor.helper.Preferencias;
-
 import projetaobcc20172.com.projetopetemfocofornecedor.model.Endereco;
+
 import projetaobcc20172.com.projetopetemfocofornecedor.model.Fornecedor;
 
 
@@ -45,6 +44,7 @@ public class MainActivity extends AppCompatActivity {
         mAutenticacao = ConfiguracaoFirebase.getFirebaseAutenticacao();
         Button sair;
         Button meusServicos;
+        Button minhasPromocoes;
 
         Toolbar toolbar;
         toolbar = findViewById(R.id.tb_main);
@@ -55,7 +55,8 @@ public class MainActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
 
         sair = findViewById(R.id.btnSair);
-        meusServicos = findViewById(R.id.btnMeusServicos);
+        meusServicos =  findViewById(R.id.btnMeusServicos);
+        minhasPromocoes = findViewById(R.id.btnMinhasPromocoes);
 
         mTvTitulo = findViewById(R.id.tvTituloFornecedor);
         mTvSubtitulo = findViewById(R.id.tvSubtituloFornecedor);
@@ -79,21 +80,32 @@ public class MainActivity extends AppCompatActivity {
                 String cpfCnpj = (String) dataSnapshot.child("cpfCnpj").getValue();
                 String telefone = (String) dataSnapshot.child("telefone").getValue();
                 String horarios = (String) dataSnapshot.child("horarios").getValue();
-                Endereco endereco = (Endereco) dataSnapshot.child("endereco").getValue(Endereco.class);
+                Endereco end = (Endereco)dataSnapshot.child("endereco").getValue(Endereco.class);
                 mTvTitulo.setText(nome);
                 mTvSubtitulo.setText("E-mail: " + email);
                 mTvSubtitulo2.setText("Fone: " + telefone);
                 Preferencias p = new Preferencias(MainActivity.this);
+                p.salvarPosicao((float)end.getmLatitude(),(float)end.getmLongitude());
+                p.salvarDadosUser(idUsuarioLogado,nome,email);
                 p.salvarDadosUser(idUsuarioLogado, nome, email);
 
                 fornecedor = new Fornecedor(nome, nomeBusca, email, cpfCnpj, telefone, senha, senha, horarios);
-                fornecedor.setEndereco(endereco);
+                fornecedor.setEndereco(end);
                 fornecedor.setId(id);
             }
 
             @Override
             public void onCancelled(DatabaseError databaseError) {
                 Toast.makeText(MainActivity.this, "Erro na leitura do banco de dados", Toast.LENGTH_SHORT).show();
+            }
+        });
+
+        minhasPromocoes.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent();
+                intent.setClass(MainActivity.this, PromocaoActivity.class);
+                startActivity(intent);
             }
         });
 

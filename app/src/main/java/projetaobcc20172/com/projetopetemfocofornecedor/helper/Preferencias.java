@@ -16,6 +16,9 @@ public class Preferencias {
     private final String CHAVE_IDENTIFICADOR = "identificadorUsuarioLogado"; //Variável para identificar usuário logado
     private final String CHAVE_NOME = "nomeUsuarioLogado"; //Nome do usuário logado
     private final String CHAVE_EMAIL = "emailUsuarioLogado";
+    private final String CHAVE_LATITUDE = "latitude";
+    private final String CHAVE_LONGITUDE = "longitude";
+
 
     public Preferencias( Context contextoParametro){
 
@@ -40,6 +43,10 @@ public class Preferencias {
         editor.commit(); //Salvar as alterações nas preferências
     }
 
+    public void salvarPosicao(float latitude,float longitude){
+        editor.putFloat(CHAVE_LATITUDE,latitude);
+        editor.putFloat(CHAVE_LONGITUDE,longitude);
+    }
     public String getIdentificador(){
         return preferences.getString(CHAVE_IDENTIFICADOR, null);
     }
@@ -48,5 +55,10 @@ public class Preferencias {
         return preferences.getString(CHAVE_NOME, null);
     }
 
-
+    public double getLatitude(){
+        return preferences.getFloat(CHAVE_LATITUDE,0);
+    }
+    public double getLongitude(){
+        return preferences.getFloat(CHAVE_LONGITUDE,0);
+    }
 }

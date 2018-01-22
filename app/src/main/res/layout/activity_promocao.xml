@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/fundo_degrade"
+    tools:context="projetaobcc20172.com.projetopetemfocofornecedor.activity.PromocaoActivity">
+
+    <include
+        android:id="@+id/tb_main"
+        layout="@layout/toolbar">
+
+    </include>
+
+    <ListView
+        android:id="@+id/lv_promocao"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="8dp"
+        android:layout_below="@+id/tb_main"
+        android:layout_above="@+id/ll_main">
+
+    </ListView>
+
+    <LinearLayout
+        android:id="@+id/ll_main"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:background="@android:color/transparent"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        android:padding="10dp">
+
+        <ImageButton
+            android:id="@+id/btnCadastrarPromocao"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:background="@drawable/ic_action_add"
+            android:layout_alignParentRight="true"/>
+
+    </LinearLayout>
+
+</RelativeLayout>
