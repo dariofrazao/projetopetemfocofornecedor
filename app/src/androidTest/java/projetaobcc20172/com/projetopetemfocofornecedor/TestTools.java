@@ -5,28 +5,43 @@ import android.app.Instrumentation;
 import android.support.test.espresso.Espresso;
 import android.support.test.espresso.UiController;
 import android.support.test.espresso.ViewAction;
+import android.support.test.espresso.ViewInteraction;
 import android.support.test.espresso.action.ViewActions;
 import android.support.test.espresso.intent.Intents;
 import android.support.test.espresso.matcher.ViewMatchers;
 import android.view.KeyEvent;
 import android.view.View;
+import android.view.ViewGroup;
+import android.view.ViewParent;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import org.hamcrest.Description;
 import org.hamcrest.Matcher;
+import org.hamcrest.Matchers;
+import org.hamcrest.TypeSafeMatcher;
 
 import java.util.Random;
 
+import static android.support.test.InstrumentationRegistry.getInstrumentation;
 import static android.support.test.espresso.Espresso.onData;
+import static android.support.test.espresso.Espresso.onView;
+import static android.support.test.espresso.Espresso.openActionBarOverflowOrOptionsMenu;
 import static android.support.test.espresso.action.ViewActions.clearText;
 import static android.support.test.espresso.action.ViewActions.click;
+import static android.support.test.espresso.action.ViewActions.closeSoftKeyboard;
+import static android.support.test.espresso.action.ViewActions.pressImeActionButton;
+import static android.support.test.espresso.action.ViewActions.replaceText;
+import static android.support.test.espresso.action.ViewActions.scrollTo;
 import static android.support.test.espresso.assertion.ViewAssertions.matches;
 import static android.support.test.espresso.intent.Intents.intended;
 import static android.support.test.espresso.intent.matcher.IntentMatchers.hasComponent;
 import static android.support.test.espresso.matcher.RootMatchers.withDecorView;
 import static android.support.test.espresso.matcher.ViewMatchers.isAssignableFrom;
 import static android.support.test.espresso.matcher.ViewMatchers.isDisplayed;
+import static android.support.test.espresso.matcher.ViewMatchers.withClassName;
 import static android.support.test.espresso.matcher.ViewMatchers.withId;
+import static android.support.test.espresso.matcher.ViewMatchers.withText;
 import static junit.framework.Assert.assertEquals;
 import static junit.framework.Assert.assertTrue;
 import static org.hamcrest.CoreMatchers.is;
@@ -178,5 +193,69 @@ public class TestTools {
 
 
 
+
+    public static void login(String mEmail, String mSenha){
+        ViewInteraction appCompatEditText = onView(
+                Matchers.allOf(withId(R.id.etLoginEmail),
+                        childAtPosition(
+                                childAtPosition(
+                                        withId(R.id.scrollView),
+                                        0),
+                                4)));
+        appCompatEditText.perform(scrollTo(), replaceText(mEmail), closeSoftKeyboard());
+
+        ViewInteraction appCompatEditText2 = onView(
+                Matchers.allOf(withId(R.id.etLoginSenha),
+                        childAtPosition(
+                                childAtPosition(
+                                        withId(R.id.scrollView),
+                                        0),
+                                7)));
+        appCompatEditText2.perform(scrollTo(), replaceText(mSenha), closeSoftKeyboard());
+        appCompatEditText2.perform(pressImeActionButton());
+
+        ViewInteraction appCompatButton = onView(
+                Matchers.allOf(withId(R.id.btnLogin), withText("Entrar"),
+                        childAtPosition(
+                                childAtPosition(
+                                        withId(R.id.scrollView),
+                                        0),
+                                9)));
+        appCompatButton.perform(scrollTo(), click());
+    }
+
+    public static void clicarItemMenuEditar(){
+        openActionBarOverflowOrOptionsMenu(getInstrumentation().getTargetContext());
+
+        ViewInteraction appCompatTextView = onView(
+                Matchers.allOf(withId(R.id.title), withText("Editar Perfil"),
+                        childAtPosition(
+                                childAtPosition(
+                                        withClassName(Matchers.is("android.support.v7.view.menu.ListMenuItemView")),
+                                        0),
+                                0),
+                        isDisplayed()));
+        appCompatTextView.perform(click());
+    }
+
+    private static Matcher<View> childAtPosition(
+            final Matcher<View> parentMatcher, final int position) {
+
+        return new TypeSafeMatcher<View>() {
+            @Override
+            public void describeTo(Description description) {
+                description.appendText("Child at position " + position + " in parent ");
+                parentMatcher.describeTo(description);
+            }
+
+            @Override
+            public boolean matchesSafely(View view) {
+                ViewParent parent = view.getParent();
+                return parent instanceof ViewGroup && parentMatcher.matches(parent)
+                        && view.equals(((ViewGroup) parent).getChildAt(position));
+            }
+        };
+
+    }
 
 }

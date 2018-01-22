@@ -60,7 +60,11 @@
         <activity
             android:name=".activity.CadastroGeolocalizacaoActivity"
             android:windowSoftInputMode="stateHidden"
-        />
+            />
+
+        <activity
+        android:name=".activity.EditarFornecedorActivity"
+            />
 
     </application>
 
