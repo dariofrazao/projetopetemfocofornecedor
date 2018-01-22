@@ -15,6 +15,7 @@ public class Fornecedor implements Serializable {
     //Atributos do fornecedor
     private String mId;
     private String mNome;
+    private String mNomeBusca;
     private String mEmail;
     private String mTelefone;
     private String mCpfCnpj;
@@ -25,15 +26,14 @@ public class Fornecedor implements Serializable {
     private Endereco mEndereco;
     private ArrayList<Servico> mServicos = new ArrayList<>();
 
-    private float mLatitude = 0;
-    private float mLongitude = 0;
     private float mNota = 0;
 
     public Fornecedor() {
     }
 
-    public Fornecedor(String nome, String email, String cpfCnpj, String telefone, String senha, String senha2, String horarios) {
+    public Fornecedor(String nome, String nomeBusca, String email, String cpfCnpj, String telefone, String senha, String senha2, String horarios) {
         this.mNome = nome;
+        this.mNomeBusca = nomeBusca;
         this.mEmail = email;
         this.mSenha = senha;
         this.mSenha2 = senha2;
@@ -57,6 +57,14 @@ public class Fornecedor implements Serializable {
 
     public void setNome(String nome) {
         this.mNome = nome;
+    }
+
+    public String getNomeBusca() {
+        return mNomeBusca;
+    }
+
+    public void setNomeBusca(String nomeBusca) {
+        this.mNomeBusca = nomeBusca;
     }
 
     public String getEmail() {
@@ -145,11 +153,4 @@ public class Fornecedor implements Serializable {
         this.mNota = mNota;
     }
 
-    public float getmLatitude() {
-        return mLatitude;
-    }
-
-    public float getmLongitude() {
-        return mLongitude;
-    }
 }

@@ -80,6 +80,7 @@ public class CadastroFornecedorActivity extends AppCompatActivity {
             public void onClick(View view) {
                 mFornecedor = new Fornecedor();
                 mFornecedor.setNome(mNome.getText().toString() );
+                mFornecedor.setNomeBusca(mNome.getText().toString().toLowerCase());
                 mFornecedor.setEmail(mEmail.getText().toString());
                 mFornecedor.setTelefone(mTelefone.getText().toString());
                 mFornecedor.setCpfCnpj(mCpfCnpj.getText().toString());
