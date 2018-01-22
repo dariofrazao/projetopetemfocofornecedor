@@ -2,7 +2,9 @@ package projetaobcc20172.com.projetopetemfocofornecedor.model;
 
 import com.google.firebase.database.Exclude;
 
-public class Endereco {
+import java.io.Serializable;
+
+public class Endereco implements Serializable{
 
     //Atributos do endereço
     //Estas variáveis não podem ter seus nomes alterados (devido a pesquisa no viacep)

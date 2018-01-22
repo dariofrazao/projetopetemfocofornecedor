@@ -82,6 +82,9 @@ public class CadastroFornecedorActivity extends AppCompatActivity {
                 mFornecedor.setNome(mNome.getText().toString() );
                 mFornecedor.setNomeBusca(mNome.getText().toString().toLowerCase());
                 mFornecedor.setEmail(mEmail.getText().toString());
+                String identificadorFornecedor = Base64Custom.codificarBase64(mFornecedor.getEmail());
+                mFornecedor.setId(identificadorFornecedor);
+                mFornecedor.setNome(mNome.getText().toString() );
                 mFornecedor.setTelefone(mTelefone.getText().toString());
                 mFornecedor.setCpfCnpj(mCpfCnpj.getText().toString());
                 mFornecedor.setHorarios(mSpinnerHorarios.getSelectedItem().toString());

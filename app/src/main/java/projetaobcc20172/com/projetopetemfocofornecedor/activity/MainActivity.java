@@ -1,5 +1,6 @@
 package projetaobcc20172.com.projetopetemfocofornecedor.activity;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -8,9 +9,12 @@ import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
@@ -23,12 +27,14 @@ import projetaobcc20172.com.projetopetemfocofornecedor.config.ConfiguracaoFireba
 import projetaobcc20172.com.projetopetemfocofornecedor.helper.Preferencias;
 import projetaobcc20172.com.projetopetemfocofornecedor.model.Endereco;
 
+import projetaobcc20172.com.projetopetemfocofornecedor.model.Fornecedor;
+
 
 public class MainActivity extends AppCompatActivity {
 
     private TextView mTvTitulo, mTvSubtitulo, mTvSubtitulo2;
     private FirebaseAuth mAutenticacao;
-    private DatabaseReference mFirebase;
+    private Fornecedor fornecedor;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,6 +43,7 @@ public class MainActivity extends AppCompatActivity {
         mAutenticacao = ConfiguracaoFirebase.getFirebaseAutenticacao();
         Button sair;
         Button meusServicos;
+        Button minhasPromocoes;
 
         Toolbar toolbar;
         toolbar = findViewById(R.id.tb_main);
@@ -48,6 +55,7 @@ public class MainActivity extends AppCompatActivity {
 
         sair = findViewById(R.id.btnSair);
         meusServicos =  findViewById(R.id.btnMeusServicos);
+        minhasPromocoes = findViewById(R.id.btnMinhasPromocoes);
 
         mTvTitulo = findViewById(R.id.tvTituloFornecedor);
         mTvSubtitulo = findViewById(R.id.tvSubtituloFornecedor);
@@ -58,27 +66,45 @@ public class MainActivity extends AppCompatActivity {
         idUsuarioLogado = getPreferences("idFornecedor", this);
 
         // Recuperar serviços do Firebase
-        mFirebase = ConfiguracaoFirebase.getFirebase().child("fornecedor").child(idUsuarioLogado);
+        DatabaseReference mFirebase = ConfiguracaoFirebase.getFirebase().child("fornecedor").child(idUsuarioLogado);
 
         mFirebase.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                String nome = (String)dataSnapshot.child("nome").getValue();
-                String email = (String)dataSnapshot.child("email").getValue();
-                String telefone = (String)dataSnapshot.child("telefone").getValue();
-                Endereco end = dataSnapshot.child("endereco").getValue(Endereco.class);
+                String id = (String) dataSnapshot.child("id").getValue();
+                String nome = (String) dataSnapshot.child("nome").getValue();
+                String nomeBusca = (String) dataSnapshot.child("nomeBusca").getValue();
+                String email = (String) dataSnapshot.child("email").getValue();
+                String senha = (String) dataSnapshot.child("senha").getValue();
+                String cpfCnpj = (String) dataSnapshot.child("cpfCnpj").getValue();
+                String telefone = (String) dataSnapshot.child("telefone").getValue();
+                String horarios = (String) dataSnapshot.child("horarios").getValue();
+                Endereco end = (Endereco)dataSnapshot.child("endereco").getValue(Endereco.class);
                 mTvTitulo.setText(nome);
                 mTvSubtitulo.setText("E-mail: " + email);
                 mTvSubtitulo2.setText("Fone: " + telefone);
                 Preferencias p = new Preferencias(MainActivity.this);
                 p.salvarPosicao((float)end.getmLatitude(),(float)end.getmLongitude());
                 p.salvarNota(dataSnapshot.child("nota").getValue(Float.class));
-                p.salvarDadosUser(idUsuarioLogado,nome,email);
+                p.salvarDadosUser(idUsuarioLogado, nome, email);
+
+                fornecedor = new Fornecedor(nome, nomeBusca, email, cpfCnpj, telefone, senha, senha, horarios);
+                fornecedor.setEndereco(end);
+                fornecedor.setId(id);
             }
 
             @Override
             public void onCancelled(DatabaseError databaseError) {
+                Toast.makeText(MainActivity.this, "Erro na leitura do banco de dados", Toast.LENGTH_SHORT).show();
+            }
+        });
 
+        minhasPromocoes.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent();
+                intent.setClass(MainActivity.this, PromocaoActivity.class);
+                startActivity(intent);
             }
         });
 
@@ -100,6 +126,26 @@ public class MainActivity extends AppCompatActivity {
         });
 
     }
+    //chama o menu de edição de perfil de fornecedor
+    @Override
+    @SuppressLint("ResourceType")
+    public boolean onCreateOptionsMenu(Menu menu){
+        getMenuInflater().inflate(R.layout.menu_main, menu);
+        return super.onCreateOptionsMenu(menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item){
+        int id = item.getItemId();
+        if(id == R.id.action_editar){
+
+            Intent intent = new Intent(MainActivity.this,EditarFornecedorActivity.class);
+            intent.putExtra("fornecedor", fornecedor);
+            startActivity(intent);
+        }
+        return true;
+    }
+
 
     //Método para deslogar fornecedor da aplicação e retornar a tela de Login
     private void deslogarFornecedor(){

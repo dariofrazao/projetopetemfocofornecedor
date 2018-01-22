@@ -13,6 +13,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.ListView;
+
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -29,8 +30,6 @@ import projetaobcc20172.com.projetopetemfocofornecedor.utils.Utils;
 
 public class ServicosActivity extends AppCompatActivity implements ServicoAdapter.CustomButtonListener{
 
-    private FirebaseAuth mAutenticacao;
-    private DatabaseReference mFirebase;
     private ArrayList<Servico> mServicos;
     private ServicoAdapter mAdapter;
     private ValueEventListener mValueEventListenerServico;
@@ -42,7 +41,6 @@ public class ServicosActivity extends AppCompatActivity implements ServicoAdapte
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_servicos);
-        mAutenticacao = ConfiguracaoFirebase.getFirebaseAutenticacao();
 
         //Recuperar id do fornecedor logado
 

@@ -1,7 +1,5 @@
 package projetaobcc20172.com.projetopetemfocofornecedor.database.services;
 
-
-
 import projetaobcc20172.com.projetopetemfocofornecedor.model.Servico;
 
 /**
