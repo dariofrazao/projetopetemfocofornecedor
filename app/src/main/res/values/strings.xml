@@ -8,7 +8,7 @@
     <string name="repita_sua_senha">Repita sua senha</string>
     <string name="nome">Nome</string>
     <string name="confirmar_sua_senha">Confirme sua senha</string>
-    <string name="sucesso_cadastro_proxima_etapa_Toast">Sucesso! Pronto para a próxima etapa</string>
+    <string name="sucesso_cadastro_proxima_etapa_Toast">SucessoSucesso! Pronto para a próxima etapa</string>
     <string name="sucesso_cadastro">Cadastro Efetuado com Sucesso!</string>
     <string name="erro_ao_cadastrar">Erro ao cadastrar</string>
     <string name="erro_ao_atualizar">Erro ao atualizar</string>
@@ -23,6 +23,7 @@
 
     <!--Strings relacionadas a cadastro de fornecedor-->
     <string name="tb_cadastro_fornecedor">Cadastro de Fornecedor</string>
+    <string name="tb_editar_fornecedor">Edição de Fornecedor</string>
     <string name="botao_cadastrar_fornecedor">Cadastrar Fornecedor</string>
     <string name="sucesso_cadastro_Fornecedor">Sucesso ao cadastrar fornecedor</string>
     <string name="digite_seu_telefone">Digite seu telefone</string>
@@ -30,6 +31,8 @@
     <string name="prompt_telefone">Telefone</string>
     <string name="prompt_cpf_cnpj">CPF/CNPJ</string>
     <string name="prompt_horario">Horário de Funcionamento</string>
+    <string name="prompt_action_editar">Editar Perfil</string>
+    <string name="prompt_action_eliminar">Eliminar Perfil</string>
     <string name="erro_cadastro_fornecedor_email_invalido_Toast">Erro ao cadastrar fornecedor: Email indicado não é válido.</string>
     <string name="erro_cadastro_fornecedor_senha_invalida_Toast">Erro ao cadastrar fornecedor: Escolha uma senha que contenha pelo menos 6 caracteres.</string>
     <string name="erro_cadastro_fornecedor_email_usado_Toast">Erro ao cadastrar fornecedor: Já existe uma conta com esse e-mail.</string>
@@ -39,6 +42,9 @@
     <string name="erro_cadastro_fornecedor_nome_fornecedor_Toast">Erro ao cadastrar fornecedor: O nome de fornecedor inválido.</string>
     <string name="tb_geolocalizacao_titulo">Localização</string>
     <string name="google_maps_key">AIzaSyA5ajs6LhgYb3YfbuQ-hyDrUq4GYMjMkT0</string>
+
+    <!--Strings relacionadas a editar fornecedor-->
+    <string name="erro_editar_fornecedor_campos_obrigatorios_Toast">Erro ao editar fornecedor: Preencha todos os campos</string>
 
     <!--Strings relacionadas a login-->
     <string name="prompt_email">Email</string>
