@@ -26,7 +26,7 @@ public class EditFornecedorActivityTest {
     private String mTelefone = "87992756888";
     private String mHorarios = "Tarde";
     private String mCampovazio = "";
-    private String mEmail = "for@gmail.com";
+    private String mEmail = "eeee@gmail.com";
     private String mSenha = "123456";
 
     @Before

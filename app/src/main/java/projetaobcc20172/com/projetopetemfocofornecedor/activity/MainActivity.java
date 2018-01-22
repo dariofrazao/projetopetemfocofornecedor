@@ -73,6 +73,7 @@ public class MainActivity extends AppCompatActivity {
             public void onDataChange(DataSnapshot dataSnapshot) {
                 String id = (String) dataSnapshot.child("id").getValue();
                 String nome = (String) dataSnapshot.child("nome").getValue();
+                String nomeBusca = (String) dataSnapshot.child("nomeBusca").getValue();
                 String email = (String) dataSnapshot.child("email").getValue();
                 String senha = (String) dataSnapshot.child("senha").getValue();
                 String cpfCnpj = (String) dataSnapshot.child("cpfCnpj").getValue();
@@ -85,7 +86,7 @@ public class MainActivity extends AppCompatActivity {
                 Preferencias p = new Preferencias(MainActivity.this);
                 p.salvarDadosUser(idUsuarioLogado, nome, email);
 
-                fornecedor = new Fornecedor(nome, email, cpfCnpj, telefone, senha, senha, horarios);
+                fornecedor = new Fornecedor(nome, nomeBusca, email, cpfCnpj, telefone, senha, senha, horarios);
                 fornecedor.setEndereco(endereco);
                 fornecedor.setId(id);
             }

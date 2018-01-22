@@ -88,7 +88,6 @@ public class EditarFornecedorActivity extends AppCompatActivity {
 
     //Método para editar o fornecedor no FirebaseAuthentication
     private void editarFornecedor() {
-        FirebaseAuth mAutenticacao = ConfiguracaoFirebase.getFirebaseAutenticacao();
 
         //Recuperar id do usuário logado
         String mIdFornecedorLogado;
