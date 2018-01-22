@@ -42,7 +42,7 @@ public class EditFornecedorActivityTest {
 
 
     @Test //testa editar fornecedor com todos os campo preenchidos
-    public void editarFornecedorCamposPreenchidos() throws InterruptedException {
+    public void editarFornecedorCamposPreenchidos(){
         TestTools.login(mEmail, mSenha);
         TestTools.clicarItemMenuEditar();
         TestToolsEditFornecedor.preencherEclicar(this.mTelefone, this.mHorarios);
@@ -50,7 +50,7 @@ public class EditFornecedorActivityTest {
     }
 
     @Test //testa editar fornecedor com algum campo vazio
-    public void editarFornecedorCamposNaoPreenchidos() throws InterruptedException {
+    public void editarFornecedorCamposNaoPreenchidos(){
         TestTools.login(mEmail, mSenha);
         TestTools.clicarItemMenuEditar();
         TestToolsEditFornecedor.preencherEclicar(this.mCampovazio, this.mHorarios);
