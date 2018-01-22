@@ -34,7 +34,6 @@ public class MainActivity extends AppCompatActivity {
 
     private TextView mTvTitulo, mTvSubtitulo, mTvSubtitulo2;
     private FirebaseAuth mAutenticacao;
-    private DatabaseReference mFirebase;
     private Fornecedor fornecedor;
 
     @Override
@@ -67,7 +66,7 @@ public class MainActivity extends AppCompatActivity {
         idUsuarioLogado = getPreferences("idFornecedor", this);
 
         // Recuperar serviços do Firebase
-        mFirebase = ConfiguracaoFirebase.getFirebase().child("fornecedor").child(idUsuarioLogado);
+        DatabaseReference mFirebase = ConfiguracaoFirebase.getFirebase().child("fornecedor").child(idUsuarioLogado);
 
         mFirebase.addValueEventListener(new ValueEventListener() {
             @Override
@@ -86,7 +85,7 @@ public class MainActivity extends AppCompatActivity {
                 mTvSubtitulo2.setText("Fone: " + telefone);
                 Preferencias p = new Preferencias(MainActivity.this);
                 p.salvarPosicao((float)end.getmLatitude(),(float)end.getmLongitude());
-                p.salvarDadosUser(idUsuarioLogado,nome,email);
+                p.salvarNota(dataSnapshot.child("nota").getValue(Float.class));
                 p.salvarDadosUser(idUsuarioLogado, nome, email);
 
                 fornecedor = new Fornecedor(nome, nomeBusca, email, cpfCnpj, telefone, senha, senha, horarios);
