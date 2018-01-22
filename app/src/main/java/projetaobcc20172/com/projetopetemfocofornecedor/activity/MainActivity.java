@@ -66,12 +66,13 @@ public class MainActivity extends AppCompatActivity {
                 String nome = (String)dataSnapshot.child("nome").getValue();
                 String email = (String)dataSnapshot.child("email").getValue();
                 String telefone = (String)dataSnapshot.child("telefone").getValue();
-                Endereco end = (Endereco)dataSnapshot.child("endereco").getValue(Endereco.class);
+                Endereco end = dataSnapshot.child("endereco").getValue(Endereco.class);
                 mTvTitulo.setText(nome);
                 mTvSubtitulo.setText("E-mail: " + email);
                 mTvSubtitulo2.setText("Fone: " + telefone);
                 Preferencias p = new Preferencias(MainActivity.this);
                 p.salvarPosicao((float)end.getmLatitude(),(float)end.getmLongitude());
+                p.salvarNota(dataSnapshot.child("nota").getValue(Float.class));
                 p.salvarDadosUser(idUsuarioLogado,nome,email);
             }
 

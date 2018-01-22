@@ -40,17 +40,18 @@ public class UnitTestCadastroFornecedor {
         String senha="123456";
         String horarios = "17:30";
 
-        return Arrays.asList(
-                new Fornecedor(nome,email,cpfCnpj,telefone,senha,senha,""),
-                new Fornecedor(nome,email,cpfCnpj,telefone,senha,"",""),
-                new Fornecedor(nome,email,cpfCnpj,telefone,"","",""),
-                new Fornecedor(nome,email,cpfCnpj,"","","",""),
-                new Fornecedor(nome,email,"","","","",""),
-                new Fornecedor(nome,"","","","","",""),
-                new Fornecedor("",email,cpfCnpj,telefone,senha,senha,horarios),
-                new Fornecedor(nome,"",cpfCnpj,telefone,senha,senha,horarios),
-                new Fornecedor(nome,email,"",telefone,senha,senha,horarios),
-                new Fornecedor(nome,email,cpfCnpj,"",senha,senha,horarios));
+        return Arrays.asList( nome,  nomeBusca,  email,  cpfCnpj,  telefone,  senha,  senha2,  horarios) {
+
+            new Fornecedor(nome,nome,email,cpfCnpj,telefone,senha,senha,""),
+                new Fornecedor(nome,nome,email,cpfCnpj,telefone,senha,"",""),
+                new Fornecedor(nome,nome,email,cpfCnpj,telefone,"","",""),
+                new Fornecedor(nome,nome,email,cpfCnpj,"","","",""),
+                new Fornecedor(nome,nome,email,"","","","",""),
+                new Fornecedor(nome,nome,"","","","","",""),
+                new Fornecedor("",nome,email,cpfCnpj,telefone,senha,senha,horarios),
+                new Fornecedor(nome,nome,"",cpfCnpj,telefone,senha,senha,horarios),
+                new Fornecedor(nome,nome,email,"",telefone,senha,senha,horarios),
+                new Fornecedor(nome,nome,email,cpfCnpj,"",senha,senha,horarios));
     }
 
     @Test(expected=ValidacaoException.class)

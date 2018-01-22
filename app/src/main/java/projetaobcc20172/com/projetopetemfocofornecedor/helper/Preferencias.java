@@ -18,6 +18,8 @@ public class Preferencias {
     private final String CHAVE_EMAIL = "emailUsuarioLogado";
     private final String CHAVE_LATITUDE = "latitude";
     private final String CHAVE_LONGITUDE = "longitude";
+    private final String CHAVE_NOTA= "nota";
+
 
 
     public Preferencias( Context contextoParametro){
@@ -47,6 +49,10 @@ public class Preferencias {
         editor.putFloat(CHAVE_LATITUDE,latitude);
         editor.putFloat(CHAVE_LONGITUDE,longitude);
     }
+
+    public void salvarNota(float nota){
+        editor.putFloat(CHAVE_NOTA,nota);
+    }
     public String getIdentificador(){
         return preferences.getString(CHAVE_IDENTIFICADOR, null);
     }
@@ -60,5 +66,8 @@ public class Preferencias {
     }
     public double getLongitude(){
         return preferences.getFloat(CHAVE_LONGITUDE,0);
+    }
+    public float getNota(){
+        return preferences.getFloat(CHAVE_NOTA,0);
     }
 }
