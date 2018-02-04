@@ -48,7 +48,6 @@ public class LoginActivity extends AppCompatActivity {
         verificarFornecedorLogado();
         //}
 
-
         mEmail = findViewById(R.id.etLoginEmail);
         mSenha = findViewById(R.id.etLoginSenha);
         Button mLogin;
@@ -59,7 +58,8 @@ public class LoginActivity extends AppCompatActivity {
         mCadastrarFornecedor.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(LoginActivity.this, CadastroFornecedorActivity.class);
+//                Intent intent = new Intent(LoginActivity.this, CadastroFornecedorActivity.class);
+                Intent intent = new Intent(LoginActivity.this, CadastroFornecedorTipoActivity.class);
                 startActivity(intent);
                 //finish();
             }
@@ -73,7 +73,6 @@ public class LoginActivity extends AppCompatActivity {
                 mFornecedor.setSenha( mSenha.getText().toString() );
                 exibirProgresso();
                 validarLogin();
-
             }
         });
     }

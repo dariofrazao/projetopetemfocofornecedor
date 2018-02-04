@@ -104,7 +104,6 @@ public class CadastroEnderecoActivity extends AppCompatActivity{
                 mEndereco.setUf(mSpinnerUf.getSelectedItem().toString());
 
                 cadastrarEnderecoFornecedor();
-
             }
         });
 
