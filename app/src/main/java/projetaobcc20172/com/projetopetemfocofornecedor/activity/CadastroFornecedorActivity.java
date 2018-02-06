@@ -112,11 +112,11 @@ public class CadastroFornecedorActivity extends AppCompatActivity {
         TextView tvCadastroCpfCnpjFornecedor = findViewById(R.id.tvCadastroCpfCnpjFornecedor);
 
         String mascara = "";
-        if(tipoFornecedor.equals("Autônomo")){
+        if("Autônomo".equals(tipoFornecedor)){
             tvCadastroCpfCnpjFornecedor.setText("CPF");
             mCpfCnpj.setHint("Digite seu CPF");
             mascara = MaskUtil.FORMAT_CPF;
-        }else if(tipoFornecedor.equals("Estabelecimento")){
+        }else if("Estabelecimento".equals(tipoFornecedor)){
             tvCadastroCpfCnpjFornecedor.setText("CNPJ");
             mCpfCnpj.setHint("Digite seu CNPJ");
             mascara = MaskUtil.FORMAT_CNPJ;
