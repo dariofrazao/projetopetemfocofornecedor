@@ -7,11 +7,13 @@ import android.support.annotation.NonNull;
 import android.support.annotation.VisibleForTesting;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.text.TextWatcher;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -56,6 +58,8 @@ public class CadastroFornecedorActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_cadastro_fornecedor);
 
+        final String tipoFornecedor = getIntent().getStringExtra("tipoFornecedor");
+
         Toolbar toolbar;
         toolbar = findViewById(R.id.tb_cadastro_fornecedor);
         mNome = findViewById(R.id.etCadastroNomeFornecedor);
@@ -63,7 +67,9 @@ public class CadastroFornecedorActivity extends AppCompatActivity {
         mTelefone = findViewById(R.id.etCadastroTelefoneFornecedor);
         mTelefone.addTextChangedListener(MaskUtil.mask(mTelefone, MaskUtil.FORMAT_FONE));
         mCpfCnpj = findViewById(R.id.etCadastroCpfCnpjFornecedor);
-        mCpfCnpj.addTextChangedListener(MaskUtil.mask(mCpfCnpj, MaskUtil.FORMAT_CNPJ));
+
+        mCpfCnpj.addTextChangedListener(getMascara(tipoFornecedor));
+
         mSenha = findViewById(R.id.etCadastroSenhaFornecedor);
         mSenha2 = findViewById(R.id.etCadastroSenha2Fornecedor);
         Button botaoCadastrar;
@@ -90,6 +96,7 @@ public class CadastroFornecedorActivity extends AppCompatActivity {
                 mFornecedor.setHorarios(mSpinnerHorarios.getSelectedItem().toString());
                 mFornecedor.setSenha(mSenha.getText().toString());
                 mFornecedor.setSenha2(mSenha2.getText().toString());
+                mFornecedor.setTipo(tipoFornecedor);
                 cadastrarFornecedor();
             }
         });
@@ -99,6 +106,22 @@ public class CadastroFornecedorActivity extends AppCompatActivity {
         toolbar.setTitleTextColor(Color.WHITE);
         toolbar.setNavigationIcon(R.drawable.ic_action_arrow_left_white);
         setSupportActionBar(toolbar);
+    }
+
+    private TextWatcher getMascara(String tipoFornecedor){
+        TextView tvCadastroCpfCnpjFornecedor = findViewById(R.id.tvCadastroCpfCnpjFornecedor);
+
+        String mascara = "";
+        if("Autônomo".equals(tipoFornecedor)){
+            tvCadastroCpfCnpjFornecedor.setText("CPF");
+            mCpfCnpj.setHint("Digite seu CPF");
+            mascara = MaskUtil.FORMAT_CPF;
+        }else if("Estabelecimento".equals(tipoFornecedor)){
+            tvCadastroCpfCnpjFornecedor.setText("CNPJ");
+            mCpfCnpj.setHint("Digite seu CNPJ");
+            mascara = MaskUtil.FORMAT_CNPJ;
+        }
+        return MaskUtil.mask(mCpfCnpj, mascara);
     }
 
     @Override

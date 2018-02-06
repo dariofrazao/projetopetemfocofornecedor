@@ -24,6 +24,7 @@ public class Fornecedor implements Serializable {
     private String mSenha2;
     private String mEnderecoFornecedor = "1";
     private Endereco mEndereco;
+    private String mTipo;
     private ArrayList<Servico> mServicos = new ArrayList<>();
 
     private float mNota = 0;
@@ -151,6 +152,14 @@ public class Fornecedor implements Serializable {
 
     public void setNota(float mNota) {
         this.mNota = mNota;
+    }
+
+    public void setTipo(String tipo){
+        this.mTipo = tipo;
+    }
+
+    public String getTipo(){
+        return this.mTipo;
     }
 
 }

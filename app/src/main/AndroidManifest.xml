@@ -10,7 +10,7 @@
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_LOCATION_EXTRA_COMMANDS" />
-    <uses-permission android:name="com.example.permission.MAPS_RECEIVE"/>
+    <uses-permission android:name="com.example.permission.MAPS_RECEIVE" />
 
     <application
         android:allowBackup="true"
@@ -19,10 +19,9 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-
         <meta-data
             android:name="com.google.android.maps.v2.API_KEY"
-            android:value="@string/google_maps_key"/>
+            android:value="@string/google_maps_key" />
 
         <activity
             android:name=".activity.LoginActivity"
@@ -34,41 +33,23 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
-        <activity
-            android:name=".activity.MainActivity"
-            />
-
+        <activity android:name=".activity.MainActivity" />
         <activity
             android:name=".activity.CadastroServicoActivity"
-            android:windowSoftInputMode="stateHidden"
-            />
-
+            android:windowSoftInputMode="stateHidden" />
         <activity
             android:name=".activity.CadastroFornecedorActivity"
-            android:windowSoftInputMode="stateHidden"
-            />
-
-        <activity
-            android:name=".activity.CadastroEnderecoActivity"
-            />
-
-        <activity
-            android:name=".activity.ServicosActivity"
-            />
-
+            android:windowSoftInputMode="stateHidden" />
+        <activity android:name=".activity.CadastroEnderecoActivity" />
+        <activity android:name=".activity.ServicosActivity" />
         <activity
             android:name=".activity.CadastroGeolocalizacaoActivity"
-            android:windowSoftInputMode="stateHidden"
-            />
-
-        <activity
-        android:name=".activity.EditarFornecedorActivity"
-            />
-
             android:windowSoftInputMode="stateHidden" />
+        <activity android:name=".activity.EditarFornecedorActivity" />
+        android:windowSoftInputMode="stateHidden" />
         <activity android:name=".activity.CadastroPromocaoActivity" />
-        <activity android:name=".activity.PromocaoActivity"></activity>
+        <activity android:name=".activity.PromocaoActivity" />
+        <activity android:name=".activity.CadastroFornecedorTipoActivity"></activity>
     </application>
 
 </manifest>
