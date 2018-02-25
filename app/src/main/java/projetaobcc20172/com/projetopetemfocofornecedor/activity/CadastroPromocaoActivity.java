@@ -70,7 +70,7 @@ public class CadastroPromocaoActivity extends AppCompatActivity {
         mData.setFocusable(false);
 
         Button btnCadastrarPromocao = findViewById(R.id.btnCadastroPromocao);
-        Button btnEditarPromocao = findViewById(R.id.btnEditarPromocao);
+        final Button btnEditarPromocao = findViewById(R.id.btnEditarPromocao);
         //funcao responsavel por preencher o campo de mData com a mData selecionada do datapicker
         getDateFromActivityListener();
 
@@ -128,7 +128,7 @@ public class CadastroPromocaoActivity extends AppCompatActivity {
 
     private void salvarPromocao(){
         try {
-            mIdUsuarioLogado = getPreferences("idFornecedor", CadastroPromocaoActivity.this);
+            mIdUsuarioLogado = getPreferences("id", CadastroPromocaoActivity.this);
             mPromocao = new Promocao();
             mPromocao.setTitulo(mTitulo.getText().toString());
             mPromocao.setValor(mValor.getText().toString());

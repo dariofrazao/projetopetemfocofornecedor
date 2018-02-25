@@ -41,8 +41,10 @@ public class PromocaoActivity extends AppCompatActivity implements PromocaoAdapt
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_promocao);
 
+
+
         SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
-        mIdUsuarioLogado = preferences.getString("idFornecedor", "");
+        mIdUsuarioLogado = preferences.getString("id", "");
 
         ImageButton cadastroPromocao;
 
@@ -89,6 +91,7 @@ public class PromocaoActivity extends AppCompatActivity implements PromocaoAdapt
 
                 }
                 mAdapter.notifyDataSetChanged();
+
             }
 
             @Override
@@ -96,6 +99,7 @@ public class PromocaoActivity extends AppCompatActivity implements PromocaoAdapt
                 assert true;
             }
         });
+
     }
 
     private void removerPromocao(Promocao promocao){

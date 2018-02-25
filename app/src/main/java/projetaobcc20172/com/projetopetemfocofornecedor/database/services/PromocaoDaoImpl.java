@@ -88,31 +88,20 @@ public class PromocaoDaoImpl implements PromocaoDao{
 
     @Override
     public void atualizar(final Promocao promocao, final String idFornecedor) {
-        mReferenciaFirebase.child("promocoes").orderByChild("id").
-                equalTo(promocao.getId()).addListenerForSingleValueEvent(new ValueEventListener() {
+        mReferenciaFirebase.child(String.format("%s/%s","promocoes",promocao.getId()))
+                .setValue(promocao).addOnCompleteListener(new OnCompleteListener<Void>() {
             @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                mReferenciaFirebase.child("promocoes").child(promocao.getId()).
-                        setValue(promocao).addOnCompleteListener(new OnCompleteListener<Void>() {
-                    @Override
-                    public void onComplete(@NonNull Task<Void> task) {
-                        if(task.isSuccessful()){
-                            Utils.mostrarMensagemCurta(getContexto(), "sucesso ao atualizar promoção");
-                        }else{
-                            Utils.mostrarMensagemCurta(getContexto(), getContexto().getString(R.string.erro_ao_atualizar));
-                            try {
-                                throw  task.getException();
-                            } catch (Exception e) {
-                                e.printStackTrace();
-                            }
-                        }
+            public void onComplete(@NonNull Task<Void> task) {
+                if(task.isSuccessful()){
+                    Utils.mostrarMensagemLonga(getContexto(), getContexto().getString(R.string.sucesso_atualizacao));
+                } else{
+                    Utils.mostrarMensagemLonga(getContexto(), getContexto().getString(R.string.falha_atualizacao));
+                    try {
+                        throw  task.getException();
+                    } catch (Exception e) {
+                        e.printStackTrace();
                     }
-                });
-            }
-
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-                assert true;
+                }
             }
         });
     }

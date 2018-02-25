@@ -72,9 +72,6 @@ public class CadastroFornecedorActivity extends AppCompatActivity {
         mCpfCnpj = findViewById(R.id.etCadastroCpfCnpjFornecedor);
 
         mCpfCnpj.addTextChangedListener(getMascara(mFornecedor.getTipo()));
-
-        mSenha = findViewById(R.id.etCadastroSenhaFornecedor);
-        mSenha2 = findViewById(R.id.etCadastroSenha2Fornecedor);
         Button botaoCadastrar;
         botaoCadastrar = findViewById(R.id.btnCadastrarFornecedor);
 
@@ -103,8 +100,7 @@ public class CadastroFornecedorActivity extends AppCompatActivity {
                 mFornecedor.setTelefone(mTelefone.getText().toString());
                 mFornecedor.setCpfCnpj(mCpfCnpj.getText().toString());
                 mFornecedor.setHorarios(mSpinnerHorarios.getSelectedItem().toString());
-                mFornecedor.setSenha(mSenha.getText().toString());
-                mFornecedor.setSenha2(mSenha2.getText().toString());
+
 
                 abrirCadastroEndereco();
             }
