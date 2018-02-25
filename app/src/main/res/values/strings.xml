@@ -42,6 +42,7 @@
     <string name="erro_cadastro_fornecedor_nome_fornecedor_Toast">Erro ao cadastrar fornecedor: O nome de fornecedor inválido.</string>
     <string name="tb_geolocalizacao_titulo">Localização</string>
     <string name="google_maps_key">AIzaSyA5ajs6LhgYb3YfbuQ-hyDrUq4GYMjMkT0</string>
+    <string name="pergunta_cadastro_endereco">Deseja cadastrar seu endereço agora?</string>
 
     <!--Strings relacionadas a editar fornecedor-->
     <string name="erro_editar_fornecedor_campos_obrigatorios_Toast">Erro ao editar fornecedor: Preencha todos os campos</string>
@@ -56,6 +57,7 @@
     <string name="cadastrar">Cadastrar</string>
     <string name="sucesso_login_Toast">Sucesso ao fazer login!</string>
     <string name="erro_login_invalido_Toast">Erro ao fazer login!</string>
+    <string name="botao_login_google">Login com o Google</string>
 
     <!--Strings relacionadas a endereço-->
     <string name="cadastrar_endereco">Continuar o Cadastro</string>

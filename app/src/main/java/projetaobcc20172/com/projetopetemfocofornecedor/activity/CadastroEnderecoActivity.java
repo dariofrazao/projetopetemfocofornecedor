@@ -132,7 +132,7 @@ public class CadastroEnderecoActivity extends AppCompatActivity{
     private void cadastrarEnderecoFornecedor(){
             try {
                 //Recuperar id do fornecedor logado
-                mIdUsuarioLogado = getPreferences("idFornecedor", CadastroEnderecoActivity.this);
+                mIdUsuarioLogado = getPreferences("id", CadastroEnderecoActivity.this);
                 mEndereco.setmLatitude(localizacao.latitude);
                 mEndereco.setmLongitude(localizacao.longitude);
                 VerificadorDeObjetos.vDadosObrEndereco(mEndereco);
@@ -141,7 +141,7 @@ public class CadastroEnderecoActivity extends AppCompatActivity{
 
                 //Chamada do DAO para salvar no banco
                 fornecedorDao.inserir(mFornecedor, mIdUsuarioLogado);
-                //salvarPreferencias("idFornecedor", mFornecedor.getId());
+                //salvarPreferencias("id", mFornecedor.getId());
                 abrirLoginFornecedor();
 
             } catch (CampoObrAusenteException e) {
@@ -155,7 +155,7 @@ public class CadastroEnderecoActivity extends AppCompatActivity{
 
 
     public void abrirLoginFornecedor() {
-        Intent intent = new Intent(CadastroEnderecoActivity.this, LoginActivity.class);
+        Intent intent = new Intent(CadastroEnderecoActivity.this, MainActivity.class);
         startActivity(intent);
         finish();
     }
