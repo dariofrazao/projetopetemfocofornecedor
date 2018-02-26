@@ -1,6 +1,8 @@
 package projetaobcc20172.com.projetopetemfocofornecedor.model;
 
 import java.io.Serializable;
+import java.util.Date;
+import java.util.List;
 
 /**
  * Created by Cloves on 19/01/2018.
@@ -12,7 +14,7 @@ public class Promocao implements Serializable{
     private String mTitulo;
     private String mDescricao;
     private String mValor;
-    private String mData;
+    private List<Date> mDatas;
     private String mFornecedorId;
 
     public String getId() {
@@ -47,12 +49,12 @@ public class Promocao implements Serializable{
         this.mValor = mValor;
     }
 
-    public String getData() {
-        return mData;
+    public List<Date> getDatas() {
+        return mDatas;
     }
 
-    public void setData(String mData) {
-        this.mData = mData;
+    public void setDatas(List<Date> mData) {
+        this.mDatas = mData;
     }
 
     public String getFornecedorId() {

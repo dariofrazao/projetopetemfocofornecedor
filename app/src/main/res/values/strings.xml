@@ -114,4 +114,34 @@
     <string name="title_activity_editar_servico">Edição de Servico</string>
     <string name="confirmar_edicao_geolocalizacao">CONFIRMAR</string>
     <string name="title_activity_cadastro_fornecedor_tipo">CadastroFornecedorTipoActivity</string>
+
+    <!--Strings do calendario-->
+    <string name="material_calendar_monday">S</string>
+    <string name="material_calendar_tuesday">T</string>
+    <string name="material_calendar_wednesday">Q</string>
+    <string name="material_calendar_thursday">Q</string>
+    <string name="material_calendar_friday">S</string>
+    <string name="material_calendar_saturday">S</string>
+    <string name="material_calendar_sunday">D</string>
+
+    <array name="material_calendar_months_array">
+        <item>janeiro</item>
+        <item>fevereiro</item>
+        <item>março</item>
+        <item>abril</item>
+        <item>maio</item>
+        <item>junho</item>
+        <item>julho</item>
+        <item>agosto</item>
+        <item>setembro</item>
+        <item>outubro</item>
+        <item>novembro</item>
+        <item>dezembro</item>
+    </array>
+
+    <string name="material_calendar_today_button">Hoje</string>
+    <string name="material_calendar_positive_button">Confirmar</string>
+    <string name="material_calendar_negative_button">Cancelar</string>
+    <string name="editar">EDITAR</string>
+
 </resources>

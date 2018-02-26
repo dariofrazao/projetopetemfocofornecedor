@@ -10,6 +10,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ImageButton;
 import android.widget.ListView;
 
@@ -31,17 +32,17 @@ import projetaobcc20172.com.projetopetemfocofornecedor.utils.Utils;
 public class PromocaoActivity extends AppCompatActivity implements PromocaoAdapter.CustomButtonListener{
 
     private ArrayList<Promocao> mPromocoes;
+
     private PromocaoAdapter mAdapter;
     @VisibleForTesting(otherwise = VisibleForTesting.PRIVATE)//permite que essa variavel seja vista pela classe de teste
     public ListView listView;
     private String mIdUsuarioLogado;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_promocao);
-
-
 
         SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
         mIdUsuarioLogado = preferences.getString("id", "");
@@ -66,6 +67,8 @@ public class PromocaoActivity extends AppCompatActivity implements PromocaoAdapt
 
         this.carregarPromocoes();
 
+        this.chamarInfoPromocaoListener();
+
         cadastroPromocao.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -74,7 +77,6 @@ public class PromocaoActivity extends AppCompatActivity implements PromocaoAdapt
                 finish();
             }
         });
-
     }
 
     private void carregarPromocoes(){
@@ -88,10 +90,8 @@ public class PromocaoActivity extends AppCompatActivity implements PromocaoAdapt
                     Promocao promocao = dados.getValue(Promocao.class);
                     promocao.setId(dados.getKey());
                     mPromocoes.add(promocao);
-
                 }
                 mAdapter.notifyDataSetChanged();
-
             }
 
             @Override
@@ -99,7 +99,6 @@ public class PromocaoActivity extends AppCompatActivity implements PromocaoAdapt
                 assert true;
             }
         });
-
     }
 
     private void removerPromocao(Promocao promocao){
@@ -153,5 +152,14 @@ public class PromocaoActivity extends AppCompatActivity implements PromocaoAdapt
         finish();
     }
 
+    //Método que passa as informações de uma promocao para a Activity que exibe seus detalhes
+    public void chamarInfoPromocaoListener() {
+        this.listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+
+            }
+        });
+    }
 
 }

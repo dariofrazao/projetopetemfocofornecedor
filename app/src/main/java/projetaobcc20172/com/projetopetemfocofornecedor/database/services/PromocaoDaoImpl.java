@@ -22,6 +22,7 @@ import projetaobcc20172.com.projetopetemfocofornecedor.utils.Utils;
 public class PromocaoDaoImpl implements PromocaoDao{
 
     private DatabaseReference mReferenciaFirebase;
+
     private Context mContexto;
 
     public PromocaoDaoImpl(Context contexto){
@@ -51,6 +52,7 @@ public class PromocaoDaoImpl implements PromocaoDao{
             }
         });
     }
+
 
     @Override
     public void remover(final Promocao promocao, final String idFornecedor) {
