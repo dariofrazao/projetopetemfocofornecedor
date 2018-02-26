@@ -79,7 +79,7 @@ public class CalendarioPromocoesPickerActivity extends AppCompatActivity {
         });
     }
 
-    List<Calendar> getDisabledDays(Calendar currentDate){
+    private List<Calendar> getDisabledDays(Calendar currentDate){
         Calendar inicio = DateUtils.getCalendar();
         inicio.set(Calendar.YEAR,currentDate.get(Calendar.YEAR));
         inicio.set(Calendar.MONTH,currentDate.get(Calendar.MONTH));

@@ -4,7 +4,6 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
 import android.support.annotation.RequiresApi;
 import android.support.annotation.VisibleForTesting;
 import android.support.v7.app.AppCompatActivity;
@@ -19,23 +18,9 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
-import com.google.firebase.FirebaseNetworkException;
-import com.google.firebase.auth.AuthResult;
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException;
-import com.google.firebase.auth.FirebaseAuthUserCollisionException;
-import com.google.firebase.auth.FirebaseAuthWeakPasswordException;
-
 import projetaobcc20172.com.projetopetemfocofornecedor.R;
-import projetaobcc20172.com.projetopetemfocofornecedor.config.ConfiguracaoFirebase;
-import projetaobcc20172.com.projetopetemfocofornecedor.excecoes.ValidacaoException;
-import projetaobcc20172.com.projetopetemfocofornecedor.helper.Base64Custom;
 import projetaobcc20172.com.projetopetemfocofornecedor.model.Fornecedor;
 import projetaobcc20172.com.projetopetemfocofornecedor.utils.MaskUtil;
-import projetaobcc20172.com.projetopetemfocofornecedor.utils.Utils;
-import projetaobcc20172.com.projetopetemfocofornecedor.utils.VerificadorDeObjetos;
 
 /**
  * Created by renat on 02/12/2017.
@@ -46,14 +31,9 @@ import projetaobcc20172.com.projetopetemfocofornecedor.utils.VerificadorDeObjeto
  */
 public class CadastroFornecedorActivity extends AppCompatActivity {
 
-    private EditText mNome, mEmail, mSenha, mSenha2, mTelefone, mCpfCnpj;
+    private EditText mNome, mEmail, mTelefone, mCpfCnpj;
     private Spinner mSpinnerHorarios;
     private Fornecedor mFornecedor;
-
-    //permite que essa variavel seja vista pela classe de teste
-    @VisibleForTesting(otherwise = VisibleForTesting.PRIVATE)
-    private Toast mToast;
-
 
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     @Override

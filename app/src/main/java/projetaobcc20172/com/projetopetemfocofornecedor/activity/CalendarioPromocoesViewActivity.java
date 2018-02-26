@@ -22,7 +22,6 @@ import projetaobcc20172.com.projetopetemfocofornecedor.model.Promocao;
 
 public class CalendarioPromocoesViewActivity extends AppCompatActivity {
 
-    private List<Date> mDatas;
     private List<EventDay> mEvents = new ArrayList<>();
 
     @Override
@@ -64,7 +63,6 @@ public class CalendarioPromocoesViewActivity extends AppCompatActivity {
             e.printStackTrace();
         }
 
-        mDatas = new ArrayList<>();
         Button btmEditar = (Button) findViewById(R.id.getDateButton);
         btmEditar.setOnClickListener(v -> {
             Intent intent = new Intent(CalendarioPromocoesViewActivity.this,CalendarioPromocoesPickerActivity.class);
@@ -75,7 +73,7 @@ public class CalendarioPromocoesViewActivity extends AppCompatActivity {
         });
     }
 
-    List<Calendar> getDisabledDays(Calendar currentDate){
+    private List<Calendar> getDisabledDays(Calendar currentDate){
         Calendar inicio = DateUtils.getCalendar();
         inicio.set(Calendar.YEAR,currentDate.get(Calendar.YEAR));
         inicio.set(Calendar.MONTH,currentDate.get(Calendar.MONTH));
@@ -90,12 +88,6 @@ public class CalendarioPromocoesViewActivity extends AppCompatActivity {
         return true;
     }
 
-    private void abrirTelaPrincipal() {
-        Intent intent = new Intent(CalendarioPromocoesViewActivity.this, PromocaoActivity.class);
-        //intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
-        startActivity(intent);
-        finish();
-    }
 }
 
 
