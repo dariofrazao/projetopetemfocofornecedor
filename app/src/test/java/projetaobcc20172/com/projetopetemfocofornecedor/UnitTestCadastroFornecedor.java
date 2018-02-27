@@ -34,6 +34,7 @@ public class UnitTestCadastroFornecedor {
     @Parameterized.Parameters
     public static Iterable<? extends Object> data() {
         String nome = "Teste";
+        String nomeBusca = "teste";
         String email="teste@gmail.com";
         String cpfCnpj = "123456";
         String telefone="996085321";
