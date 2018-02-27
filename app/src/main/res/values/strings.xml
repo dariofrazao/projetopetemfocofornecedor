@@ -11,6 +11,7 @@
     <string name="sucesso_cadastro_proxima_etapa_Toast">SucessoSucesso! Pronto para a próxima etapa</string>
     <string name="sucesso_cadastro">Cadastro Efetuado com Sucesso!</string>
     <string name="erro_ao_cadastrar">Erro ao cadastrar</string>
+    <string name="erro_ao_remover">Erro ao cadastrar</string>
     <string name="erro_ao_atualizar">Erro ao atualizar</string>
     <string name="sucesso_remocao">Remoção Efetuada com Sucesso!</string>
     <string name="sucesso_atualizacao">Atualização Efetuada com Sucesso!</string>
@@ -46,6 +47,10 @@
 
     <!--Strings relacionadas a editar fornecedor-->
     <string name="erro_editar_fornecedor_campos_obrigatorios_Toast">Erro ao editar fornecedor: Preencha todos os campos</string>
+
+    <!--Strings relacionadas a tela de busca-->
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
 
     <!--Strings relacionadas a login-->
     <string name="prompt_email">Email</string>
@@ -99,6 +104,8 @@
     <string name="preencha_campo_tipoAnimal">Informe um tipo de animal válido</string>
     <string name="sucesso_cadastro_servico">Serviço cadastrado com sucesso!</string>
     <string name="erro_cadastro_servico">Erro ao cadastrar serviço!</string>
+    <string name="servico_existente">Esse serviço já foi criado!</string>
+    <string name="sucesso_atualizar_servico">Sucesso ao atualizar serviço!</string>
 
 
     <!--Mensagens de informação ao usuário-->
@@ -108,6 +115,25 @@
     <!--Strings de ações-->
     <string name="action_salvar">Salvar</string>
     <string name="action_editar">Editar</string>
+
+    <!--Strings de cupom-->
+    <string name="digite_nome_cupom">Digite o nome do código de desconto</string>
+    <string name="digite_valor_cupom">R$0,00</string>
+    <string name="cupom_criado">Código de desconto criado!</string>
+    <string name="cupom_removido">Código de desconto removido!</string>
+    <string name="pergunta_confirma_remocao_cupom">O código de desconto será removido. Confirma?</string>
+    <string name="sucesso_atualizar_cupom">Sucesso ao atualizar cupom!</string>
+    <string name="contem_espaco">Digite um nome sem conter espaço!</string>
+    <string name="contem_quebra_de_linha">Digite um nome sem quebra de linha!</string>
+    <string name="quinze_caracteres">Digite um nome com no máximo 15 caracteres!</string>
+    <string name="seis_caracteres">Digite um nome com no mínimo 6 caracteres!</string>
+    <string name="pergunta_confirma_criar_serviço">Você precisa criar um serviço. Confirma?</string>
+    <string name="pergunta_confirma_editar_cupom">Você precisa editar o cupom. Confirma?</string>
+    <string name="cupom_nome_existente">Esse cupom já existe!</string>
+    <string name="data_inicio_antes">A data de início não pode ser antes da data atual!</string>
+    <string name="data_vencimento_antes">A data de vencimento não pode ser antes da data atual!</string>
+    <string name="data_inicio_depois">A data do início não pode ser após a data de vencimento!</string>
+
 
     <!--String de erros-->
     <string name="error_selecione_um_servico">Selecione um serviço!</string>

@@ -19,10 +19,11 @@ public class Servico implements Serializable{
 
     public Servico() {}
 
-    public Servico(String nome, String valor,String tipoPet){
+    public Servico(String nome, String valor,String tipoPet, String descricao){
         this.mNome = nome;
         this.mValor = valor;
         this.mTipoPet = tipoPet;
+        this.mDescricao = descricao;
     }
 
     @Exclude

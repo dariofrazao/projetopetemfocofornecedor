@@ -6,18 +6,13 @@
     android:background="@drawable/fundo_degrade"
     tools:context="projetaobcc20172.com.projetopetemfocofornecedor.activity.ServicosActivity">
 
-    <include
-        android:id="@+id/tb_main"
-        layout="@layout/toolbar">
-
-    </include>
-
     <ListView
         android:id="@+id/lv_serviços"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         android:padding="8dp"
-        android:layout_below="@+id/tb_main"
+        android:divider="@drawable/list_divider"
+        android:dividerHeight="1dp"
         android:layout_above="@+id/ll_main">
 
     </ListView>

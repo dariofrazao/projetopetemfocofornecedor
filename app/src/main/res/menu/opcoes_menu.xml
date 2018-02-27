@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:showIn="navigation_view">
+
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/nav_perfil"
+            android:icon="@drawable/ic_action_perfil"
+            android:title="Meu Perfil" />
+        <item
+            android:id="@+id/nav_servicos"
+            android:icon="@drawable/ic_action_servicos"
+            android:title="Meus Serviços" />
+
+        <item
+            android:id="@+id/nav_cupons"
+            android:icon="@drawable/ic_action_cupom"
+            android:title="Meus Códigos de Desconto" />
+        <item
+            android:id="@+id/nav_promocoes"
+            android:icon="@drawable/ic_action_promocoes"
+            android:title="Minhas Promoções"
+            />
+        <item
+            android:id="@+id/nav_sair"
+            android:icon="@drawable/ic_action_sair"
+            android:title="Sair" />
+
+    </group>
+
+
+</menu>

@@ -3,13 +3,13 @@ package projetaobcc20172.com.projetopetemfocofornecedor.activity;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.graphics.Color;
-import android.preference.PreferenceManager;
-import android.support.annotation.VisibleForTesting;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.support.v7.widget.Toolbar;
+import android.preference.PreferenceManager;
+import android.support.annotation.Nullable;
+import android.support.annotation.VisibleForTesting;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ImageButton;
 import android.widget.ListView;
@@ -29,7 +29,7 @@ import projetaobcc20172.com.projetopetemfocofornecedor.database.services.Promoca
 import projetaobcc20172.com.projetopetemfocofornecedor.model.Promocao;
 import projetaobcc20172.com.projetopetemfocofornecedor.utils.Utils;
 
-public class PromocaoActivity extends AppCompatActivity implements PromocaoAdapter.CustomButtonListener{
+public class PromocaoActivity extends android.support.v4.app.Fragment implements PromocaoAdapter.CustomButtonListener{
 
     private ArrayList<Promocao> mPromocoes;
 
@@ -38,30 +38,30 @@ public class PromocaoActivity extends AppCompatActivity implements PromocaoAdapt
     public ListView listView;
     private String mIdUsuarioLogado;
 
+    @Nullable
+    @Override
+    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+        //returning our layout file
+        //change R.layout.yourlayoutfilename for each of your fragments
+        return inflater.inflate(R.layout.activity_promocao, container, false);
+    }
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_promocao);
+    public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
 
-        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
+        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(getActivity());
         mIdUsuarioLogado = preferences.getString("id", "");
 
         ImageButton cadastroPromocao;
 
-        Toolbar toolbar;
-        toolbar = findViewById(R.id.tb_main);
+        getActivity().setTitle("Promoções");
 
-        toolbar.setTitle("Promoções");
-        toolbar.setTitleTextColor(Color.WHITE);
-        toolbar.setNavigationIcon(R.drawable.ic_action_arrow_left_white);
-        setSupportActionBar(toolbar);
-
-        cadastroPromocao = findViewById(R.id.btnCadastrarPromocao);
-        this.listView = findViewById(R.id.lv_promocao);
+        cadastroPromocao = getActivity().findViewById(R.id.btnCadastrarPromocao);
+        this.listView = getActivity().findViewById(R.id.lv_promocao);
 
         mPromocoes = new ArrayList<>();
-        mAdapter = new PromocaoAdapter(PromocaoActivity.this, mPromocoes);
+        mAdapter = new PromocaoAdapter(getActivity(), mPromocoes);
         mAdapter.setCustomButtonListener(PromocaoActivity.this);
         listView.setAdapter(mAdapter);
 
@@ -72,20 +72,21 @@ public class PromocaoActivity extends AppCompatActivity implements PromocaoAdapt
         cadastroPromocao.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(PromocaoActivity.this,CadastroPromocaoActivity.class);
+                Intent intent = new Intent(getActivity(),CadastroPromocaoActivity.class);
                 startActivity(intent);
-                finish();
+                //finish();
             }
         });
     }
 
     private void carregarPromocoes(){
 
-        mPromocoes.clear();
         Query query = ConfiguracaoFirebase.getFirebase().child("promocoes").orderByChild("fornecedorId").equalTo(mIdUsuarioLogado);
-        query.addListenerForSingleValueEvent(new ValueEventListener() {
+        ValueEventListener mValueEventListenerPromocao;
+        mValueEventListenerPromocao = new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
+                mPromocoes.clear();
                 for(DataSnapshot dados : dataSnapshot.getChildren()){
                     Promocao promocao = dados.getValue(Promocao.class);
                     promocao.setId(dados.getKey());
@@ -98,11 +99,12 @@ public class PromocaoActivity extends AppCompatActivity implements PromocaoAdapt
             public void onCancelled(DatabaseError databaseError) {
                 assert true;
             }
-        });
+        };
+        query.addValueEventListener(mValueEventListenerPromocao);
     }
 
     private void removerPromocao(Promocao promocao){
-        PromocaoDao promocaoDao = new PromocaoDaoImpl(this);
+        PromocaoDao promocaoDao = new PromocaoDaoImpl(getActivity());
         promocaoDao.remover(promocao,mIdUsuarioLogado);
         mPromocoes.remove(promocao);
         mAdapter.notifyDataSetChanged();
@@ -124,16 +126,10 @@ public class PromocaoActivity extends AppCompatActivity implements PromocaoAdapt
             }
         };
 
-        Utils.mostrarPerguntaSimNao(this, getString(R.string.atencao),
+        Utils.mostrarPerguntaSimNao(getActivity(), getString(R.string.atencao),
                 getString(R.string.info_confirmar_remocao_promocao), dialogClickListener,
                 dialogClickListener);
 
-    }
-
-    @Override
-    public boolean onSupportNavigateUp() {
-        onBackPressed();
-        return true;
     }
 
     @Override
@@ -147,9 +143,9 @@ public class PromocaoActivity extends AppCompatActivity implements PromocaoAdapt
         Bundle bundle = new Bundle();
         bundle.putSerializable("promocao",  promocao);
         intent.putExtras(bundle);
-        intent.setClass(PromocaoActivity.this, CadastroPromocaoActivity.class);
+        intent.setClass(getActivity(), CadastroPromocaoActivity.class);
         startActivity(intent);
-        finish();
+        //finish();
     }
 
     //Método que passa as informações de uma promocao para a Activity que exibe seus detalhes
