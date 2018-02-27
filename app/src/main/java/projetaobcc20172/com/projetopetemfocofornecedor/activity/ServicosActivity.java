@@ -45,7 +45,7 @@ public class ServicosActivity extends AppCompatActivity implements ServicoAdapte
         //Recuperar id do fornecedor logado
 
         SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
-        mIdUsuarioLogado = preferences.getString("idFornecedor", "");
+        mIdUsuarioLogado = preferences.getString("id", "");
 
         ImageButton cadastroServico;
 

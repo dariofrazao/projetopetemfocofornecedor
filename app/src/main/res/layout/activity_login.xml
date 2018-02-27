@@ -11,113 +11,68 @@
     tools:context="projetaobcc20172.com.projetopetemfocofornecedor.activity.LoginActivity">
 
     <LinearLayout
-
+        android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
-        <ScrollView
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginTop="40dp"
+            android:layout_marginBottom="2dp" />
+
+        <ImageView
+            android:id="@+id/imageView"
+            android:layout_width="@dimen/largura_logo"
+            android:layout_height="@dimen/altura_logo"
+            android:layout_gravity="center"
+            android:background="@drawable/logo" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="2dp"
+            android:layout_marginTop="40dp"
+            android:layout_marginBottom="2dp" />
+
+        <Button
+            android:id="@+id/btnLoginGoogle"
+            android:background="@drawable/cornersbutton"
+            android:drawableLeft="@drawable/google"
+            android:drawablePadding="-15sp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/scrollView">
+            android:paddingLeft="25dp"
+            android:paddingRight="5dp"
+            android:paddingTop="2dp"
+            android:paddingBottom="2dp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:text="@string/botao_login_google"
+            android:layout_gravity="center_horizontal"/>
 
-            <LinearLayout
-                android:orientation="vertical"
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:padding="10dp">
+
+            <View
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                >
+                android:layout_height="1dp"
+                android:layout_centerVertical="true"
+                android:background="@color/preto"
+                />
 
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="1dp"
-                    android:layout_marginTop="2dp"
-                    android:layout_marginBottom="2dp" />
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_centerVertical="true"
+                android:background="@color/preto"
+                />
 
-                <ImageView
-                    android:id="@+id/imageView"
-                    android:layout_width="@dimen/largura_logo"
-                    android:layout_height="@dimen/altura_logo"
-                    android:layout_gravity="center"
-                    android:background="@drawable/logo" />
+        </RelativeLayout>
 
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="2dp"
-                    android:layout_marginTop="2dp"
-                    android:layout_marginBottom="2dp" />
-
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:textAppearance="?android:attr/textAppearanceMedium"
-                    android:text="@string/prompt_email"
-                    android:id="@+id/tvLoginEmail"
-                    android:layout_margin="6dp"
-                    android:textStyle="bold" />
-
-                <EditText
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:inputType="textEmailAddress"
-                    android:ems="10"
-                    android:id="@+id/etLoginEmail"
-                    android:layout_margin="4dp"
-                    android:hint="@string/digite_seu_email"/>
-
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="1dp"
-                    android:layout_marginTop="2dp"
-                    android:layout_marginBottom="2dp"/>
-
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:textAppearance="?android:attr/textAppearanceMedium"
-                    android:text="@string/prompt_senha"
-                    android:id="@+id/tvLoginSenha"
-                    android:layout_margin="6dp"
-                    android:textStyle="bold"/>
-
-                <EditText
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:inputType="textPassword"
-                    android:ems="10"
-                    android:id="@+id/etLoginSenha"
-                    android:hint="@string/digite_sua_senha_login"
-                    android:layout_margin="4dp"/>
-
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="1dp"
-                    android:layout_marginTop="2dp"
-                    android:layout_marginBottom="2dp"/>
-
-                <Button
-                    android:id="@+id/btnLogin"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="4dp"
-                    android:background="@drawable/shapebutton"
-                    android:text="@string/entrar" />
-
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="1dp"
-                    android:layout_marginTop="2dp"
-                    android:layout_marginBottom="2dp" />
-
-                <Button
-                    android:id="@+id/btnCadastrarFornecedor"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="4dp"
-                    android:background="@drawable/shapebuttonborder"
-                    android:text="@string/cadastrar" />
-
-            </LinearLayout>
-
-        </ScrollView>
 
     </LinearLayout>
 

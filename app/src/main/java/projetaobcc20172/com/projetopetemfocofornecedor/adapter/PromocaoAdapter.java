@@ -9,7 +9,10 @@ import android.widget.ArrayAdapter;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
 
 import projetaobcc20172.com.projetopetemfocofornecedor.R;
 import projetaobcc20172.com.projetopetemfocofornecedor.model.Promocao;
@@ -49,7 +52,14 @@ public class PromocaoAdapter extends ArrayAdapter<Promocao> {
 
             Promocao promocao = mPromocoes.get(position);
             nome.setText(promocao.getTitulo());
-            subtitulo.setText(promocao.getData());
+//            subtitulo.setText("aaaa");
+            List<Date> datas = promocao.getDatas();
+
+            SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+            String primeiraData = dateFormat.format( datas.get(0) );
+            String ultimaData = dateFormat.format( datas.get(datas.size()-1) );
+
+            subtitulo.setText(primeiraData+" até "+ultimaData);
 
             editar.setOnClickListener(new View.OnClickListener() {
                 @Override
