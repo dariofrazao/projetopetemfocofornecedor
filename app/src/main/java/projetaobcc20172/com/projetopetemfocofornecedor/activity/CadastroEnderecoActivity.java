@@ -58,6 +58,7 @@ public class CadastroEnderecoActivity extends AppCompatActivity{
         Toolbar toolbar;
         toolbar = findViewById(R.id.tb_endereco);
 
+        localizacao = new LatLng(0,0);
         mCep = findViewById(R.id.etCadastroCepEndereco);
         mLocalidade = findViewById(R.id.etCadastroLocalidadeEndereco);
         mLogradouro = findViewById(R.id.etCadastroLogradouroEndereco);
@@ -111,7 +112,7 @@ public class CadastroEnderecoActivity extends AppCompatActivity{
 
             @Override
             public void onClick(View v) {
-                editarGeolicalizacao(mFornecedor);
+            editarGeolicalizacao(mCep.getText().toString().replace("-",""));
             }
         });
 
@@ -132,6 +133,8 @@ public class CadastroEnderecoActivity extends AppCompatActivity{
     private void cadastrarEnderecoFornecedor(){
             try {
                 //Recuperar id do fornecedor logado
+                mIdUsuarioLogado = getPreferences("idFornecedor", CadastroEnderecoActivity.this);
+                VerificadorDeObjetos.vDadosObrCoordenadasGeograficas(localizacao);
                 mIdUsuarioLogado = getPreferences("id", CadastroEnderecoActivity.this);
                 mEndereco.setmLatitude(localizacao.latitude);
                 mEndereco.setmLongitude(localizacao.longitude);
@@ -147,8 +150,9 @@ public class CadastroEnderecoActivity extends AppCompatActivity{
             } catch (CampoObrAusenteException e) {
                 mToast = Toast.makeText(CadastroEnderecoActivity.this, R.string.erro_cadastro_endereco_campos_obrigatorios_Toast, Toast.LENGTH_SHORT);
                 mToast.show();
-            } catch (Exception e) {
-                mToast = Toast.makeText(CadastroEnderecoActivity.this, R.string.erro_cadastro_endereco_campos_obrigatorios_Toast, Toast.LENGTH_SHORT);
+            }
+            catch (Exception e) {
+                mToast = Toast.makeText(CadastroEnderecoActivity.this, R.string.erro_informar_coordenadas_geograficas, Toast.LENGTH_SHORT);
                 mToast.show();
             }
         }
@@ -213,11 +217,14 @@ public class CadastroEnderecoActivity extends AppCompatActivity{
     }
 
     //Método que chama a activity para editar geolocalização passando o o fornecedor
-    public void editarGeolicalizacao(Fornecedor fornecedor){
+    public void editarGeolicalizacao(String cep){
         Intent intent = new Intent(CadastroEnderecoActivity.this, CadastroGeolocalizacaoActivity.class);
-//        intent.putExtra("Fornecedor", fornecedor);
+        intent.putExtra("CEP", cep);
         startActivity(intent);
     }
+
+
+
 
     @Override
     public void onSaveInstanceState(Bundle savedInstanceState){
