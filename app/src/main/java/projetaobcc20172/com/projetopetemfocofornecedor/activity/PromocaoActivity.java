@@ -132,6 +132,21 @@ public class PromocaoActivity extends android.support.v4.app.Fragment implements
 
     }
 
+    //Método que passa as informações de uma promocao para a Activity que exibe seus detalhes
+    public void chamarInfoPromocaoListener() {
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+
+                Intent intent = new Intent(getActivity(), InfoPromocaoActivity.class);
+                Promocao promocao = mPromocoes.get(position);
+                intent.putExtra("Promocao", promocao);
+                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                startActivity(intent);
+            }
+        });
+    }
+
     @Override
     public void onButtonRemoverClickListner(Promocao promocao) {
         confirmarRemocao(promocao);
@@ -146,16 +161,6 @@ public class PromocaoActivity extends android.support.v4.app.Fragment implements
         intent.setClass(getActivity(), CadastroPromocaoActivity.class);
         startActivity(intent);
         //finish();
-    }
-
-    //Método que passa as informações de uma promocao para a Activity que exibe seus detalhes
-    public void chamarInfoPromocaoListener() {
-        this.listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                //vazio
-            }
-        });
     }
 
 }
