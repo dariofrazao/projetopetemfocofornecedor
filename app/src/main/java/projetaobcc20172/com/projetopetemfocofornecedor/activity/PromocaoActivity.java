@@ -4,12 +4,14 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
+import android.icu.text.IDNA;
 import android.preference.PreferenceManager;
 import android.support.annotation.VisibleForTesting;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ImageButton;
 import android.widget.ListView;
 
@@ -62,7 +64,9 @@ public class PromocaoActivity extends AppCompatActivity implements PromocaoAdapt
         mAdapter.setCustomButtonListener(PromocaoActivity.this);
         listView.setAdapter(mAdapter);
 
-        this.carregarPromocoes();
+        carregarPromocoes();
+
+        chamarInfoPromocaoListener();
 
         cadastroPromocao.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -127,6 +131,21 @@ public class PromocaoActivity extends AppCompatActivity implements PromocaoAdapt
 
     }
 
+    //Método que passa as informações de uma promocao para a Activity que exibe seus detalhes
+    public void chamarInfoPromocaoListener() {
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+
+                Intent intent = new Intent(PromocaoActivity.this, InfoPromocaoActivity.class);
+                Promocao promocao = mPromocoes.get(position);
+                intent.putExtra("Promocao", promocao);
+                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                startActivity(intent);
+            }
+        });
+    }
+
     @Override
     public boolean onSupportNavigateUp() {
         onBackPressed();
@@ -144,10 +163,9 @@ public class PromocaoActivity extends AppCompatActivity implements PromocaoAdapt
         Bundle bundle = new Bundle();
         bundle.putSerializable("promocao",  promocao);
         intent.putExtras(bundle);
-        intent.setClass(PromocaoActivity.this, CadastroPromocaoActivity.class);
+        intent.setClass(PromocaoActivity.this, InfoPromocaoActivity.class);
         startActivity(intent);
         finish();
     }
-
 
 }

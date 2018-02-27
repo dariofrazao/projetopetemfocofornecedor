@@ -66,6 +66,10 @@
         android:name=".activity.EditarFornecedorActivity"
             />
 
+        <activity
+            android:name=".activity.InfoPromocaoActivity"
+            />
+
             android:windowSoftInputMode="stateHidden" />
         <activity android:name=".activity.CadastroPromocaoActivity" />
         <activity android:name=".activity.PromocaoActivity"></activity>

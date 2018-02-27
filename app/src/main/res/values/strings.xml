@@ -98,6 +98,9 @@
     <string name="sucesso_cadastro_servico">Serviço cadastrado com sucesso!</string>
     <string name="erro_cadastro_servico">Erro ao cadastrar serviço!</string>
 
+    <!--Strings relacionadas a promção-->
+    <string name="erro_editar_promocao_campos_obrigatorios_Toast">Erro ao editar a Promoção: Preencha todos os campos</string>
+
 
     <!--Mensagens de informação ao usuário-->
     <string name="info_confirmar_remocao_servico">Deseja remover o serviço selecionado?</string>
