@@ -1,7 +1,6 @@
 package projetaobcc20172.com.projetopetemfocofornecedor.activity;
 
 import android.Manifest;
-import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -36,15 +35,12 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import projetaobcc20172.com.projetopetemfocofornecedor.R;
 import projetaobcc20172.com.projetopetemfocofornecedor.excecoes.ValidacaoException;
-import projetaobcc20172.com.projetopetemfocofornecedor.utils.Localizacao;
 import projetaobcc20172.com.projetopetemfocofornecedor.utils.VerificadorDeObjetos;
 
 public class CadastroGeolocalizacaoActivity extends AppCompatActivity {
     private MapView mMapView;
     private LatLng mLocalizacaoFornecedor;
-    private LocationManager locationManager;
     private CameraUpdate mMinhaPosicao;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -162,19 +158,6 @@ public class CadastroGeolocalizacaoActivity extends AppCompatActivity {
         return googleMap;
     }
 
-//    // Minha localização
-//    private LatLng coordinadasPorGPS(Activity act) {
-//        verificarGPS();
-//        LatLng mMinhaLocalizacao = null;
-//        if (locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER)) {
-//            double[] posicaoAtual = Localizacao.getCurrentLocation(act);
-//            mMinhaLocalizacao = new LatLng(posicaoAtual[0],posicaoAtual[1]);
-//        }else{
-//            mMinhaLocalizacao = new LatLng(0,0);
-//        }
-//        return mMinhaLocalizacao;
-//    }
-
     @Override
     public void onLowMemory() {
         super.onLowMemory();
@@ -220,12 +203,11 @@ public class CadastroGeolocalizacaoActivity extends AppCompatActivity {
 
 
     private void verificarGPS() {
-        locationManager = (LocationManager) getSystemService(LOCATION_SERVICE);
+        LocationManager locationManager = (LocationManager) getSystemService(LOCATION_SERVICE);
         if (!locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER)) {
             perdirParaLigarGPS();
             //Toast.makeText(this, "GPS is Enabled in your devide", Toast.LENGTH_SHORT).show();
         }
-
     }
 
     private void perdirParaLigarGPS() {
