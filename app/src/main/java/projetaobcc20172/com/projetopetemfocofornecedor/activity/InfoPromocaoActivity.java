@@ -30,7 +30,7 @@ public class InfoPromocaoActivity extends AppCompatActivity {
     private TextView mTitulo, mDescricao, mValor, mDatas;
     private Promocao mPromocao;
     private String mIdUsuarioLogado;
-    private Button mEditar, mExcluir, mVoltar;
+    private Button mExcluir, mVoltar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,7 +42,6 @@ public class InfoPromocaoActivity extends AppCompatActivity {
         mValor = findViewById(R.id.tvValor);
         mDatas = findViewById(R.id.tvData);
         mVoltar = findViewById(R.id.btnVoltar);
-        mEditar = findViewById(R.id.btnEditar);
         mExcluir = findViewById(R.id.btnExcluir);
 
         mPromocao = (Promocao) getIntent().getSerializableExtra("Promocao");
@@ -66,6 +65,7 @@ public class InfoPromocaoActivity extends AppCompatActivity {
         //excluirListener();
 
         //esconde botoes pois no momento nao estao sendo utilizados
+        Button mEditar =findViewById(R.id.btnEditar);
         mEditar.setVisibility(View.INVISIBLE);
         mExcluir.setVisibility(View.INVISIBLE);
 
