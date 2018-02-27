@@ -1,5 +1,6 @@
 package projetaobcc20172.com.projetopetemfocofornecedor.activity;
 
+import android.app.FragmentManager;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -7,19 +8,32 @@ import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentTransaction;
+import android.support.v4.view.GravityCompat;
+import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
 
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.Query;
+import com.google.firebase.database.ValueEventListener;
+
+import java.io.Serializable;
 import java.util.Locale;
 
 import projetaobcc20172.com.projetopetemfocofornecedor.R;
+import projetaobcc20172.com.projetopetemfocofornecedor.config.ConfiguracaoFirebase;
 import projetaobcc20172.com.projetopetemfocofornecedor.database.services.ServicoDaoImpl;
 import projetaobcc20172.com.projetopetemfocofornecedor.excecoes.ValidacaoException;
+import projetaobcc20172.com.projetopetemfocofornecedor.fragment.ServicosFragment;
 import projetaobcc20172.com.projetopetemfocofornecedor.model.Servico;
 import projetaobcc20172.com.projetopetemfocofornecedor.utils.MascaraDinheiro;
 import projetaobcc20172.com.projetopetemfocofornecedor.utils.Utils;
@@ -28,7 +42,7 @@ import projetaobcc20172.com.projetopetemfocofornecedor.utils.VerificadorDeObjeto
 /**
  * Activity de cadastro de serviços
  */
-public class CadastroServicoActivity extends AppCompatActivity {
+public class CadastroServicoActivity extends AppCompatActivity implements Serializable{
 
     private EditText mEtValor, mEtDescricao;
     private Spinner mSpinnerServico;
@@ -36,6 +50,8 @@ public class CadastroServicoActivity extends AppCompatActivity {
     private String mIdUsuarioLogado;
     private Servico mServico;
     private boolean mIsViewsHabilitadas = true;
+    public Button mCadastrarServico;
+    private String mHabilita = "0";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -70,53 +86,15 @@ public class CadastroServicoActivity extends AppCompatActivity {
 
         mEtValor.addTextChangedListener(new MascaraDinheiro(mEtValor, mLocal));
 
-        Button btnCadastrar = findViewById(R.id.btnCadastrarServico);
-        final Button btnEditar = findViewById(R.id.btnEditarServico);
+        mCadastrarServico = findViewById(R.id.btnCadastrarServico);
 
-        btnCadastrar.setOnClickListener(new View.OnClickListener() {
+        mCadastrarServico.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 salvarServico();
             }
         });
 
-        btnEditar.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                try {
-                    Servico servico = new Servico();
-                    servico.setValor(mEtValor.getText().toString());
-                    servico.setDescricao(mEtDescricao.getText().toString());
-                    servico.setNome(mSpinnerServico.getSelectedItem().toString());
-                    servico.setTipoPet(mSpinnerTipoAnimal.getSelectedItem().toString());
-
-                    VerificadorDeObjetos.vDadosServico(servico, CadastroServicoActivity.this);
-
-                    if(!mServico.equals(servico)){
-                        servico.setmId(mServico.getId());
-                        ServicoDaoImpl servicoDao = new ServicoDaoImpl(CadastroServicoActivity.this);
-                        servicoDao.atualizar(servico, mIdUsuarioLogado);
-
-                    }
-                    abrirTelaPrincipal();
-                } catch (ValidacaoException e) {
-                    e.printStackTrace();
-                    Utils.mostrarMensagemLonga(CadastroServicoActivity.this, e.getMessage());
-                }
-            }
-        });
-
-
-        // Verifica se há algum extra na intent, caso haja será uma edição de dados.
-        Intent intent = getIntent();
-        if(intent.hasExtra("servico")){
-            toolbar.setTitle(R.string.title_activity_editar_servico);
-            btnCadastrar.setVisibility(View.GONE);
-            btnEditar.setVisibility(View.VISIBLE);
-            mServico = (Servico) intent.getSerializableExtra("servico");
-            setvaluesOnViews();
-
-        }
     }
 
     private void setvaluesOnViews() {
@@ -160,14 +138,56 @@ public class CadastroServicoActivity extends AppCompatActivity {
 
             VerificadorDeObjetos.vDadosServico(mServico,this);
             //Chamada do DAO para salvar no banco
+
+            mCadastrarServico.setText("Aguarde...");
+            mCadastrarServico.setEnabled(false);
+
             ServicoDaoImpl servicoDao =  new ServicoDaoImpl(this);
-            servicoDao.inserir(mServico, mIdUsuarioLogado);
-            abrirTelaPrincipal();
+            servicoDao.compararInserir(mServico, mIdUsuarioLogado);
+
+            ativarButtonAguarde(mServico, mCadastrarServico);
+//            Intent intent = new Intent(CadastroServicoActivity.this, ServicosActivity.class);
+//            //intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+//            startActivity(intent);
 
         } catch (ValidacaoException e) {
             e.printStackTrace();
             Utils.mostrarMensagemCurta(this, e.getMessage());
         }
+    }
+
+
+    private void ativarButtonAguarde(final Servico servico, final Button btn){
+        // Recuperar serviços do Firebase
+        Query query = ConfiguracaoFirebase.getFirebase().child("servicos").orderByChild("idFornecedor").equalTo(mIdUsuarioLogado);
+        query.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                for (DataSnapshot dados : dataSnapshot.getChildren()) {
+                    if (dados.child("nome").getValue().equals(servico.getNome()) &
+                            dados.child("tipoPet").getValue().equals(servico.getTipoPet()) &
+                            dados.child("valor").getValue().equals(servico.getValor()) &
+                            dados.child("descricao").getValue().equals(servico.getDescricao())){
+                        mHabilita = "1";
+                        break;
+                    }
+                }
+                if(mHabilita.equals("0")){
+                    btn.setText("Aguarde...");
+                    btn.setEnabled(false);
+                    finish();
+                } else {
+                    btn.setText("CADASTRAR");
+                    btn.setEnabled(true);
+                    mHabilita = "0";
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+                assert true;
+            }
+        });
     }
 
     @Override
@@ -181,8 +201,7 @@ public class CadastroServicoActivity extends AppCompatActivity {
     public void onBackPressed(){
         if (verificarCamposPreenchidos() && mIsViewsHabilitadas) confirmarSaida();
         else{
-            //CadastroServicoActivity.super.onBackPressed();
-            this.abrirTelaPrincipal();
+            CadastroServicoActivity.super.onBackPressed();
             finish();
         }
     }
@@ -195,8 +214,8 @@ public class CadastroServicoActivity extends AppCompatActivity {
             public void onClick(DialogInterface dialog, int which) {
                 switch (which){
                     case DialogInterface.BUTTON_POSITIVE:
-                        // Botão sim foi clicado
                         CadastroServicoActivity.super.onBackPressed();
+                        finish();
                         break;
 
                     case DialogInterface.BUTTON_NEGATIVE:
@@ -224,5 +243,9 @@ public class CadastroServicoActivity extends AppCompatActivity {
         //intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
         startActivity(intent);
         finish();
+    }
+
+    private void abrirTelaPets() {
+        onBackPressed();
     }
 }

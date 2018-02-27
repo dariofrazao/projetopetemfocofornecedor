@@ -41,15 +41,23 @@
             android:name=".activity.CadastroFornecedorActivity"
             android:windowSoftInputMode="stateHidden" />
         <activity android:name=".activity.CadastroEnderecoActivity" />
-        <activity android:name=".activity.ServicosActivity" />
         <activity
             android:name=".activity.CadastroGeolocalizacaoActivity"
             android:windowSoftInputMode="stateHidden" />
-        <activity android:name=".activity.EditarFornecedorActivity" />
-        android:windowSoftInputMode="stateHidden" />
         <activity android:name=".activity.CadastroPromocaoActivity" />
         <activity android:name=".activity.PromocaoActivity" />
+        <activity android:name=".activity.InfoCupomActivity" />
+        <activity android:name=".activity.InfoServicoActivity" />
+        <activity android:name=".activity.EditarServicoActivity"
+            android:windowSoftInputMode="stateHidden"/>
+        <activity android:name=".activity.EditarCupomActivity"
+            android:windowSoftInputMode="stateHidden"/>
+        <activity android:name=".activity.CadastroCupomActivity"
+            android:windowSoftInputMode="stateHidden"/>
         <activity android:name=".activity.CadastroFornecedorTipoActivity"></activity>
+
+
+
     </application>
 
 </manifest>

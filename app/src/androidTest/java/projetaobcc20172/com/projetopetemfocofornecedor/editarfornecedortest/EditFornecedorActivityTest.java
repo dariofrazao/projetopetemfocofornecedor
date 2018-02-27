@@ -34,7 +34,7 @@ public class EditFornecedorActivityTest {
         //Desloga caso já esteja logado.
         //Evita erros nos testes
         try{
-            TestTools.clicarBotao(R.id.btnSair);
+            //TestTools.clicarBotao(R.id.btnSair);
         }catch (Exception e){
             e.getMessage();
         }

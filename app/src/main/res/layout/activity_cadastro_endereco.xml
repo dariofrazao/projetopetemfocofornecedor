@@ -72,16 +72,17 @@
                         android:text="@string/endereco_logradouro"
                         android:textAppearance="?android:attr/textAppearanceMedium"
                         android:textStyle="bold" />
+
                     <View
                         android:layout_width="20dp"
-                        android:layout_height="1dp"/>
+                        android:layout_height="1dp" />
 
                     <ImageButton
                         android:id="@+id/ib_editar_localizacao_geografica"
-                        android:layout_width="50dp"
+                        android:layout_width="80dp"
                         android:layout_height="50dp"
                         android:layout_alignParentRight="true"
-                        android:background="@drawable/ic_action_mapa" />
+                        android:background="@drawable/ic_mapa" />
 
                 </LinearLayout>
 

@@ -1,168 +1,186 @@
 package projetaobcc20172.com.projetopetemfocofornecedor.activity;
 
-import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.graphics.Color;
+import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
+import android.support.design.widget.NavigationView;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentTransaction;
+import android.support.v4.graphics.drawable.RoundedBitmapDrawable;
+import android.support.v4.graphics.drawable.RoundedBitmapDrawableFactory;
+import android.support.v4.view.GravityCompat;
+import android.support.v4.widget.DrawerLayout;
+import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.view.Menu;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Button;
+import android.view.inputmethod.InputMethodManager;
+import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.target.BitmapImageViewTarget;
+//import com.facebook.login.LoginManager;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.ValueEventListener;
 
+import java.io.Serializable;
+
 import projetaobcc20172.com.projetopetemfocofornecedor.R;
-import projetaobcc20172.com.projetopetemfocofornecedor.config.ConfiguracaoFirebase;
-import projetaobcc20172.com.projetopetemfocofornecedor.helper.Preferencias;
-import projetaobcc20172.com.projetopetemfocofornecedor.model.Endereco;
 
-import projetaobcc20172.com.projetopetemfocofornecedor.model.Fornecedor;
+//import projetaobcc20172.com.projetopetemfoco.R;
+//import projetaobcc20172.com.projetopetemfoco.config.ConfiguracaoFirebase;
+//import projetaobcc20172.com.projetopetemfoco.config.ConfiguracoesBuscaServico;
+//import projetaobcc20172.com.projetopetemfoco.model.Usuario;
+//import projetaobcc20172.com.projetopetemfoco.utils.Localizacao;
+//import projetaobcc20172.com.projetopetemfocofornecedor.activity.ServicosActivity;
 
+/*
+* Essa classe implementa o navigator Drawer existente na tela de busca*/
+public class MainActivity extends AppCompatActivity
+        implements NavigationView.OnNavigationItemSelectedListener , Serializable{
 
-public class MainActivity extends AppCompatActivity {
-
-    private TextView mTvTitulo, mTvSubtitulo, mTvSubtitulo2;
-    private FirebaseAuth mAutenticacao;
-    private Fornecedor fornecedor;
+    private ImageView mFoto;
+    private TextView mNome, mEmail;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
-        mAutenticacao = ConfiguracaoFirebase.getFirebaseAutenticacao();
-        Button sair;
-        Button meusServicos;
-        Button minhasPromocoes;
-
-        Toolbar toolbar;
-        toolbar = findViewById(R.id.tb_main);
-
-        // Configura toolbar
-        toolbar.setTitle("Pet Em Foco");
-        toolbar.setTitleTextColor(Color.WHITE);
+        //ConfiguracoesBuscaServico.inicializar();
+        //Localizacao.getCurrentLocation(this);
+        setContentView(R.layout.activity_main);//Activity em que se encontra o navigator
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);//toolbar do navigator
         setSupportActionBar(toolbar);
 
-        sair = findViewById(R.id.btnSair);
-        meusServicos =  findViewById(R.id.btnMeusServicos);
-        minhasPromocoes = findViewById(R.id.btnMinhasPromocoes);
+        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
+                this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
+        drawer.addDrawerListener(toggle);
+        toggle.syncState();
 
-        mTvTitulo = findViewById(R.id.tvTituloFornecedor);
-        mTvSubtitulo = findViewById(R.id.tvSubtituloFornecedor);
-        mTvSubtitulo2 = findViewById(R.id.tvSubtitulo2Fornecedor);
+        NavigationView navigationView =  (NavigationView)findViewById(R.id.nav_busca);
 
-        //Recuperar id do fornecedor logado
-        final String idUsuarioLogado;
-        idUsuarioLogado = getPreferences("idFornecedor", this);
+        displaySelectedScreen(R.id.nav_perfil);//Determina qual tela será aberta primeiro ao entrar
 
-        // Recuperar serviços do Firebase
-        DatabaseReference mFirebase = ConfiguracaoFirebase.getFirebase().child("fornecedor").child(idUsuarioLogado);
+        View header = navigationView.getHeaderView(0);
 
-        mFirebase.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                String id = (String) dataSnapshot.child("id").getValue();
-                String nome = (String) dataSnapshot.child("nome").getValue();
-                String nomeBusca = (String) dataSnapshot.child("nomeBusca").getValue();
-                String email = (String) dataSnapshot.child("email").getValue();
-                String senha = (String) dataSnapshot.child("senha").getValue();
-                String cpfCnpj = (String) dataSnapshot.child("cpfCnpj").getValue();
-                String telefone = (String) dataSnapshot.child("telefone").getValue();
-                String horarios = (String) dataSnapshot.child("horarios").getValue();
-                Endereco end = (Endereco)dataSnapshot.child("endereco").getValue(Endereco.class);
-                mTvTitulo.setText(nome);
-                mTvSubtitulo.setText("E-mail: " + email);
-                mTvSubtitulo2.setText("Fone: " + telefone);
-                Preferencias p = new Preferencias(MainActivity.this);
-                p.salvarPosicao((float)end.getmLatitude(),(float)end.getmLongitude());
-                p.salvarNota(dataSnapshot.child("nota").getValue(Float.class));
-                p.salvarDadosUser(idUsuarioLogado, nome, email);
+        navigationView.setNavigationItemSelectedListener(this);
+        //mNome = header.findViewById(R.id.tvNomeProfile);
+        //mFoto = header.findViewById(R.id.imageViewProfile);
+        //mEmail = header.findViewById(R.id.tvEmailProfile);
 
-                fornecedor = new Fornecedor(nome, nomeBusca, email, cpfCnpj, telefone, senha, senha, horarios);
-                fornecedor.setEndereco(end);
-                fornecedor.setId(id);
-            }
+        //Recuperar id do usuário logado
+        String mIdUsuarioLogado;
+        mIdUsuarioLogado = getPreferences("id", getApplication());
 
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-                Toast.makeText(MainActivity.this, "Erro na leitura do banco de dados", Toast.LENGTH_SHORT).show();
-            }
-        });
-
-        minhasPromocoes.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent();
-                intent.setClass(MainActivity.this, PromocaoActivity.class);
-                startActivity(intent);
-            }
-        });
-
-        meusServicos.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent();
-                intent.setClass(MainActivity.this, ServicosActivity.class);
-                startActivity(intent);
-            }
-        });
-
-        //Ação do botão de deslogar o fornecedor
-        sair.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                deslogarFornecedor();
-            }
-        });
-
-    }
-    //chama o menu de edição de perfil de fornecedor
-    @Override
-    @SuppressLint("ResourceType")
-    public boolean onCreateOptionsMenu(Menu menu){
-        getMenuInflater().inflate(R.layout.menu_main, menu);
-        return super.onCreateOptionsMenu(menu);
+//       DatabaseReference mReferenciaFirebase;
+//        mReferenciaFirebase = ConfiguracaoFirebase.getFirebase();
+//        mReferenciaFirebase.child("usuarios").child(mIdUsuarioLogado).addValueEventListener(new ValueEventListener() {
+//
+//            @Override
+//            public void onDataChange(DataSnapshot dataSnapshot) {
+//
+//                if(dataSnapshot.getValue() != null){
+//                    Usuario usuario = dataSnapshot.getValue(Usuario.class);
+//                    //Exibe a foto de perfil do usuário através do Glide
+//                    Glide.with(getApplicationContext()).load(usuario.getmFoto()).asBitmap().into(new BitmapImageViewTarget(mFoto){
+//                        @Override
+//                        protected void setResource(Bitmap resource) {
+//
+//                            //Transforma a foto em formato circular
+//                            RoundedBitmapDrawable circularBitmapDrawable =
+//                                    RoundedBitmapDrawableFactory.create(MainActivity.this.getResources(), resource);
+//                            circularBitmapDrawable.setCircular(true);
+//                            mFoto.setImageDrawable(circularBitmapDrawable);
+//                        }
+//                    });
+//
+//                    mNome.setText(usuario.getNome());
+//                    mEmail.setText(usuario.getEmail());
+//                }
+//            }
+//
+//            @Override
+//            public void onCancelled(DatabaseError databaseError) {
+//                //vazio
+//            }
+//        });
     }
 
+    @SuppressWarnings("StatementWithEmptyBody")
     @Override
-    public boolean onOptionsItemSelected(MenuItem item){
-        int id = item.getItemId();
-        if(id == R.id.action_editar){
-
-            Intent intent = new Intent(MainActivity.this,EditarFornecedorActivity.class);
-            intent.putExtra("fornecedor", fornecedor);
-            startActivity(intent);
-        }
+    public boolean onNavigationItemSelected(MenuItem item) {
+        displaySelectedScreen(item.getItemId());
         return true;
     }
 
+    private void displaySelectedScreen(int itemId) {
 
-    //Método para deslogar fornecedor da aplicação e retornar a tela de Login
-    private void deslogarFornecedor(){
-        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
-        SharedPreferences.Editor editor = preferences.edit();
-        editor.remove("idFornecedor");
-        editor.apply();
-        mAutenticacao.signOut();
-        Intent intent = new Intent(MainActivity.this, LoginActivity.class);
-        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
-        startActivity(intent);
+        Fragment fragment = null;
+
+        switch (itemId) {
+            case R.id.nav_perfil:
+                fragment = new EditarFornecedorActivity();
+                break;
+            case R.id.nav_servicos:
+                fragment = new ServicosActivity();
+                break;
+            case R.id.nav_cupons:
+                fragment = new CupomActivity();
+                break;
+            case R.id.nav_promocoes:
+                //fragment = new ServicosActivity();
+
+            case R.id.nav_sair:
+                //this.deslogarUsuario();
+                break;
+            default:
+                break;
+        }
+        this.fecharTeclado();
+
+        //Instancia o fragmento
+        if (fragment != null) {
+            FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
+            ft.replace(R.id.content_main, fragment);
+            ft.commit();
+        }
+
+        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        drawer.closeDrawer(GravityCompat.START);
     }
 
-    //Método que recupera o id do fornecedor logado, para salvar o endereço no nó do fornecedor que o está cadastrando
+
+
+    private void fecharTeclado(){
+        View view = this.getCurrentFocus();
+        if(view !=null){
+            InputMethodManager imm = (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
+            imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
+        }
+    }
+
+    //Método para deslogar usuário da aplicação e retornar a tela de Login
+//    private void deslogarUsuario(){
+//        FirebaseAuth.getInstance().signOut();
+//        LoginManager.getInstance().logOut();
+//        Intent intent = new Intent(getApplication(), LoginActivity.class);
+//        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+//        startActivity(intent);
+//    }
+
+    //Método que recupera o id do usuário logado, para salvar o pet no nó do usuário que o está cadastrando
     public static String getPreferences(String key, Context context) {
         SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(context);
         return preferences.getString(key, null);
     }
-
 }
+

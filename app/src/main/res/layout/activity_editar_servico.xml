@@ -1,0 +1,161 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/fundo_degrade"
+    tools:context="projetaobcc20172.com.projetopetemfocofornecedor.activity.EditarServicoActivity">
+
+    <include
+        android:id="@+id/tb_editar_serviço"
+        layout="@layout/toolbar">
+
+    </include>
+
+    <LinearLayout
+
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/tb_editar_serviço"
+        android:paddingBottom="@dimen/activity_vertical_margin"
+        android:paddingLeft="@dimen/activity_horizontal_margin"
+        android:paddingRight="@dimen/activity_horizontal_margin"
+        android:paddingTop="@dimen/activity_vertical_margin">
+
+        <ScrollView
+            android:id="@+id/scrollView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <View
+                    android:layout_width="fill_parent"
+                    android:layout_height="1dp"
+                    android:layout_marginBottom="2dp"
+                    android:layout_marginTop="2dp" />
+
+                <TextView
+                    android:id="@+id/tvEditarNomeServico"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="6dp"
+                    android:text="@string/servico"
+                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:textStyle="bold" />
+
+                <LinearLayout
+                    android:orientation="horizontal"
+                    android:background="@drawable/gradiente_spinner"
+                    android:layout_height="wrap_content"
+                    android:layout_width="match_parent">
+
+                    <Spinner
+                        android:id="@+id/spEditarNomeServico"
+                        android:layout_margin="4dp"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        style="@style/Widget.AppCompat.DropDownItem.Spinner"/>
+
+                </LinearLayout>
+
+                <View
+                    android:layout_width="fill_parent"
+                    android:layout_height="1dp"
+                    android:layout_marginBottom="2dp"
+                    android:layout_marginTop="2dp" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@drawable/gradiente_spinner"
+                    android:orientation="horizontal">
+
+                    <Spinner
+                        android:id="@+id/spEdicaoTipoAnimalServico"
+                        style="@style/Widget.AppCompat.DropDownItem.Spinner"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="4dp"
+                        android:visibility="visible" />
+
+                </LinearLayout>
+
+                <View
+                    android:id="@+id/view"
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_marginBottom="2dp"
+                    android:layout_marginTop="2dp"
+                    android:layout_weight="1" />
+
+                <TextView
+                    android:id="@+id/tvEdicaoValorServico"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="6dp"
+                    android:text="@string/prompt_valor"
+                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:textStyle="bold" />
+
+                <EditText
+                    android:id="@+id/etEdicaoValorServico"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="4dp"
+                    android:ems="10"
+                    android:hint="@string/digite_valor_servico"
+                    android:inputType="number" />
+
+                <View
+                    android:layout_width="fill_parent"
+                    android:layout_height="1dp"
+                    android:layout_marginBottom="2dp"
+                    android:layout_marginTop="2dp" />
+
+                <View
+                    android:layout_width="fill_parent"
+                    android:layout_height="1dp"
+                    android:layout_marginBottom="2dp"
+                    android:layout_marginTop="2dp" />
+
+                <TextView
+                    android:id="@+id/tvEdicaoDescricaoServico"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="6dp"
+                    android:text="@string/prompt_descricao"
+                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:textStyle="bold" />
+
+                <EditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:ems="10"
+                    android:id="@+id/etEdicaoDescricaoServico"
+                    android:inputType="textMultiLine"
+                    android:hint="@string/digite_descricao_servico" />
+
+                <View
+                    android:layout_width="fill_parent"
+                    android:layout_height="1dp"
+                    android:layout_marginTop="8dp" />
+
+                <Button
+                    android:id="@+id/btnEditarServico"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/shapebutton"
+                    android:text="Editar"
+                    android:visibility="visible" />
+
+            </LinearLayout>
+
+        </ScrollView>
+
+    </LinearLayout>
+
+</RelativeLayout>

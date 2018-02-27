@@ -1,7 +1,10 @@
 package projetaobcc20172.com.projetopetemfocofornecedor.database.services;
 
+import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.support.annotation.NonNull;
+import android.util.Log;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -14,6 +17,8 @@ import java.util.HashMap;
 import java.util.Map;
 
 import projetaobcc20172.com.projetopetemfocofornecedor.R;
+import projetaobcc20172.com.projetopetemfocofornecedor.activity.MainActivity;
+import projetaobcc20172.com.projetopetemfocofornecedor.activity.ServicosActivity;
 import projetaobcc20172.com.projetopetemfocofornecedor.config.ConfiguracaoFirebase;
 import projetaobcc20172.com.projetopetemfocofornecedor.helper.Preferencias;
 import projetaobcc20172.com.projetopetemfocofornecedor.model.Servico;
@@ -30,6 +35,8 @@ public class ServicoDaoImpl implements ServicoDao{
     private DatabaseReference mReferenciaFirebase;
     private final Context mContexto;
     private final Preferencias mPreferencias;
+    private String mConfirma =  "0";
+    private String mId;
 
     public ServicoDaoImpl(Context contexto){
         this.mReferenciaFirebase = ConfiguracaoFirebase.getFirebase();
@@ -46,6 +53,8 @@ public class ServicoDaoImpl implements ServicoDao{
             @Override
             public void onComplete(@NonNull Task<Void> task) {
                 if(task.isSuccessful()){
+                    servico.setmId(id);
+                    salvarFornecedorServico(servico,servico.getId(), idFornecedor);
                     Utils.mostrarMensagemLonga(getContexto(), getContexto().getString(R.string.sucesso_cadastro_servico));
                 }
                 else{
@@ -56,29 +65,58 @@ public class ServicoDaoImpl implements ServicoDao{
                         e.printStackTrace();
                     }
                 }
-                if(task.isComplete()){
-                    //cria um "fornecedor_servico" para todos os novos servicos add
-                    servico.setmId(id);
-                    salvarFornecedorServico(servico,servico.getId(),servico.getIdFornecedor());
-                }
-
             }
         });
 
     }
 
+    public void compararInserir(final Servico servico, final String idFornecedor) {
+        mReferenciaFirebase.child("servicos").orderByChild("idFornecedor").equalTo(idFornecedor).
+                addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(DataSnapshot dataSnapshot) {
+                        for (DataSnapshot dados : dataSnapshot.getChildren()) {
+                            if (dados.child("nome").getValue().equals(servico.getNome()) &
+                                    dados.child("tipoPet").getValue().equals(servico.getTipoPet()) &
+                                    dados.child("valor").getValue().equals(servico.getValor()) &
+                                    dados.child("descricao").getValue().equals(servico.getDescricao())){
+                                    Utils.mostrarMensagemCurta(getContexto(), getContexto().getString(R.string.servico_existente));
+                                    mConfirma = "1";
+                                    break;
+                            }
+                        }
+                        if(mConfirma.equals("0")){
+                            inserir(servico, idFornecedor);
+                        }
+                    }
+
+                    @Override
+                    public void onCancelled(DatabaseError databaseError) {
+                        //vazio
+                    }
+                });
+    }
+
     @Override
-    public void remover(final Servico servico, String idFornecedor) {
-        mReferenciaFirebase.child(String.format("%s/%s", "servicos", servico.getId())).setValue(null)
-                .addOnCompleteListener(new OnCompleteListener<Void>() {
+    public void remover(final Servico servico, final String idFornecedor) {
+
+        mReferenciaFirebase.child("servicos").child(servico.getId()).orderByChild(idFornecedor).
+                equalTo(servico.getId()).addListenerForSingleValueEvent(new ValueEventListener() {
+
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+
+                mReferenciaFirebase.child("servicos").child(servico.getId()).removeValue().addOnCompleteListener(new OnCompleteListener<Void>() {
                     @Override
                     public void onComplete(@NonNull Task<Void> task) {
+                        //Se a remoçao foi feita com sucesso
                         if(task.isSuccessful()){
-                            removerServicoFornecedor(servico.getId()+"");
-                            Utils.mostrarMensagemLonga(getContexto(), getContexto().getString(R.string.sucesso_remocao));
+                            Utils.mostrarMensagemCurta(getContexto(), getContexto().getString(R.string.sucesso_remocao));
+                            removerServicoFornecedor(servico.getId());
                         }
+                        //Senão
                         else{
-                            Utils.mostrarMensagemLonga(getContexto(), getContexto().getString(R.string.falha_remocao));
+                            Utils.mostrarMensagemCurta(getContexto(), getContexto().getString(R.string.erro_ao_remover));
                             try {
                                 throw  task.getException();
                             } catch (Exception e) {
@@ -87,30 +125,81 @@ public class ServicoDaoImpl implements ServicoDao{
                         }
                     }
                 });
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+                //vazio
+            }
+        });
     }
 
     @Override
     public void atualizar(final Servico servico, final String idFornecedor) {
-        servico.setIdFornecedor(idFornecedor);
-        mReferenciaFirebase.child(String.format("%s/%s", "servicos", servico.getId()))
-                .setValue(servico).addOnCompleteListener(new OnCompleteListener<Void>() {
+        mReferenciaFirebase.child("servicos").orderByChild("idFornecedor").
+                equalTo(idFornecedor).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
-            public void onComplete(@NonNull Task<Void> task) {
-                if(task.isSuccessful()){
-                    atualizarFornecedorServico(servico);
-                    Utils.mostrarMensagemLonga(getContexto(), getContexto().getString(R.string.sucesso_atualizacao));
-
-                }
-                else{
-                    Utils.mostrarMensagemLonga(getContexto(), getContexto().getString(R.string.falha_atualizacao));
-                    try {
-                        throw  task.getException();
-                    } catch (Exception e) {
-                        e.printStackTrace();
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                mReferenciaFirebase.child("servicos").child(servico.getId()).
+                        setValue(servico).addOnCompleteListener(new OnCompleteListener<Void>() {
+                    @Override
+                    public void onComplete(@NonNull Task<Void> task) {
+                        if(task.isSuccessful()){
+                            Utils.mostrarMensagemCurta(getContexto(), getContexto().getString(R.string.sucesso_atualizar_servico));
+                        }else{
+                            Utils.mostrarMensagemCurta(getContexto(), getContexto().getString(R.string.erro_ao_atualizar));
+                            try {
+                                throw  task.getException();
+                            } catch (Exception e) {
+                                e.printStackTrace();
+                            }
+                        }
+                        if(task.isComplete()){
+                            //cria um "fornecedor_servico" para todos os novos servicos add
+                            servico.setmId(mId);
+                            servico.setIdFornecedor(idFornecedor);
+                            atualizarFornecedorServico(servico);
+                        }
                     }
-                }
+                });
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+                assert true;
             }
         });
+    }
+
+
+    public void compararAtualizar(final Servico servico, final String idFornecedor) {
+        mReferenciaFirebase.child("servicos").orderByChild("idFornecedor").equalTo(idFornecedor).
+                addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(DataSnapshot dataSnapshot) {
+                        for (DataSnapshot dados : dataSnapshot.getChildren()) {
+                            if (dados.child("nome").getValue().equals(servico.getNome()) &
+                                    dados.child("tipoPet").getValue().equals(servico.getTipoPet()) &
+                                    dados.child("valor").getValue().equals(servico.getValor()) &
+                                    dados.child("descricao").getValue().equals(servico.getDescricao())) {
+                                Utils.mostrarMensagemCurta(getContexto(), getContexto().getString(R.string.servico_existente));
+                                mConfirma = "1";
+                                break;
+                            }
+                            mId = dados.getKey();
+                        }
+                        if(mConfirma.equals("0")){
+                            servico.setmId(mId);
+                            servico.setIdFornecedor(idFornecedor);
+                            atualizar(servico, idFornecedor);
+                        }
+                    }
+
+                    @Override
+                    public void onCancelled(DatabaseError databaseError) {
+                        //vazio
+                    }
+                });
     }
 
     /*
@@ -148,7 +237,7 @@ public class ServicoDaoImpl implements ServicoDao{
         });
     }
     private void removerServicoFornecedor(String idServico){
-        ConfiguracaoFirebase.getFirebase().child("servico_fornecedor").child(idServico).setValue(null);
+        ConfiguracaoFirebase.getFirebase().child("servico_fornecedor").child(idServico).removeValue();
 
     }
     private Context getContexto(){

@@ -11,6 +11,7 @@ import projetaobcc20172.com.projetopetemfocofornecedor.model.Endereco;
 import projetaobcc20172.com.projetopetemfocofornecedor.model.Fornecedor;
 import projetaobcc20172.com.projetopetemfocofornecedor.model.Promocao;
 import projetaobcc20172.com.projetopetemfocofornecedor.model.Servico;
+import projetaobcc20172.com.projetopetemfocofornecedor.model.Cupom;
 
 /**
  * Created by raul on 10/12/17.
@@ -69,6 +70,37 @@ public class VerificadorDeObjetos {
         //else if(serv.getDescricao().isEmpty()){
          //   throw new ValidacaoException(cad.getResources().getString(R.string.preencha_campo_descricao));
         //}
+    }
+
+    public static void vDadosCupom(Cupom cupom, Context cad) throws ValidacaoException {
+        if(cupom.getJuncao().equalsIgnoreCase("Selecione um serviço") || cupom.getJuncao().equalsIgnoreCase("")){
+            throw new ValidacaoException(cad.getString(R.string.error_selecione_um_servico));
+        }
+        else if(cupom.getNome().equals("")){
+            throw new ValidacaoException(cad.getString(R.string.preencha_campo_nome));
+        }
+        else if(cupom.getValor().equals("") || cupom.getValor().equalsIgnoreCase("R$0,00")){
+            throw new ValidacaoException(cad.getString(R.string.preencha_campo_valor));
+        }
+        else if(!cupom.getNome().equals("")){
+            String s = cupom.getNome();
+            if (s.length() < 6){
+                throw new ValidacaoException(cad.getString(R.string.seis_caracteres));
+            }
+            else if (s.length() > 15){
+                throw new ValidacaoException(cad.getString(R.string.quinze_caracteres));
+            }
+            char c = ' ';
+            char d = '\n';
+            for (int i = 0; i < s.length(); i++) {
+                if (s.charAt(i) == c) {
+                    throw new ValidacaoException(cad.getString(R.string.contem_espaco));
+                }
+                else if (s.charAt(i) == d) {
+                    throw new ValidacaoException(cad.getString(R.string.contem_quebra_de_linha));
+                }
+            }
+        }
     }
 
     public static void vDadosPromocao(Promocao promo, Context cad) throws ValidacaoException{
