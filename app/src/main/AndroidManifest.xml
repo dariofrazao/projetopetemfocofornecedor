@@ -41,9 +41,12 @@
             android:name=".activity.CadastroFornecedorActivity"
             android:windowSoftInputMode="stateHidden" />
         <activity android:name=".activity.CadastroEnderecoActivity" />
+        <activity android:name=".activity.ServicosActivity" />
         <activity
             android:name=".activity.CadastroGeolocalizacaoActivity"
             android:windowSoftInputMode="stateHidden" />
+        <activity android:name=".activity.EditarFornecedorActivity" />
+        android:windowSoftInputMode="stateHidden" />
         <activity android:name=".activity.CadastroPromocaoActivity" />
         <activity android:name=".activity.PromocaoActivity" />
         <activity android:name=".activity.InfoCupomActivity" />
@@ -58,6 +61,10 @@
 
 
 
+        <activity android:name=".activity.CadastroFornecedorTipoActivity" />
+        <activity android:name=".activity.CalendarioPromocoesPickerActivity" />
+        <activity android:name=".activity.CalendarioPromocoesViewActivity" />
+        <activity android:name=".activity.PromocaoInfoActivity"></activity>
     </application>
 
 </manifest>

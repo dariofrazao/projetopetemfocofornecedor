@@ -11,7 +11,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.ImageButton;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import java.util.ArrayList;
@@ -24,6 +23,8 @@ public class ServicoAdapter extends ArrayAdapter<Servico> {
 
     private ArrayList<Servico> mServicos;
     private Context mContext;
+
+    private CustomButtonListener customButtonListener;
 
     public ServicoAdapter(Context c, ArrayList<Servico> objects) {
         super(c, 0, objects);
@@ -44,57 +45,48 @@ public class ServicoAdapter extends ArrayAdapter<Servico> {
 
             // Monta view a partir do xml
             assert inflater != null;
-            view = inflater.inflate(R.layout.lista_servicos, parent, false);
+            view = inflater.inflate(R.layout.lista_itens, parent, false);
 
-            // recupera elemento para exibição
-//            holder.nome = view.findViewById(R.id.tv_titulo);
-//            holder.subtitulo = view.findViewById(R.id.tv_subtitulo);
-//            holder.remover = view.findViewById(R.id.iv_remover);
-
-            TextView mNomeServico = view.findViewById(R.id.tvExibirServico);
-            TextView mValorServico = view.findViewById(R.id.tvExibirServicoValor);
-            ImageView imgPet = view.findViewById(R.id.ivPetImagem);
-            ImageView imgServico = view.findViewById(R.id.ivServicoImagem);
+            TextView nome = view.findViewById(R.id.tv_titulo);
+            TextView subtitulo = view.findViewById(R.id.tv_subtitulo);
+            ImageButton remover = view.findViewById(R.id.ibRemoverServico);
+            ImageButton editar = view.findViewById(R.id.ibEditarServico);
 
             Servico servico = mServicos.get(position);
-            mNomeServico.setText(servico.getNome());
+            nome.setText(servico.getNome());
             String valorConvertido = servico.getValor();
-            mValorServico.setText(valorConvertido);
-            gerarImagemNomeServico(servico, imgServico);
-            gerarImagemPet(servico, imgPet);
+            subtitulo.setText(valorConvertido);
 
+            editar.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    if(customButtonListener != null) {
+                        customButtonListener.onButtonEditarClickListner(mServicos.get(position));
+                    }
+                }
+            });
 
+            remover.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    if(customButtonListener != null) {
+                        customButtonListener.onButtonRemoverClickListner(mServicos.get(position));
+                    }
+                }
+            });
         }
 
         return view;
     }
 
-    private void gerarImagemNomeServico(Servico serv, ImageView img){
-        if(serv.getNome().equals("Banho")){
-            img.setImageResource(R.drawable.servico_banho);
-        }
-        else if(serv.getNome().equals("Tosa")){
-            img.setImageResource(R.drawable.servico_tosa);
-        }
-        else if(serv.getNome().equals("Hospedagem")){
-            img.setImageResource(R.drawable.servico_hospedagem);
-        }
-        else if(serv.getNome().equals("Passeio")){
-            img.setImageResource(R.drawable.servico_passeio);
-        }
-        else if(serv.getNome().equals("Vacinação")){
-            img.setImageResource(R.drawable.servico_vacinacao);
-        }
+    public void setCustomButtonListener(CustomButtonListener listener) {
+        this.customButtonListener = listener;
     }
 
-    private void gerarImagemPet(Servico serv, ImageView img){
-        if(serv.getTipoPet().equals("Cachorro")){
-            img.setImageResource(R.drawable.tipo_pet_cachorro);
-        }
-        else if(serv.getTipoPet().equals("Gato")){
-            img.setImageResource(R.drawable.tipo_pet_gato);
-        }
-    }
 
+    public interface CustomButtonListener {
+        void onButtonRemoverClickListner(Servico servico);
+        void onButtonEditarClickListner(Servico servico);
+    }
 }
 

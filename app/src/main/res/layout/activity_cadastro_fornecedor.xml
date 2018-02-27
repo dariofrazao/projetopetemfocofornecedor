@@ -163,54 +163,12 @@
 
                 </LinearLayout>
 
-                <View
-                    android:layout_width="fill_parent"
-                    android:layout_height="1dp"
-                    android:layout_marginBottom="2dp"
-                    android:layout_marginTop="4dp" />
-
-
-                <TextView
-                    android:id="@+id/tvCadastroSenhaFornecedor"
-                    android:layout_width="fill_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="6dp"
-                    android:text="@string/prompt_senha"
-                    android:textAppearance="?android:attr/textAppearanceMedium"
-                    android:textStyle="bold" />
-
-                <EditText
-                    android:id="@+id/etCadastroSenhaFornecedor"
-                    android:layout_width="fill_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="4dp"
-                    android:ems="10"
-                    android:hint="@string/digite_sua_senha"
-                    android:inputType="textPassword" />
 
                 <View
                     android:layout_width="fill_parent"
                     android:layout_height="1dp"
                     android:layout_marginBottom="2dp"
                     android:layout_marginTop="2dp" />
-
-                <TextView
-                    android:id="@+id/tvCadastroSenha2Fornecedor"
-                    android:layout_width="fill_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="6dp"
-                    android:text="@string/confirmar_sua_senha"
-                    android:textAppearance="?android:attr/textAppearanceMedium"
-                    android:textStyle="bold" />
-
-                <EditText
-                    android:id="@+id/etCadastroSenha2Fornecedor"
-                    android:layout_width="fill_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="4dp"
-                    android:ems="10"
-                    android:hint="@string/repita_sua_senha"
-                    android:inputType="textPassword" />
 
                 <Button
                     android:id="@+id/btnCadastrarFornecedor"

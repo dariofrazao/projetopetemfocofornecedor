@@ -23,17 +23,12 @@ public class VerificadorDeObjetos {
     //Verifica se as informações do fornecedor estão corretas
     public static void vDadosFornecedor(Fornecedor fornecedor, Context cad) throws ValidacaoException {
         if(fornecedor.getNome().isEmpty()
-                || fornecedor.getSenha().isEmpty()
                 || fornecedor.getEmail().isEmpty()
                 || fornecedor.getTelefone().isEmpty()
                 || fornecedor.getCpfCnpj().isEmpty()
                 || fornecedor.getHorarios().isEmpty()){
             throw new ValidacaoException(cad.getString(R.string.erro_cadastro_fornecedor_campos_obrigatorios_Toast));
         }
-        else if(!fornecedor.getSenha().equals(fornecedor.getSenha2())){
-            throw new ValidacaoException(cad.getString(R.string.erro_cadastro_fornecedor_senhas_diferentes_Toast));
-        }
-
     }
 
     //Método responsável por avaliar se um obj endereco possui todas os atributos obrigatorios
