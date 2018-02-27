@@ -14,7 +14,6 @@ import java.util.Collection;
 import projetaobcc20172.com.projetopetemfocofornecedor.R;
 import projetaobcc20172.com.projetopetemfocofornecedor.TestTools;
 import projetaobcc20172.com.projetopetemfocofornecedor.activity.LoginActivity;
-import projetaobcc20172.com.projetopetemfocofornecedor.activity.ServicosActivity;
 import projetaobcc20172.com.projetopetemfocofornecedor.logintests.LoginActivityTest;
 
 /**

@@ -11,6 +11,8 @@ public interface ServicoDao {
 
     void inserir(Servico servico, String idFornecedor);
     void remover(Servico servico, String idFornecedor);
+    void compararInserir(Servico servico, String idFornecedor);
+    void compararAtualizar(Servico servico, String idFornecedor);
     void atualizar(Servico servico, String idFornecedor);
     /*
     List<Servico> buscarPorNome(String nome);

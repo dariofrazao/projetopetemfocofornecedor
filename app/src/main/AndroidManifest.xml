@@ -50,6 +50,18 @@
             android:windowSoftInputMode="stateHidden" />
         <activity android:name=".activity.CadastroPromocaoActivity" />
         <activity android:name=".activity.PromocaoActivity" />
+        <activity android:name=".activity.InfoCupomActivity" />
+        <activity android:name=".activity.InfoServicoActivity" />
+        <activity android:name=".activity.EditarServicoActivity"
+            android:windowSoftInputMode="stateHidden"/>
+        <activity android:name=".activity.EditarCupomActivity"
+            android:windowSoftInputMode="stateHidden"/>
+        <activity android:name=".activity.CadastroCupomActivity"
+            android:windowSoftInputMode="stateHidden"/>
+        <activity android:name=".activity.CadastroFornecedorTipoActivity"></activity>
+
+
+
         <activity android:name=".activity.CadastroFornecedorTipoActivity" />
         <activity android:name=".activity.CalendarioPromocoesPickerActivity" />
         <activity android:name=".activity.CalendarioPromocoesViewActivity" />

@@ -78,11 +78,10 @@
 
                     <ImageButton
                         android:id="@+id/ib_editar_localizacao_geografica"
-                        android:layout_width="50dp"
+                        android:layout_width="80dp"
                         android:layout_height="50dp"
                         android:layout_alignParentRight="true"
-                        android:background="@drawable/ic_action_mapa"
-                        android:foregroundTintMode="src_over" />
+                        android:background="@drawable/ic_mapa" />
 
                 </LinearLayout>
 

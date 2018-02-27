@@ -68,6 +68,13 @@ public class TestTools {
         Espresso.onView(ViewMatchers.withText(msg)).inRoot(withDecorView(not(is(act.getWindow().getDecorView())))).check(matches(isDisplayed()));
     }
 
+
+
+    public static void clicarItemNavigationMenu(int idDrawerLayout,int idNavigator,int idMenu){
+        //Espresso.onView(withId(idDrawerLayout)).perform(DrawerActions.open());
+        //Espresso.onView(withId(idNavigator)).perform(NavigationViewActions.navigateTo(idMenu));
+    }
+
     //Verifica se a mudança de activity(tela) ocorreu como esperada
     public static void verificarMudancaActivity(String nomeActivity){
         intended(hasComponent(nomeActivity));
@@ -85,7 +92,7 @@ public class TestTools {
         Espresso.closeSoftKeyboard();
     }
     public static void clicarBotao(int idBotao){
-        Espresso.onView(ViewMatchers.withId(idBotao)).perform(ViewActions.click());
+            //Espresso.onView(withId(idBotao)).perform(click());
     }
     //Caso a tela contenha scroll e o botão não estaja visivel é necessario
     //rolar a barra até ele para depois clicar

@@ -1,9 +1,13 @@
 package projetaobcc20172.com.projetopetemfocofornecedor;
+
 import com.google.android.gms.maps.model.LatLng;
+
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
+
 import java.util.Arrays;
+
 import projetaobcc20172.com.projetopetemfocofornecedor.excecoes.ValidacaoException;
 import projetaobcc20172.com.projetopetemfocofornecedor.utils.VerificadorDeObjetos;
 
