@@ -6,18 +6,18 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.os.Build;
+import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.annotation.RequiresApi;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.text.InputType;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 
-
 import java.util.Locale;
+
 import projetaobcc20172.com.projetopetemfocofornecedor.R;
 import projetaobcc20172.com.projetopetemfocofornecedor.database.services.PromocaoDao;
 import projetaobcc20172.com.projetopetemfocofornecedor.database.services.PromocaoDaoImpl;
@@ -181,9 +181,9 @@ public class CadastroPromocaoActivity extends AppCompatActivity {
     }
 
     private void abrirTelaPrincipal() {
-        Intent intent = new Intent(CadastroPromocaoActivity.this, PromocaoActivity.class);
-        //intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
-        startActivity(intent);
+//        Intent intent = new Intent(CadastroPromocaoActivity.this, CadastroServicoActivity.class);
+//        //intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+//        startActivity(intent);
         finish();
     }
 

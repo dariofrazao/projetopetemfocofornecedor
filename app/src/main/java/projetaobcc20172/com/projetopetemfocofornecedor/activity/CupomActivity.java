@@ -1,18 +1,13 @@
 package projetaobcc20172.com.projetopetemfocofornecedor.activity;
 
 import android.annotation.SuppressLint;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.graphics.Color;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.annotation.Nullable;
 import android.support.annotation.VisibleForTesting;
 import android.support.v4.app.Fragment;
-import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -31,10 +26,7 @@ import java.util.ArrayList;
 import projetaobcc20172.com.projetopetemfocofornecedor.R;
 import projetaobcc20172.com.projetopetemfocofornecedor.adapter.CupomAdapter;
 import projetaobcc20172.com.projetopetemfocofornecedor.config.ConfiguracaoFirebase;
-import projetaobcc20172.com.projetopetemfocofornecedor.database.services.CupomDao;
-import projetaobcc20172.com.projetopetemfocofornecedor.database.services.CupomDaoImpl;
 import projetaobcc20172.com.projetopetemfocofornecedor.model.Cupom;
-import projetaobcc20172.com.projetopetemfocofornecedor.utils.Utils;
 
 /**
  * Created by LuizAlberes on 15/02/2018.
@@ -64,13 +56,13 @@ public class CupomActivity extends Fragment {
         super.onViewCreated(view, savedInstanceState);
 
         SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(getActivity());
-        mIdUsuarioLogado = preferences.getString("idFornecedor", "");
+        mIdUsuarioLogado = preferences.getString("id", "");
 
         ImageButton mCadastroCupom;
 
         getActivity().setTitle("Códigos de Desconto");
 
-        mCadastroCupom = getView().findViewById(R.id.btnCadastroCupom);
+        mCadastroCupom = getView().findViewById(R.id.btnCadastroCupomList);
 
         mListView = getView().findViewById(R.id.lv_cupom);
 

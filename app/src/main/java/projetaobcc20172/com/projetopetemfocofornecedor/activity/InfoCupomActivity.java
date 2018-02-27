@@ -8,7 +8,6 @@ import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -23,7 +22,6 @@ import java.io.Serializable;
 
 import projetaobcc20172.com.projetopetemfocofornecedor.R;
 import projetaobcc20172.com.projetopetemfocofornecedor.config.ConfiguracaoFirebase;
-import projetaobcc20172.com.projetopetemfocofornecedor.database.services.CupomDao;
 import projetaobcc20172.com.projetopetemfocofornecedor.database.services.CupomDaoImpl;
 import projetaobcc20172.com.projetopetemfocofornecedor.model.Cupom;
 import projetaobcc20172.com.projetopetemfocofornecedor.utils.Utils;
@@ -34,8 +32,6 @@ import projetaobcc20172.com.projetopetemfocofornecedor.utils.Utils;
 
 public class InfoCupomActivity extends AppCompatActivity implements Serializable {
 
-    private TextView mTvNome, mTvValor,mTvNomeServico, mTvValidade;
-    private ImageView mImagemCupom;
     private Cupom mCupom;
     private String mIdUsuarioLogado;
     private Button mExcluirCupom, mEditarCupom;
@@ -46,10 +42,13 @@ public class InfoCupomActivity extends AppCompatActivity implements Serializable
         setContentView(R.layout.activity_info_cupom);
 
         SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
-        mIdUsuarioLogado = preferences.getString("idFornecedor", "");
+        mIdUsuarioLogado = preferences.getString("id", "");
 
         mCupom = (Cupom) getIntent().getSerializableExtra("Cupom");
 
+
+        TextView mTvNome, mTvValor,mTvNomeServico, mTvValidade;
+        ImageView mImagemCupom;
         mImagemCupom = findViewById(R.id.ivDetalhesCupom);
         mImagemCupom.setImageResource(R.drawable.ic_cupom);
         mTvNome = findViewById(R.id.tvNomeCupomInfo);
@@ -123,6 +122,7 @@ public class InfoCupomActivity extends AppCompatActivity implements Serializable
                         Intent intent = new Intent(InfoCupomActivity.this, EditarCupomActivity.class);
                         intent.putExtra("Cupom", mCupom);
                         startActivity(intent);
+                        finish();
                         break;
                     case DialogInterface.BUTTON_NEGATIVE:
                         // Botão não foi clicado

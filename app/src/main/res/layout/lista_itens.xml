@@ -5,16 +5,27 @@
     android:descendantFocusability="blocksDescendants"
     android:orientation="vertical">
 
+    <de.hdodenhof.circleimageview.CircleImageView
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:padding="3dp"
+        android:layout_width="66dp"
+        android:layout_height="66dp"
+        android:layout_marginTop="8dp"
+        app:civ_border_width="1dp"
+        android:src="@drawable/ic_action_promocao"
+        app:civ_border_color="@color/colorPrimary"/>
+
     <TextView xmlns:android="http://schemas.android.com/apk/res/android"
         android:id="@+id/tv_titulo"
         android:layout_height="wrap_content"
         android:layout_width="wrap_content"
+        android:layout_marginLeft="80dp"
         android:textColor="@android:color/black"
-        android:textSize="18sp"
+        android:textStyle="bold"
+        android:textSize="20sp"
         android:paddingTop="8dp"
         android:paddingLeft="8dp"
-        android:paddingRight="8dp"
-        android:paddingBottom="4dp" />
+        android:paddingRight="8dp" />
 
     <ImageButton
         android:id="@+id/ibRemoverServico"
@@ -40,24 +51,13 @@
         android:id="@+id/tv_subtitulo"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginLeft="80dp"
         android:layout_below="@+id/tv_titulo"
-        android:textColor="@android:color/black"
         android:textSize="14sp"
+        android:paddingTop="12dp"
         android:paddingLeft="8dp"
         android:paddingRight="8dp"
-        android:paddingBottom="4dp" />
-
-
-    <TextView
-        android:id="@+id/tv_valor"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/tv_subtitulo"
-        android:textColor="@android:color/black"
-        android:textSize="14sp"
-        android:paddingLeft="8dp"
-        android:paddingRight="8dp"
-        android:paddingBottom="4dp"
-        android:textStyle="bold"/>
+        android:paddingBottom="8dp"
+        android:textColor="@android:color/holo_red_dark"/>
 
 </RelativeLayout>

@@ -1,9 +1,8 @@
 package projetaobcc20172.com.projetopetemfocofornecedor.activity;
 
-import android.content.Intent;
 import android.graphics.Color;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.widget.Button;
 
@@ -95,9 +94,6 @@ public class CalendarioPromocoesPickerActivity extends AppCompatActivity {
     }
 
     private void abrirTelaPrincipal() {
-        Intent intent = new Intent(CalendarioPromocoesPickerActivity.this, PromocaoActivity.class);
-        //intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
-        startActivity(intent);
         finish();
     }
 }

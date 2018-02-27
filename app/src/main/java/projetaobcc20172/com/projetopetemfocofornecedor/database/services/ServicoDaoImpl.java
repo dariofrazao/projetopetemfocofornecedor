@@ -1,10 +1,7 @@
 package projetaobcc20172.com.projetopetemfocofornecedor.database.services;
 
-import android.app.Activity;
 import android.content.Context;
-import android.content.Intent;
 import android.support.annotation.NonNull;
-import android.util.Log;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -17,8 +14,6 @@ import java.util.HashMap;
 import java.util.Map;
 
 import projetaobcc20172.com.projetopetemfocofornecedor.R;
-import projetaobcc20172.com.projetopetemfocofornecedor.activity.MainActivity;
-import projetaobcc20172.com.projetopetemfocofornecedor.activity.ServicosActivity;
 import projetaobcc20172.com.projetopetemfocofornecedor.config.ConfiguracaoFirebase;
 import projetaobcc20172.com.projetopetemfocofornecedor.helper.Preferencias;
 import projetaobcc20172.com.projetopetemfocofornecedor.model.Servico;
@@ -85,7 +80,7 @@ public class ServicoDaoImpl implements ServicoDao{
                                     break;
                             }
                         }
-                        if(mConfirma.equals("0")){
+                        if(("0").equals(mConfirma)){
                             inserir(servico, idFornecedor);
                         }
                     }
@@ -156,8 +151,6 @@ public class ServicoDaoImpl implements ServicoDao{
                         }
                         if(task.isComplete()){
                             //cria um "fornecedor_servico" para todos os novos servicos add
-                            servico.setmId(mId);
-                            servico.setIdFornecedor(idFornecedor);
                             atualizarFornecedorServico(servico);
                         }
                     }
@@ -181,16 +174,13 @@ public class ServicoDaoImpl implements ServicoDao{
                             if (dados.child("nome").getValue().equals(servico.getNome()) &
                                     dados.child("tipoPet").getValue().equals(servico.getTipoPet()) &
                                     dados.child("valor").getValue().equals(servico.getValor()) &
-                                    dados.child("descricao").getValue().equals(servico.getDescricao())) {
-                                Utils.mostrarMensagemCurta(getContexto(), getContexto().getString(R.string.servico_existente));
-                                mConfirma = "1";
-                                break;
+                                    dados.child("descricao").getValue().equals(servico.getDescricao())){
+                                    Utils.mostrarMensagemCurta(getContexto(), getContexto().getString(R.string.servico_existente));
+                                    mConfirma = "1";
+                                    break;
                             }
-                            mId = dados.getKey();
                         }
-                        if(mConfirma.equals("0")){
-                            servico.setmId(mId);
-                            servico.setIdFornecedor(idFornecedor);
+                        if (mConfirma.equals("0")){
                             atualizar(servico, idFornecedor);
                         }
                     }

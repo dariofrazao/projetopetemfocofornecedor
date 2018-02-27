@@ -4,15 +4,19 @@ import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.graphics.Color;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
+import android.support.design.widget.NavigationView;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentTransaction;
+import android.support.v4.view.GravityCompat;
+import android.support.v4.widget.DrawerLayout;
+import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Button;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -22,51 +26,88 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.ValueEventListener;
 
+import java.io.Serializable;
+
 import projetaobcc20172.com.projetopetemfocofornecedor.R;
 import projetaobcc20172.com.projetopetemfocofornecedor.config.ConfiguracaoFirebase;
 import projetaobcc20172.com.projetopetemfocofornecedor.helper.Preferencias;
 import projetaobcc20172.com.projetopetemfocofornecedor.model.Endereco;
-
 import projetaobcc20172.com.projetopetemfocofornecedor.model.Fornecedor;
 
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener , Serializable {
 
-    private TextView mTvTitulo, mTvSubtitulo, mTvSubtitulo2;
+    private TextView mNome, mFoto, mEmail;
     private FirebaseAuth mAutenticacao;
     private Fornecedor fornecedor;
 
+    @SuppressLint("WrongViewCast")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         mAutenticacao = ConfiguracaoFirebase.getFirebaseAutenticacao();
-        Button sair;
-        Button meusServicos;
-        Button minhasPromocoes;
 
-        Toolbar toolbar;
-        toolbar = findViewById(R.id.tb_main);
-
-        // Configura toolbar
-        toolbar.setTitle("Pet Em Foco");
-        toolbar.setTitleTextColor(Color.WHITE);
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);//toolbar do navigator
         setSupportActionBar(toolbar);
 
-        sair = findViewById(R.id.btnSair);
-        meusServicos =  findViewById(R.id.btnMeusServicos);
-        minhasPromocoes = findViewById(R.id.btnMinhasPromocoes);
+        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
+                this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
+        drawer.addDrawerListener(toggle);
+        toggle.syncState();
 
-        mTvTitulo = findViewById(R.id.tvTituloFornecedor);
-        mTvSubtitulo = findViewById(R.id.tvSubtituloFornecedor);
-        mTvSubtitulo2 = findViewById(R.id.tvSubtitulo2Fornecedor);
+        NavigationView navigationView =  (NavigationView)findViewById(R.id.nav_busca);
 
-        //Recuperar id do fornecedor logado
-        final String idUsuarioLogado;
-        idUsuarioLogado = getPreferences("id", this);
+        displaySelectedScreen(R.id.nav_servicos);//Determina qual tela será aberta primeiro ao entrar
+
+        View header = navigationView.getHeaderView(0);
+
+        navigationView.setNavigationItemSelectedListener(this);
+        mNome = header.findViewById(R.id.tvNomeProfile);
+        //mFoto = header.findViewById(R.id.imageViewProfile);
+        mEmail = header.findViewById(R.id.tvEmailProfile);
+
+        //Recuperar id do usuário logado
+        String mIdUsuarioLogado;
+        mIdUsuarioLogado = getPreferences("id", getApplication());
+//
+//        DatabaseReference mReferenciaFirebase;
+//        mReferenciaFirebase = ConfiguracaoFirebase.getFirebase();
+//        mReferenciaFirebase.child("usuarios").child(mIdUsuarioLogado).addValueEventListener(new ValueEventListener() {
+//
+//            @Override
+//            public void onDataChange(DataSnapshot dataSnapshot) {
+//
+//                if(dataSnapshot.getValue() != null){
+//                    Fornecedor fornecedor = dataSnapshot.getValue(Fornecedor.class);
+//                    //Exibe a foto de perfil do usuário através do Glide
+//                    Glide.with(getApplicationContext()).load(fornecedor.getmFoto()).asBitmap().into(new BitmapImageViewTarget(mFoto){
+//                        @Override
+//                        protected void setResource(Bitmap resource) {
+//
+//                            //Transforma a foto em formato circular
+//                            RoundedBitmapDrawable circularBitmapDrawable =
+//                                    RoundedBitmapDrawableFactory.create(MainActivity.this.getResources(), resource);
+//                            circularBitmapDrawable.setCircular(true);
+//                            mFoto.setImageDrawable(circularBitmapDrawable);
+//                        }
+//                    });
+//
+//                    mNome.setText(fornecedor.getNome());
+//                    mEmail.setText(fornecedor.getEmail());
+//                }
+//            }
+//
+//            @Override
+//            public void onCancelled(DatabaseError databaseError) {
+//                //vazio
+//            }
+//        });
+
 
         // Recuperar serviços do Firebase
-        DatabaseReference mFirebase = ConfiguracaoFirebase.getFirebase().child("fornecedor").child(idUsuarioLogado);
+        DatabaseReference mFirebase = ConfiguracaoFirebase.getFirebase().child("fornecedor").child(mIdUsuarioLogado);
 
         mFirebase.addValueEventListener(new ValueEventListener() {
             @Override
@@ -80,13 +121,13 @@ public class MainActivity extends AppCompatActivity {
                 String telefone = (String) dataSnapshot.child("telefone").getValue();
                 String horarios = (String) dataSnapshot.child("horarios").getValue();
                 Endereco end = (Endereco)dataSnapshot.child("endereco").getValue(Endereco.class);
-                mTvTitulo.setText(nome);
-                mTvSubtitulo.setText("E-mail: " + email);
-                mTvSubtitulo2.setText("Fone: " + telefone);
+                mNome.setText(nome);
+                mEmail.setText(email);
+                //mTvSubtitulo2.setText("Fone: " + telefone);
                 Preferencias p = new Preferencias(MainActivity.this);
                 p.salvarPosicao((float)end.getmLatitude(),(float)end.getmLongitude());
                 p.salvarNota(dataSnapshot.child("nota").getValue(Float.class));
-                p.salvarDadosUser(idUsuarioLogado, nome, email);
+                p.salvarDadosUser(mIdUsuarioLogado, nome, email);
 
                 fornecedor = new Fornecedor(nome, nomeBusca, email, cpfCnpj, telefone, horarios);
                 fornecedor.setEndereco(end);
@@ -99,51 +140,58 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        minhasPromocoes.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent();
-                intent.setClass(MainActivity.this, PromocaoActivity.class);
-                startActivity(intent);
-            }
-        });
-
-        meusServicos.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent();
-                intent.setClass(MainActivity.this, ServicosActivity.class);
-                startActivity(intent);
-            }
-        });
-
-        //Ação do botão de deslogar o fornecedor
-        sair.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                deslogarFornecedor();
-            }
-        });
-
-    }
-    //chama o menu de edição de perfil de fornecedor
-    @Override
-    @SuppressLint("ResourceType")
-    public boolean onCreateOptionsMenu(Menu menu){
-        getMenuInflater().inflate(R.layout.menu_main, menu);
-        return super.onCreateOptionsMenu(menu);
     }
 
+    @SuppressWarnings("StatementWithEmptyBody")
     @Override
-    public boolean onOptionsItemSelected(MenuItem item){
-        int id = item.getItemId();
-        if(id == R.id.action_editar){
-
-            Intent intent = new Intent(MainActivity.this,EditarFornecedorActivity.class);
-            intent.putExtra("fornecedor", fornecedor);
-            startActivity(intent);
-        }
+    public boolean onNavigationItemSelected(MenuItem item) {
+        displaySelectedScreen(item.getItemId());
         return true;
+    }
+
+
+    private void displaySelectedScreen(int itemId) {
+
+        Fragment fragment = null;
+
+        switch (itemId) {
+            case R.id.nav_perfil:
+                fragment = new EditarFornecedorActivity();
+                break;
+            case R.id.nav_servicos:
+                fragment = new ServicosActivity();
+                break;
+            case R.id.nav_cupons:
+                fragment = new CupomActivity();
+                break;
+            case R.id.nav_promocoes:
+                fragment = new PromocaoActivity();
+                break;
+            case R.id.nav_sair:
+                this.deslogarFornecedor();
+                break;
+            default:
+                break;
+        }
+        this.fecharTeclado();
+
+        //Instancia o fragmento
+        if (fragment != null) {
+            FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
+            ft.replace(R.id.content_main, fragment);
+            ft.commit();
+        }
+
+        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        drawer.closeDrawer(GravityCompat.START);
+    }
+
+    private void fecharTeclado(){
+        View view = this.getCurrentFocus();
+        if(view !=null){
+            InputMethodManager imm = (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
+            imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
+        }
     }
 
 

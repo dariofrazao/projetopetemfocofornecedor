@@ -28,7 +28,7 @@
         android:padding="10dp">
 
         <ImageButton
-            android:id="@+id/btnCadastroCupom"
+            android:id="@+id/btnCadastroCupomList"
             android:layout_width="60dp"
             android:layout_height="60dp"
             android:background="@drawable/ic_action_add"

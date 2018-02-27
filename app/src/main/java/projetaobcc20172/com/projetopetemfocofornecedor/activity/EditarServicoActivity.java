@@ -1,6 +1,5 @@
 package projetaobcc20172.com.projetopetemfocofornecedor.activity;
 
-import android.app.DatePickerDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.SharedPreferences;
@@ -13,12 +12,9 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.text.InputFilter;
 import android.text.InputType;
-import android.util.Log;
 import android.view.View;
-import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
-import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.Spinner;
 
@@ -27,20 +23,12 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.List;
 import java.util.Locale;
 
 import projetaobcc20172.com.projetopetemfocofornecedor.R;
 import projetaobcc20172.com.projetopetemfocofornecedor.config.ConfiguracaoFirebase;
-import projetaobcc20172.com.projetopetemfocofornecedor.database.services.CupomDaoImpl;
 import projetaobcc20172.com.projetopetemfocofornecedor.database.services.ServicoDaoImpl;
 import projetaobcc20172.com.projetopetemfocofornecedor.excecoes.ValidacaoException;
-import projetaobcc20172.com.projetopetemfocofornecedor.model.Cupom;
 import projetaobcc20172.com.projetopetemfocofornecedor.model.Servico;
 import projetaobcc20172.com.projetopetemfocofornecedor.utils.MascaraDinheiro;
 import projetaobcc20172.com.projetopetemfocofornecedor.utils.Utils;
@@ -70,7 +58,7 @@ public class EditarServicoActivity extends AppCompatActivity {
         toolbar = findViewById(R.id.tb_editar_serviço);
 
         SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
-        mIdUsuarioLogado = preferences.getString("idFornecedor", "");
+        mIdUsuarioLogado = preferences.getString("id", "");
 
         mServico = (Servico) getIntent().getSerializableExtra("Servico");
 
@@ -126,7 +114,7 @@ public class EditarServicoActivity extends AppCompatActivity {
     private void editarServico(){
         try {
             //Recuperar id do fornecedor logado
-            mIdUsuarioLogado = getPreferences("idFornecedor", this);
+            mIdUsuarioLogado = getPreferences("id", this);
 
             Servico servico = new Servico();
             servico.setNome(mSpinnerNomeServico.getSelectedItem().toString());
@@ -139,10 +127,19 @@ public class EditarServicoActivity extends AppCompatActivity {
             btnEditarServico.setText("Aguarde...");
             btnEditarServico.setEnabled(false);
 
-            ServicoDaoImpl servicoDao = new ServicoDaoImpl(this);
-            servicoDao.compararAtualizar(servico,mIdUsuarioLogado);
-            ativarButtonAguarde(servico, btnEditarServico);
-
+            if(!mServico.equals(servico)){
+                servico.setmId(mServico.getId());
+                servico.setIdFornecedor(mIdUsuarioLogado);
+                ServicoDaoImpl servicoDao = new ServicoDaoImpl(EditarServicoActivity.this);
+                servicoDao.compararAtualizar(servico,mIdUsuarioLogado);
+                ativarButtonAguarde(servico, btnEditarServico);
+            } else {
+                servico.setmId(mServico.getId());
+                servico.setIdFornecedor(mIdUsuarioLogado);
+                ServicoDaoImpl servicoDao = new ServicoDaoImpl(EditarServicoActivity.this);
+                servicoDao.atualizar(servico,mIdUsuarioLogado);
+                finish();
+            }
 
         } catch (ValidacaoException e) {
             e.printStackTrace();

@@ -1,44 +1,32 @@
 package projetaobcc20172.com.projetopetemfocofornecedor.activity;
 
-import android.app.Activity;
 import android.app.DatePickerDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.content.res.ColorStateList;
-import android.graphics.Bitmap;
 import android.graphics.Color;
-import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
-import android.provider.MediaStore;
 import android.support.annotation.RequiresApi;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.text.InputFilter;
 import android.text.InputType;
-import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
-import android.widget.RadioButton;
-import android.widget.RadioGroup;
 import android.widget.Spinner;
-import android.widget.TextView;
 
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 
-import java.io.ByteArrayOutputStream;
-import java.io.FileNotFoundException;
-import java.io.IOException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -50,8 +38,6 @@ import java.util.Locale;
 import projetaobcc20172.com.projetopetemfocofornecedor.R;
 import projetaobcc20172.com.projetopetemfocofornecedor.config.ConfiguracaoFirebase;
 import projetaobcc20172.com.projetopetemfocofornecedor.database.services.CupomDaoImpl;
-import projetaobcc20172.com.projetopetemfocofornecedor.database.services.PromocaoDao;
-import projetaobcc20172.com.projetopetemfocofornecedor.database.services.PromocaoDaoImpl;
 import projetaobcc20172.com.projetopetemfocofornecedor.excecoes.ValidacaoException;
 import projetaobcc20172.com.projetopetemfocofornecedor.model.Cupom;
 import projetaobcc20172.com.projetopetemfocofornecedor.utils.MascaraDinheiro;
@@ -88,7 +74,7 @@ public class EditarCupomActivity extends AppCompatActivity {
         toolbar = findViewById(R.id.tb_editar_cupom);
 
         SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
-        mIdUsuarioLogado = preferences.getString("idFornecedor", "");
+        mIdUsuarioLogado = preferences.getString("id", "");
 
         mCupom = (Cupom) getIntent().getSerializableExtra("Cupom");
 
@@ -145,14 +131,14 @@ public class EditarCupomActivity extends AppCompatActivity {
         mSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                if (mServicosCupom.get(position).equals("Selecione um serviço")){
-                    //vazio
-                } else {
+//                if (mServicosCupom.get(position).equals("Selecione um serviço")){
+//                    //vazio
+//                } else {
                     mKey = mServicosCupomKey.get(position).toString();
                     mKeyFornecedor = mServicosCupomKeyFornecedor.get(position).toString();
                     mJuncao = mServicosCupom.get(position).toString();
                     //Log.d("USER KEY", String.valueOf(mPosicao));
-                }
+//                }
 
             }
 
@@ -203,7 +189,7 @@ public class EditarCupomActivity extends AppCompatActivity {
     private void editarPet(){
         try {
             //Recuperar id do fornecedor logado
-            mIdUsuarioLogado = getPreferences("idFornecedor", EditarCupomActivity.this);
+            mIdUsuarioLogado = getPreferences("id", EditarCupomActivity.this);
 
             Cupom cupom = new Cupom();
             cupom.setNome(mEtNome.getText().toString());
@@ -241,10 +227,12 @@ public class EditarCupomActivity extends AppCompatActivity {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 for (DataSnapshot dados : dataSnapshot.getChildren()) {
-                    if (dados.child("nome").getValue().equals(cpn.getNome()) &
-                            dados.child("idServico").getValue().equals(cpn.getIdServico())){
-                        mHabilita = "1";
-                        break;
+                    if (!(dados.child("id").getValue().toString().equals(cpn.getId()))) {
+                        if (dados.child("nome").getValue().equals(cpn.getNome()) &
+                                dados.child("idServico").getValue().equals(cpn.getIdServico())) {
+                            mHabilita = "1";
+                            break;
+                        }
                     }
                 }
                 if(mHabilita.equals("0")){

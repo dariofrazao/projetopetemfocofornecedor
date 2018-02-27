@@ -1,7 +1,5 @@
 package projetaobcc20172.com.projetopetemfocofornecedor.database.services;
 
-import android.widget.Button;
-
 import projetaobcc20172.com.projetopetemfocofornecedor.model.Cupom;
 
 /**

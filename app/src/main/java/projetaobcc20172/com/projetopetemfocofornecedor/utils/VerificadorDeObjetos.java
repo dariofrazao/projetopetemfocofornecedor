@@ -7,11 +7,11 @@ import com.google.android.gms.maps.model.LatLng;
 import projetaobcc20172.com.projetopetemfocofornecedor.R;
 import projetaobcc20172.com.projetopetemfocofornecedor.excecoes.CampoObrAusenteException;
 import projetaobcc20172.com.projetopetemfocofornecedor.excecoes.ValidacaoException;
+import projetaobcc20172.com.projetopetemfocofornecedor.model.Cupom;
 import projetaobcc20172.com.projetopetemfocofornecedor.model.Endereco;
 import projetaobcc20172.com.projetopetemfocofornecedor.model.Fornecedor;
 import projetaobcc20172.com.projetopetemfocofornecedor.model.Promocao;
 import projetaobcc20172.com.projetopetemfocofornecedor.model.Servico;
-import projetaobcc20172.com.projetopetemfocofornecedor.model.Cupom;
 
 /**
  * Created by raul on 10/12/17.
@@ -68,7 +68,7 @@ public class VerificadorDeObjetos {
     }
 
     public static void vDadosCupom(Cupom cupom, Context cad) throws ValidacaoException {
-        if(cupom.getJuncao().equalsIgnoreCase("Selecione um serviço") || cupom.getJuncao().equalsIgnoreCase("")){
+        if(cupom.getJuncao().equals("Selecione um serviço")){
             throw new ValidacaoException(cad.getString(R.string.error_selecione_um_servico));
         }
         else if(cupom.getNome().equals("")){
@@ -103,7 +103,7 @@ public class VerificadorDeObjetos {
             throw new ValidacaoException("Informe um título para promoção");
         }else if(promo.getDescricao().equals("")){
             throw new ValidacaoException("Informe uma descrição para promoção");
-        }else if(promo.getValor().equals("")){
+        }else if(promo.getValor().equals("") || promo.getValor().equalsIgnoreCase("R$0,00")){
             throw new ValidacaoException("Informe um valor para promoção");
         }
     }

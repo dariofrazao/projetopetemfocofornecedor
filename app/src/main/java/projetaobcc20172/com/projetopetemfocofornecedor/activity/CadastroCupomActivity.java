@@ -1,8 +1,6 @@
 package projetaobcc20172.com.projetopetemfocofornecedor.activity;
 
 import android.app.DatePickerDialog;
-import android.app.Fragment;
-import android.app.FragmentManager;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -12,7 +10,6 @@ import android.os.Build;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.annotation.RequiresApi;
-import android.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.text.InputFilter;
@@ -42,10 +39,8 @@ import java.util.Locale;
 
 import projetaobcc20172.com.projetopetemfocofornecedor.R;
 import projetaobcc20172.com.projetopetemfocofornecedor.config.ConfiguracaoFirebase;
-import projetaobcc20172.com.projetopetemfocofornecedor.database.services.CupomDao;
 import projetaobcc20172.com.projetopetemfocofornecedor.database.services.CupomDaoImpl;
 import projetaobcc20172.com.projetopetemfocofornecedor.excecoes.ValidacaoException;
-import projetaobcc20172.com.projetopetemfocofornecedor.fragment.ServicosFragment;
 import projetaobcc20172.com.projetopetemfocofornecedor.model.Cupom;
 import projetaobcc20172.com.projetopetemfocofornecedor.utils.MascaraDinheiro;
 import projetaobcc20172.com.projetopetemfocofornecedor.utils.Utils;
@@ -81,7 +76,7 @@ public class CadastroCupomActivity extends AppCompatActivity  implements Seriali
         toolbar = findViewById(R.id.tb_cadastro_cupom);
 
         SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
-        mIdUsuarioLogado = preferences.getString("idFornecedor", "");
+        mIdUsuarioLogado = preferences.getString("id", "");
 
         toolbar.setTitle("Cadastro do Código");
         toolbar.setTitleTextColor(Color.WHITE);
@@ -122,13 +117,13 @@ public class CadastroCupomActivity extends AppCompatActivity  implements Seriali
         mSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                if (mServicosCupom.get(position).equals("Selecione um serviço")){
-                    //vazio
-                } else {
+//                if (mServicosCupom.get(position).equals("Selecione um serviço")){
+//                    //vazio
+//                } else {
                     mKey = mServicosCupomKey.get(position).toString();
                     mKeyFornecedor = mServicosCupomKeyFornecedor.get(position).toString();
                     mJuncao = mServicosCupom.get(position).toString();
-                }
+               // }
             }
 
             @Override
@@ -208,7 +203,7 @@ public class CadastroCupomActivity extends AppCompatActivity  implements Seriali
         try {
 
             //Recuperar id do fornecedor logado
-            mIdUsuarioLogado = getPreferences("idFornecedor", CadastroCupomActivity.this);
+            mIdUsuarioLogado = getPreferences("id", CadastroCupomActivity.this);
 
             mCupom = new Cupom();
             mCupom.setNome(mEtNome.getText().toString());
@@ -403,6 +398,7 @@ public class CadastroCupomActivity extends AppCompatActivity  implements Seriali
                     // Botão sim foi clicado
                     Intent intent = new Intent(CadastroCupomActivity.this, CadastroServicoActivity.class);
                     startActivity(intent);
+                    finish();
                     break;
 
                 case DialogInterface.BUTTON_NEGATIVE:

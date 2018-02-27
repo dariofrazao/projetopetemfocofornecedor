@@ -1,7 +1,6 @@
 package projetaobcc20172.com.projetopetemfocofornecedor.database.services;
 
 import android.content.Context;
-import android.content.Intent;
 import android.support.annotation.NonNull;
 
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -9,14 +8,11 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
-
 import com.google.firebase.database.ValueEventListener;
+
 import projetaobcc20172.com.projetopetemfocofornecedor.R;
-import projetaobcc20172.com.projetopetemfocofornecedor.activity.CupomActivity;
-import projetaobcc20172.com.projetopetemfocofornecedor.activity.MainActivity;
 import projetaobcc20172.com.projetopetemfocofornecedor.config.ConfiguracaoFirebase;
 import projetaobcc20172.com.projetopetemfocofornecedor.model.Cupom;
-import projetaobcc20172.com.projetopetemfocofornecedor.model.Servico;
 import projetaobcc20172.com.projetopetemfocofornecedor.utils.Utils;
 
 /**
@@ -161,16 +157,15 @@ public class CupomDaoImpl implements CupomDao{
                     @Override
                     public void onDataChange(DataSnapshot dataSnapshot) {
                         for (DataSnapshot dados : dataSnapshot.getChildren()) {
-                            if (!(dados.child("id").getValue().toString().equals(cupom.getId()))) {
-                                if (dados.child("nome").getValue().equals(cupom.getNome()) &
-                                        dados.child("idServico").getValue().equals(cupom.getIdServico())){
+                            if (!(dados.child("id").getValue().toString().equals(cupom.getId())) &
+                                (dados.child("nome").getValue().equals(cupom.getNome())) &
+                                        (dados.child("idServico").getValue().equals(cupom.getIdServico()))){
                                     Utils.mostrarMensagemCurta(getContexto(), getContexto().getString(R.string.cupom_nome_existente));
                                     mConfirma = "1";
                                     break;
-                                }
                             }
                         }
-                        if(mConfirma.equals("0")){
+                        if(("0").equals(mConfirma)){
                             atualizar(cupom, idFornecedor);
                         }
                     }

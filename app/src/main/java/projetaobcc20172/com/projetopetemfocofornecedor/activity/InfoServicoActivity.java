@@ -16,9 +16,7 @@ import android.widget.TextView;
 import java.io.Serializable;
 
 import projetaobcc20172.com.projetopetemfocofornecedor.R;
-import projetaobcc20172.com.projetopetemfocofornecedor.database.services.CupomDaoImpl;
 import projetaobcc20172.com.projetopetemfocofornecedor.database.services.ServicoDaoImpl;
-import projetaobcc20172.com.projetopetemfocofornecedor.model.Cupom;
 import projetaobcc20172.com.projetopetemfocofornecedor.model.Servico;
 import projetaobcc20172.com.projetopetemfocofornecedor.utils.Utils;
 
@@ -28,7 +26,6 @@ import projetaobcc20172.com.projetopetemfocofornecedor.utils.Utils;
 
 public class InfoServicoActivity extends AppCompatActivity implements Serializable {
 
-    private TextView mTvNome, mTvValor, mTvTipoPetServico;
     private ImageView mImagemServico;
     private Servico mServico;
     private String mIdUsuarioLogado;
@@ -40,10 +37,11 @@ public class InfoServicoActivity extends AppCompatActivity implements Serializab
         setContentView(R.layout.activity_info_servico);
 
         SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
-        mIdUsuarioLogado = preferences.getString("idFornecedor", "");
+        mIdUsuarioLogado = preferences.getString("id", "");
 
         mServico = (Servico) getIntent().getSerializableExtra("Servico");
 
+        TextView mTvNome, mTvValor, mTvTipoPetServico;
         mImagemServico = findViewById(R.id.ivDetalhesServico);
         mImagemServico.setImageResource(R.drawable.ic_cupom);
 
