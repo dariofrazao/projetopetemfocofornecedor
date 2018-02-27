@@ -4,7 +4,6 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
-import android.icu.text.IDNA;
 import android.preference.PreferenceManager;
 import android.support.annotation.VisibleForTesting;
 import android.support.v7.app.AppCompatActivity;
@@ -78,7 +77,6 @@ public class PromocaoActivity extends AppCompatActivity implements PromocaoAdapt
                 finish();
             }
         });
-
     }
 
     private void carregarPromocoes(){
@@ -164,10 +162,9 @@ public class PromocaoActivity extends AppCompatActivity implements PromocaoAdapt
         Bundle bundle = new Bundle();
         bundle.putSerializable("promocao",  promocao);
         intent.putExtras(bundle);
-        intent.setClass(PromocaoActivity.this, InfoPromocaoActivity.class);
+        intent.setClass(PromocaoActivity.this, CadastroPromocaoActivity.class);
         startActivity(intent);
         finish();
     }
-
 
 }

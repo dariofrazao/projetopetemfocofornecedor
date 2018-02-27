@@ -54,6 +54,8 @@
         <activity android:name=".activity.CalendarioPromocoesPickerActivity" />
         <activity android:name=".activity.CalendarioPromocoesViewActivity" />
         <activity android:name=".activity.PromocaoInfoActivity"></activity>
+        <activity android:name=".activity.InfoPromocaoActivity"></activity>
+
     </application>
 
 </manifest>
