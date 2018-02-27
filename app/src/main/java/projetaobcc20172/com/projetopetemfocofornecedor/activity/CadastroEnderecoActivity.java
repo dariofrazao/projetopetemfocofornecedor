@@ -25,7 +25,6 @@ import com.google.android.gms.maps.model.LatLng;
 import projetaobcc20172.com.projetopetemfocofornecedor.R;
 import projetaobcc20172.com.projetopetemfocofornecedor.database.services.FornecedorDaoImpl;
 import projetaobcc20172.com.projetopetemfocofornecedor.excecoes.CampoObrAusenteException;
-import projetaobcc20172.com.projetopetemfocofornecedor.excecoes.ValidacaoException;
 import projetaobcc20172.com.projetopetemfocofornecedor.helper.Util;
 import projetaobcc20172.com.projetopetemfocofornecedor.helper.ZipCodeListener;
 import projetaobcc20172.com.projetopetemfocofornecedor.model.Endereco;

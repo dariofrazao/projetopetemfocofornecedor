@@ -13,11 +13,9 @@ import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
-
 import com.google.android.gms.maps.CameraUpdate;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
@@ -26,10 +24,8 @@ import com.google.android.gms.maps.MapsInitializer;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
-
 import org.json.JSONArray;
 import org.json.JSONObject;
-
 import java.io.BufferedInputStream;
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -38,7 +34,6 @@ import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
-
 import projetaobcc20172.com.projetopetemfocofornecedor.R;
 import projetaobcc20172.com.projetopetemfocofornecedor.excecoes.ValidacaoException;
 import projetaobcc20172.com.projetopetemfocofornecedor.utils.Localizacao;
@@ -79,7 +74,7 @@ public class CadastroGeolocalizacaoActivity extends AppCompatActivity {
         mMapView.getMapAsync(new OnMapReadyCallback() {
             @Override
             public void onMapReady(GoogleMap googleMap) {
-                setUpMap(googleMap, CadastroGeolocalizacaoActivity.this);
+                setUpMap(googleMap);
             }
         });
         mMapView.onCreate(savedInstanceState);
@@ -113,7 +108,7 @@ public class CadastroGeolocalizacaoActivity extends AppCompatActivity {
         mMapView.onSaveInstanceState(outState);
     }
 
-    private void setUpMap(GoogleMap googleMap, Activity act) {
+    private void setUpMap(GoogleMap googleMap) {
         verificarGPS();
         final GoogleMap mGoogleMap = configuracaoMap(googleMap);
         mGoogleMap.setOnMapLongClickListener(new GoogleMap.OnMapLongClickListener() {
@@ -167,18 +162,18 @@ public class CadastroGeolocalizacaoActivity extends AppCompatActivity {
         return googleMap;
     }
 
-    // Minha localização
-    private LatLng coordinadasPorGPS(Activity act) {
-        verificarGPS();
-        LatLng mMinhaLocalizacao = null;
-        if (locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER)) {
-            double[] posicaoAtual = Localizacao.getCurrentLocation(act);
-            mMinhaLocalizacao = new LatLng(posicaoAtual[0],posicaoAtual[1]);
-        }else{
-            mMinhaLocalizacao = new LatLng(0,0);
-        }
-        return mMinhaLocalizacao;
-    }
+//    // Minha localização
+//    private LatLng coordinadasPorGPS(Activity act) {
+//        verificarGPS();
+//        LatLng mMinhaLocalizacao = null;
+//        if (locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER)) {
+//            double[] posicaoAtual = Localizacao.getCurrentLocation(act);
+//            mMinhaLocalizacao = new LatLng(posicaoAtual[0],posicaoAtual[1]);
+//        }else{
+//            mMinhaLocalizacao = new LatLng(0,0);
+//        }
+//        return mMinhaLocalizacao;
+//    }
 
     @Override
     public void onLowMemory() {
