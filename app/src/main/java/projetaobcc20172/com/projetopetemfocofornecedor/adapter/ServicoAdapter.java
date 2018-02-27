@@ -47,11 +47,6 @@ public class ServicoAdapter extends ArrayAdapter<Servico> {
             assert inflater != null;
             view = inflater.inflate(R.layout.lista_itens, parent, false);
 
-            // recupera elemento para exibição
-//            holder.nome = view.findViewById(R.id.tv_titulo);
-//            holder.subtitulo = view.findViewById(R.id.tv_subtitulo);
-//            holder.remover = view.findViewById(R.id.iv_remover);
-
             TextView nome = view.findViewById(R.id.tv_titulo);
             TextView subtitulo = view.findViewById(R.id.tv_subtitulo);
             ImageButton remover = view.findViewById(R.id.ibRemoverServico);

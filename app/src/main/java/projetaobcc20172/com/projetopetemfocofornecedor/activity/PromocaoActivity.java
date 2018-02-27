@@ -33,10 +33,12 @@ import projetaobcc20172.com.projetopetemfocofornecedor.utils.Utils;
 public class PromocaoActivity extends AppCompatActivity implements PromocaoAdapter.CustomButtonListener{
 
     private ArrayList<Promocao> mPromocoes;
+
     private PromocaoAdapter mAdapter;
     @VisibleForTesting(otherwise = VisibleForTesting.PRIVATE)//permite que essa variavel seja vista pela classe de teste
     public ListView listView;
     private String mIdUsuarioLogado;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,7 +46,7 @@ public class PromocaoActivity extends AppCompatActivity implements PromocaoAdapt
         setContentView(R.layout.activity_promocao);
 
         SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
-        mIdUsuarioLogado = preferences.getString("idFornecedor", "");
+        mIdUsuarioLogado = preferences.getString("id", "");
 
         ImageButton cadastroPromocao;
 
@@ -64,9 +66,9 @@ public class PromocaoActivity extends AppCompatActivity implements PromocaoAdapt
         mAdapter.setCustomButtonListener(PromocaoActivity.this);
         listView.setAdapter(mAdapter);
 
-        carregarPromocoes();
+        this.carregarPromocoes();
 
-        chamarInfoPromocaoListener();
+        this.chamarInfoPromocaoListener();
 
         cadastroPromocao.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -90,7 +92,6 @@ public class PromocaoActivity extends AppCompatActivity implements PromocaoAdapt
                     Promocao promocao = dados.getValue(Promocao.class);
                     promocao.setId(dados.getKey());
                     mPromocoes.add(promocao);
-
                 }
                 mAdapter.notifyDataSetChanged();
             }
@@ -167,5 +168,6 @@ public class PromocaoActivity extends AppCompatActivity implements PromocaoAdapt
         startActivity(intent);
         finish();
     }
+
 
 }

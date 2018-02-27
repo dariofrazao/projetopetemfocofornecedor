@@ -44,7 +44,7 @@ public class CadastroServicoActivity extends AppCompatActivity {
         Toolbar toolbar;
         toolbar = findViewById(R.id.tb_cadastro_serviço);
 
-        mIdUsuarioLogado = getPreferences("idFornecedor", CadastroServicoActivity.this);
+        mIdUsuarioLogado = getPreferences("id", CadastroServicoActivity.this);
 
         // Configura toolbar
         toolbar.setTitle(R.string.tb_cadastro_serviço);
@@ -151,7 +151,7 @@ public class CadastroServicoActivity extends AppCompatActivity {
         try {
 
             //Recuperar id do fornecedor logado
-            mIdUsuarioLogado = getPreferences("idFornecedor", CadastroServicoActivity.this);
+            mIdUsuarioLogado = getPreferences("id", CadastroServicoActivity.this);
             mServico = new Servico();
             mServico.setNome(mSpinnerServico.getSelectedItem().toString());
             mServico.setValor(mEtValor.getText().toString());

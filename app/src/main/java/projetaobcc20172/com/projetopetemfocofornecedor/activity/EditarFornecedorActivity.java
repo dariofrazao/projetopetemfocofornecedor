@@ -89,7 +89,7 @@ public class EditarFornecedorActivity extends AppCompatActivity {
 
         //Recuperar id do usuário logado
         String mIdFornecedorLogado;
-        mIdFornecedorLogado = getPreferences("idFornecedor", EditarFornecedorActivity.this);
+        mIdFornecedorLogado = getPreferences("id", EditarFornecedorActivity.this);
         mFornecedorAnterior.setHorarios(mSpinnerHorarios.getSelectedItem().toString());
         mFornecedorAnterior.setTelefone(mTelefone.getText().toString());
 
