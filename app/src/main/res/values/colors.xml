@@ -17,7 +17,8 @@
     <color name="preto">#000000</color>
     <color name="cinza_escuro">#696969</color>
     <color name="branco">#FFFFFF</color>
-    <color name="vermelho">#FF0000</color>
+    <color name="vermelho">#ff0000</color>
+    <color name="vermelho_transparente">#49ff0000</color>
     <color name="amarelo">#EAEF92</color>
     <color name="lightsteelblue">#B0C4DE</color>
     <color name="slategrey">#708090</color>

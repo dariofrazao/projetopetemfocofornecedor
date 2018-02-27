@@ -79,7 +79,7 @@ public class VerificadorDeObjetos {
     //Método responsável por avaliar se as coordenadas geograficas esta preencidas
     public static void vDadosObrCoordenadasGeograficas(LatLng localizacao) throws ValidacaoException {
         if (localizacao.latitude == 0 || localizacao.longitude == 0) {
-            throw new ValidacaoException();
+            throw new ValidacaoException("Informe as coordenadas Geográficas");
         }
     }
 }
