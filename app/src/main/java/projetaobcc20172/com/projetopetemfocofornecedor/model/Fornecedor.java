@@ -23,7 +23,6 @@ public class Fornecedor implements Serializable {
     private String mEnderecoFornecedor = "1";
     private Endereco mEndereco;
     private String mTipo;
-    private String mFoto;
     private ArrayList<Servico> mServicos = new ArrayList<>();
 
     private float mNota = 0;

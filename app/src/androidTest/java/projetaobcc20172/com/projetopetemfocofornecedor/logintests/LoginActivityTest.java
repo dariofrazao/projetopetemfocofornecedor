@@ -1,8 +1,6 @@
 package projetaobcc20172.com.projetopetemfocofornecedor.logintests;
 
-import android.support.test.InstrumentationRegistry;
 import android.support.test.rule.ActivityTestRule;
-import android.support.test.uiautomator.UiDevice;
 
 import org.junit.After;
 import org.junit.Before;
