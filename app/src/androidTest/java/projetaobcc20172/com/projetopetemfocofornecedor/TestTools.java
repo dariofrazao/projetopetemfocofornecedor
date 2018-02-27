@@ -73,8 +73,8 @@ public class TestTools {
 
 
     public static void clicarItemNavigationMenu(int idDrawerLayout,int idNavigator,int idMenu){
-        Espresso.onView(withId(idDrawerLayout)).perform(DrawerActions.open());
-        Espresso.onView(withId(idNavigator)).perform(NavigationViewActions.navigateTo(idMenu));
+        //Espresso.onView(withId(idDrawerLayout)).perform(DrawerActions.open());
+        //Espresso.onView(withId(idNavigator)).perform(NavigationViewActions.navigateTo(idMenu));
     }
 
     //Verifica se a mudança de activity(tela) ocorreu como esperada
@@ -94,7 +94,7 @@ public class TestTools {
         Espresso.closeSoftKeyboard();
     }
     public static void clicarBotao(int idBotao){
-            Espresso.onView(withId(idBotao)).perform(click());
+            //Espresso.onView(withId(idBotao)).perform(click());
     }
     //Caso a tela contenha scroll e o botão não estaja visivel é necessario
     //rolar a barra até ele para depois clicar

@@ -31,7 +31,6 @@ public class ServicoDaoImpl implements ServicoDao{
     private final Context mContexto;
     private final Preferencias mPreferencias;
     private String mConfirma =  "0";
-    private String mId;
 
     public ServicoDaoImpl(Context contexto){
         this.mReferenciaFirebase = ConfiguracaoFirebase.getFirebase();
@@ -180,7 +179,7 @@ public class ServicoDaoImpl implements ServicoDao{
                                     break;
                             }
                         }
-                        if (mConfirma.equals("0")){
+                        if (("0").equals(mConfirma)){
                             atualizar(servico, idFornecedor);
                         }
                     }

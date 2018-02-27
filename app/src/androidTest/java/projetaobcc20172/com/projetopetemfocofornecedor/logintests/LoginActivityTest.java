@@ -21,14 +21,11 @@ import projetaobcc20172.com.projetopetemfocofornecedor.activity.LoginActivity;
 
 public class LoginActivityTest {
 
-    private UiDevice mDevice;
-
     @Rule
     public ActivityTestRule <LoginActivity> loginActivityRule = new ActivityTestRule<>(LoginActivity.class);
 
     @Before
     public void setUp() throws Exception {
-        mDevice = UiDevice.getInstance(InstrumentationRegistry.getInstrumentation());
         //Desloga caso já esteja logado.
         //Evita erros nos testes
         try{

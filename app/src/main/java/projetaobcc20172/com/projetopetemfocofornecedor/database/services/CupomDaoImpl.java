@@ -72,7 +72,7 @@ public class CupomDaoImpl implements CupomDao{
                                 break;
                             }
                         }
-                        if(mConfirma.equals("0")){
+                        if(("0").equals(mConfirma)){
                             inserir(cupom, idFornecedor);
                         }
                     }

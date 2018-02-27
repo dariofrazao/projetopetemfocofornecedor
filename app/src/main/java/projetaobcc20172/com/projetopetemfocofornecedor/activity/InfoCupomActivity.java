@@ -47,7 +47,10 @@ public class InfoCupomActivity extends AppCompatActivity implements Serializable
         mCupom = (Cupom) getIntent().getSerializableExtra("Cupom");
 
 
-        TextView mTvNome, mTvValor,mTvNomeServico, mTvValidade;
+        TextView mTvNome;
+        TextView mTvValor;
+        TextView mTvNomeServico;
+        TextView mTvValidade;
         ImageView mImagemCupom;
         mImagemCupom = findViewById(R.id.ivDetalhesCupom);
         mImagemCupom.setImageResource(R.drawable.ic_cupom);

@@ -37,7 +37,7 @@ import projetaobcc20172.com.projetopetemfocofornecedor.model.Fornecedor;
 
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener , Serializable {
 
-    private TextView mNome, mFoto, mEmail;
+    private TextView mNome, mEmail;
     private FirebaseAuth mAutenticacao;
     private Fornecedor fornecedor;
 

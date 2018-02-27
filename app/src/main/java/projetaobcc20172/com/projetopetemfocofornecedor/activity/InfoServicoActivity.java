@@ -41,11 +41,14 @@ public class InfoServicoActivity extends AppCompatActivity implements Serializab
 
         mServico = (Servico) getIntent().getSerializableExtra("Servico");
 
-        TextView mTvNome, mTvValor, mTvTipoPetServico;
+        TextView mTvNome;
+        TextView mTvValor;
+        TextView mTvTipoPetServico;
+
         mImagemServico = findViewById(R.id.ivDetalhesServico);
         mImagemServico.setImageResource(R.drawable.ic_cupom);
 
-        gerarImagemNomeServico(mServico, mImagemServico);
+        gerarImagemNomeServico(mServico);
 
         mTvNome = findViewById(R.id.tvNomeServicoInfo);
         mTvNome.setText("Nome: "+ mServico.getNome());
@@ -72,21 +75,21 @@ public class InfoServicoActivity extends AppCompatActivity implements Serializab
 
     }
 
-    private void gerarImagemNomeServico(Servico serv, ImageView img){
+    private void gerarImagemNomeServico(Servico serv){
         if(serv.getNome().equals("Banho")){
-            img.setImageResource(R.drawable.servico_banho);
+            mImagemServico.setImageResource(R.drawable.servico_banho);
         }
         else if(serv.getNome().equals("Tosa")){
-            img.setImageResource(R.drawable.servico_tosa);
+            mImagemServico.setImageResource(R.drawable.servico_tosa);
         }
         else if(serv.getNome().equals("Hospedagem")){
-            img.setImageResource(R.drawable.servico_hospedagem);
+            mImagemServico.setImageResource(R.drawable.servico_hospedagem);
         }
         else if(serv.getNome().equals("Passeio")){
-            img.setImageResource(R.drawable.servico_passeio);
+            mImagemServico.setImageResource(R.drawable.servico_passeio);
         }
         else if(serv.getNome().equals("Vacinação")){
-            img.setImageResource(R.drawable.servico_vacinacao);
+            mImagemServico.setImageResource(R.drawable.servico_vacinacao);
         }
     }
 
