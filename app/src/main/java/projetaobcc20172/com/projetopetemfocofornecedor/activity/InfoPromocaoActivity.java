@@ -132,7 +132,6 @@ public class InfoPromocaoActivity extends AppCompatActivity {
         });
     }
 
-
     //Método do botão voltar
     @Override
     public void onBackPressed() {

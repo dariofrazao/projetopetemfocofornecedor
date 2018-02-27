@@ -138,7 +138,7 @@ public class PromocaoActivity extends android.support.v4.app.Fragment implements
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
-                Intent intent = new Intent(PromocaoActivity.this, InfoPromocaoActivity.class);
+                Intent intent = new Intent(getActivity(), InfoPromocaoActivity.class);
                 Promocao promocao = mPromocoes.get(position);
                 intent.putExtra("Promocao", promocao);
                 intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
