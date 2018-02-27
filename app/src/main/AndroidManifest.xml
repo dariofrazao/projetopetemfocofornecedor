@@ -49,7 +49,10 @@
         android:windowSoftInputMode="stateHidden" />
         <activity android:name=".activity.CadastroPromocaoActivity" />
         <activity android:name=".activity.PromocaoActivity" />
-        <activity android:name=".activity.CadastroFornecedorTipoActivity"></activity>
+        <activity android:name=".activity.CadastroFornecedorTipoActivity" />
+        <activity android:name=".activity.CalendarioPromocoesPickerActivity" />
+        <activity android:name=".activity.CalendarioPromocoesViewActivity" />
+        <activity android:name=".activity.PromocaoInfoActivity"></activity>
     </application>
 
 </manifest>

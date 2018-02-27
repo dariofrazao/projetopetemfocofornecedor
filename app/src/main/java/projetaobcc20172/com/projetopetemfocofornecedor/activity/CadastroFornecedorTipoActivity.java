@@ -11,17 +11,20 @@ import android.widget.Button;
 import android.widget.Spinner;
 
 import projetaobcc20172.com.projetopetemfocofornecedor.R;
+import projetaobcc20172.com.projetopetemfocofornecedor.model.Fornecedor;
 
 public class CadastroFornecedorTipoActivity extends AppCompatActivity {
 
     private Spinner mSpinnerTipoFornecedor;
     private Button mBtnCadastrarFornecedor;
-
+    private Fornecedor mFornecedor;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_cadastro_fornecedor_tipo);
+
+        mFornecedor = (Fornecedor) getIntent().getSerializableExtra("fornecedor");
 
         Toolbar toolbar;
         toolbar = findViewById(R.id.tb_cadastro_fornecedor);
@@ -48,7 +51,8 @@ public class CadastroFornecedorTipoActivity extends AppCompatActivity {
             public void onClick(View v) {
                 Intent intent = new Intent(CadastroFornecedorTipoActivity.this,CadastroFornecedorActivity.class);
                 String tipoFornecedor = mSpinnerTipoFornecedor.getSelectedItem().toString();
-                intent.putExtra("tipoFornecedor", tipoFornecedor);
+                mFornecedor.setTipo(tipoFornecedor);
+                intent.putExtra("fornecedor", mFornecedor);
                 startActivity(intent);
             }
         });

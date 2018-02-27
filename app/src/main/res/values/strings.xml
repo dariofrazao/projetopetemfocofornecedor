@@ -42,6 +42,7 @@
     <string name="erro_cadastro_fornecedor_nome_fornecedor_Toast">Erro ao cadastrar fornecedor: O nome de fornecedor inválido.</string>
     <string name="tb_geolocalizacao_titulo">Localização</string>
     <string name="google_maps_key">AIzaSyA5ajs6LhgYb3YfbuQ-hyDrUq4GYMjMkT0</string>
+    <string name="pergunta_cadastro_endereco">Deseja cadastrar seu endereço agora?</string>
 
     <!--Strings relacionadas a editar fornecedor-->
     <string name="erro_editar_fornecedor_campos_obrigatorios_Toast">Erro ao editar fornecedor: Preencha todos os campos</string>
@@ -56,6 +57,7 @@
     <string name="cadastrar">Cadastrar</string>
     <string name="sucesso_login_Toast">Sucesso ao fazer login!</string>
     <string name="erro_login_invalido_Toast">Erro ao fazer login!</string>
+    <string name="botao_login_google">Login com o Google</string>
 
     <!--Strings relacionadas a endereço-->
     <string name="cadastrar_endereco">Continuar o Cadastro</string>
@@ -112,6 +114,36 @@
     <string name="title_activity_editar_servico">Edição de Servico</string>
     <string name="confirmar_edicao_geolocalizacao">CONFIRMAR</string>
     <string name="title_activity_cadastro_fornecedor_tipo">CadastroFornecedorTipoActivity</string>
+
+    <!--Strings do calendario-->
+    <string name="material_calendar_monday">S</string>
+    <string name="material_calendar_tuesday">T</string>
+    <string name="material_calendar_wednesday">Q</string>
+    <string name="material_calendar_thursday">Q</string>
+    <string name="material_calendar_friday">S</string>
+    <string name="material_calendar_saturday">S</string>
+    <string name="material_calendar_sunday">D</string>
+
+    <array name="material_calendar_months_array">
+        <item>janeiro</item>
+        <item>fevereiro</item>
+        <item>março</item>
+        <item>abril</item>
+        <item>maio</item>
+        <item>junho</item>
+        <item>julho</item>
+        <item>agosto</item>
+        <item>setembro</item>
+        <item>outubro</item>
+        <item>novembro</item>
+        <item>dezembro</item>
+    </array>
+
+    <string name="material_calendar_today_button">Hoje</string>
+    <string name="material_calendar_positive_button">Confirmar</string>
+    <string name="material_calendar_negative_button">Cancelar</string>
+    <string name="editar">EDITAR</string>
+
     <string name="erro_timeout_msg">Operação demorou demais.Verfique sua conexão com a internet</string>
     <string name="url_matrix_distance">https://maps.googleapis.com/maps/api/distancematrix/json?units=metric</string>
     <string name="api_key_google_matrix">AIzaSyBrKPS2exi5vhLYY1H1islk4UUlRb4Z9Rk</string>

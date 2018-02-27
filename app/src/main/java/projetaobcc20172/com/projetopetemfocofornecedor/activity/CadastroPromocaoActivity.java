@@ -1,6 +1,5 @@
 package projetaobcc20172.com.projetopetemfocofornecedor.activity;
 
-import android.app.DatePickerDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -15,12 +14,10 @@ import android.support.v7.widget.Toolbar;
 import android.text.InputType;
 import android.view.View;
 import android.widget.Button;
-import android.widget.DatePicker;
 import android.widget.EditText;
 
-import java.util.Calendar;
-import java.util.Locale;
 
+import java.util.Locale;
 import projetaobcc20172.com.projetopetemfocofornecedor.R;
 import projetaobcc20172.com.projetopetemfocofornecedor.database.services.PromocaoDao;
 import projetaobcc20172.com.projetopetemfocofornecedor.database.services.PromocaoDaoImpl;
@@ -32,13 +29,12 @@ import projetaobcc20172.com.projetopetemfocofornecedor.utils.VerificadorDeObjeto
 
 public class CadastroPromocaoActivity extends AppCompatActivity {
     private EditText mTitulo;
-    private EditText mData;
     private EditText mDescricao;
     private EditText mValor;
-    private DatePickerDialog mDatePickerDialog;
     private boolean mIsViewsHabilitadas = true;
     private String mIdUsuarioLogado;
     private Promocao mPromocao;
+    private Boolean mEdicao = false;
 
 
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
@@ -64,20 +60,34 @@ public class CadastroPromocaoActivity extends AppCompatActivity {
         Locale mLocal = new Locale("pt", "BR");
         mValor.addTextChangedListener(new MascaraDinheiro(mValor, mLocal));
         mValor.setInputType(InputType.TYPE_CLASS_NUMBER);
-        mData = findViewById(R.id.etData);
-        mData.setShowSoftInputOnFocus(false);
-        mData.setInputType(InputType.TYPE_NULL);
-        mData.setFocusable(false);
 
-        Button btnCadastrarPromocao = findViewById(R.id.btnCadastroPromocao);
-        Button btnEditarPromocao = findViewById(R.id.btnEditarPromocao);
-        //funcao responsavel por preencher o campo de mData com a mData selecionada do datapicker
-        getDateFromActivityListener();
+        Button btnCalendarioPromocao = findViewById(R.id.btnCalendarioPromocao);
+        if(getIntent().hasExtra("promocao")){
+            btnCalendarioPromocao.setText("CALENDARIO");
+        }
+        final Button btnEditarPromocao = findViewById(R.id.btnEditarPromocao);
 
-        btnCadastrarPromocao.setOnClickListener(new View.OnClickListener() {
+        btnCalendarioPromocao.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                salvarPromocao();
+
+                try {
+                    if(getIntent().hasExtra("promocao")){
+                        mPromocao = (Promocao) getIntent().getSerializableExtra("promocao");
+                    }else{
+                        mPromocao = new Promocao();
+                    }
+                    mIdUsuarioLogado = getPreferences("id", CadastroPromocaoActivity.this);
+                    mPromocao.setTitulo(mTitulo.getText().toString());
+                    mPromocao.setValor(mValor.getText().toString());
+                    mPromocao.setDescricao(mDescricao.getText().toString());
+                    mPromocao.setFornecedorId(mIdUsuarioLogado);
+                    VerificadorDeObjetos.vDadosPromocao(mPromocao,CadastroPromocaoActivity.this);
+                    abrirCalendario();
+                } catch (ValidacaoException e) {
+                    e.printStackTrace();
+                    Utils.mostrarMensagemCurta(CadastroPromocaoActivity.this, e.getMessage());
+                }
             }
         });
 
@@ -87,7 +97,6 @@ public class CadastroPromocaoActivity extends AppCompatActivity {
                 try{
                     Promocao promocao = new Promocao();
                     promocao.setTitulo(mTitulo.getText().toString());
-                    promocao.setData(mData.getText().toString());
                     promocao.setDescricao(mDescricao.getText().toString());
                     promocao.setValor(mValor.getText().toString());
 
@@ -96,6 +105,7 @@ public class CadastroPromocaoActivity extends AppCompatActivity {
                     if(!mPromocao.equals(promocao)){
                         promocao.setId(mPromocao.getId());
                         promocao.setFornecedorId(mPromocao.getFornecedorId());
+                        promocao.setDatas(mPromocao.getDatas());
                         PromocaoDao promocaoDao = new PromocaoDaoImpl(CadastroPromocaoActivity.this);
                         promocaoDao.atualizar(promocao,mIdUsuarioLogado);
                     }
@@ -110,9 +120,9 @@ public class CadastroPromocaoActivity extends AppCompatActivity {
         Intent intent = getIntent();
         if(intent.hasExtra("promocao")){
             toolbar.setTitle("Editar Promocao");
-            btnCadastrarPromocao.setVisibility(View.GONE);
             btnEditarPromocao.setVisibility(View.VISIBLE);
             mPromocao = (Promocao) intent.getSerializableExtra("promocao");
+            mEdicao = true;
             setvaluesOnViews();
         }
     }
@@ -122,58 +132,7 @@ public class CadastroPromocaoActivity extends AppCompatActivity {
             mTitulo.setText(mPromocao.getTitulo());
             mValor.setText(mPromocao.getValor()+"");
             mDescricao.setText(mPromocao.getDescricao());
-            mData.setText(mPromocao.getData());
         }
-    }
-
-    private void salvarPromocao(){
-        try {
-            mIdUsuarioLogado = getPreferences("idFornecedor", CadastroPromocaoActivity.this);
-            mPromocao = new Promocao();
-            mPromocao.setTitulo(mTitulo.getText().toString());
-            mPromocao.setValor(mValor.getText().toString());
-            mPromocao.setDescricao(mDescricao.getText().toString());
-            mPromocao.setData(mData.getText().toString());
-            mPromocao.setFornecedorId(mIdUsuarioLogado);
-            VerificadorDeObjetos.vDadosPromocao(mPromocao,this);
-            //Chamada do DAO para salvar no banco
-            PromocaoDao servicoDao =  new PromocaoDaoImpl(this);
-            servicoDao.inserir(mPromocao, mIdUsuarioLogado);
-            abrirTelaPrincipal();
-
-        } catch (ValidacaoException e) {
-            e.printStackTrace();
-            Utils.mostrarMensagemCurta(this, e.getMessage());
-        }
-
-    }
-
-    private void getDateFromActivityListener(){
-        final Calendar c = Calendar.getInstance();
-        final int mYear = c.get(Calendar.YEAR); // current year
-        final int mMonth = c.get(Calendar.MONTH); // current month
-        final int mDay = c.get(Calendar.DAY_OF_MONTH); // current day
-        //inicia o campo com a mData atual
-        mData.setText(String.format("%d/%d/%d", mDay, mMonth + 1, mYear));
-
-        mData.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                mDatePickerDialog = new DatePickerDialog(CadastroPromocaoActivity.this,
-                        new DatePickerDialog.OnDateSetListener() {
-
-                            @Override
-                            public void onDateSet(DatePicker view, int year,
-                                                  int monthOfYear, int dayOfMonth) {
-
-                                // set day of month , month and year value in the edit text
-                                mData.setText(String.format("%d/%d/%d", dayOfMonth, monthOfYear + 1, year));
-                            }
-                        }, mYear, mMonth, mDay);
-
-                mDatePickerDialog.show();
-            }
-        });
     }
 
     @Override
@@ -226,6 +185,23 @@ public class CadastroPromocaoActivity extends AppCompatActivity {
         //intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
         startActivity(intent);
         finish();
+    }
+
+    private void abrirCalendario(){
+
+        if(mEdicao){
+            Intent intent = new Intent(CadastroPromocaoActivity.this, CalendarioPromocoesViewActivity.class);
+            intent.putExtra("promocao",mPromocao);
+            intent.putExtra("edicao",mEdicao);
+            startActivity(intent);
+            finish();
+        }else{
+            Intent intent = new Intent(CadastroPromocaoActivity.this, CalendarioPromocoesPickerActivity.class);
+            intent.putExtra("promocao",mPromocao);
+            startActivity(intent);
+            finish();
+        }
+
     }
 
     public static String getPreferences(String key, Context context) {

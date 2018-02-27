@@ -63,7 +63,7 @@ public class MainActivity extends AppCompatActivity {
 
         //Recuperar id do fornecedor logado
         final String idUsuarioLogado;
-        idUsuarioLogado = getPreferences("idFornecedor", this);
+        idUsuarioLogado = getPreferences("id", this);
 
         // Recuperar serviços do Firebase
         DatabaseReference mFirebase = ConfiguracaoFirebase.getFirebase().child("fornecedor").child(idUsuarioLogado);
@@ -88,7 +88,7 @@ public class MainActivity extends AppCompatActivity {
                 p.salvarNota(dataSnapshot.child("nota").getValue(Float.class));
                 p.salvarDadosUser(idUsuarioLogado, nome, email);
 
-                fornecedor = new Fornecedor(nome, nomeBusca, email, cpfCnpj, telefone, senha, senha, horarios);
+                fornecedor = new Fornecedor(nome, nomeBusca, email, cpfCnpj, telefone, horarios);
                 fornecedor.setEndereco(end);
                 fornecedor.setId(id);
             }
@@ -151,7 +151,7 @@ public class MainActivity extends AppCompatActivity {
     private void deslogarFornecedor(){
         SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
         SharedPreferences.Editor editor = preferences.edit();
-        editor.remove("idFornecedor");
+        editor.remove("id");
         editor.apply();
         mAutenticacao.signOut();
         Intent intent = new Intent(MainActivity.this, LoginActivity.class);

@@ -103,23 +103,6 @@
                     android:layout_marginTop="2dp" />
 
 
-                <TextView
-                    android:id="@+id/tvData"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="6dp"
-                    android:text="Data de vencimento"
-                    android:textAppearance="?android:attr/textAppearanceMedium"
-                    android:textStyle="bold" />
-
-                <EditText
-                    android:id="@+id/etData"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:ems="10"
-                    android:inputType="date"
-                    android:singleLine="false" />
-
                 <View
                     android:layout_width="match_parent"
                     android:layout_height="1dp"
@@ -127,7 +110,7 @@
                     android:layout_marginTop="2dp" />
 
                 <Button
-                    android:id="@+id/btnCadastroPromocao"
+                    android:id="@+id/btnCalendarioPromocao"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_alignParentLeft="true"
@@ -137,13 +120,13 @@
                     android:layout_margin="4dp"
                     android:background="@drawable/shapebutton"
 
-                    android:text="Cadastrar Promocao" />
+                    android:text="Selecionar Dias" />
                 <Button
                     android:id="@+id/btnEditarPromocao"
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
                     android:background="@drawable/shapebutton"
-                    android:text="@string/action_editar"
+                    android:text="Salvar"
                     android:visibility="invisible" />
 
                 <!--android:layout_marginTop="24dp"-->

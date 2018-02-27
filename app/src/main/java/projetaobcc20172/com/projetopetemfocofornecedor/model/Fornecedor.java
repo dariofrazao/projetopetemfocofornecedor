@@ -20,8 +20,6 @@ public class Fornecedor implements Serializable {
     private String mTelefone;
     private String mCpfCnpj;
     private String mHorarios;
-    private String mSenha;
-    private String mSenha2;
     private String mEnderecoFornecedor = "1";
     private Endereco mEndereco;
     private String mTipo;
@@ -32,12 +30,10 @@ public class Fornecedor implements Serializable {
     public Fornecedor() {
     }
 
-    public Fornecedor(String nome, String nomeBusca, String email, String cpfCnpj, String telefone, String senha, String senha2, String horarios) {
+    public Fornecedor(String nome, String nomeBusca, String email, String cpfCnpj, String telefone, String horarios) {
         this.mNome = nome;
         this.mNomeBusca = nomeBusca;
         this.mEmail = email;
-        this.mSenha = senha;
-        this.mSenha2 = senha2;
         this.mHorarios = horarios;
         this.mCpfCnpj = cpfCnpj;
         this.mTelefone = telefone;
@@ -98,24 +94,6 @@ public class Fornecedor implements Serializable {
 
     public void setHorarios(String horarios) {
         this.mHorarios = horarios;
-    }
-
-    @Exclude
-    public String getSenha() {
-        return mSenha;
-    }
-
-    public void setSenha(String senha) {
-        this.mSenha = senha;
-    }
-
-    @Exclude
-    public String getSenha2() {
-        return mSenha2;
-    }
-
-    public void setSenha2(String senha2) {
-        this.mSenha2 = senha2;
     }
 
     public Endereco getEndereco() {

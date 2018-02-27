@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/fundo_degrade"
+    tools:context="projetaobcc20172.com.projetopetemfocofornecedor.activity.CalendarioPromocoesPickerActivity">
+
+    <include
+        android:id="@+id/tb_main"
+        layout="@layout/toolbar">
+
+    </include>
+
+    <com.applandeo.materialcalendarview.CalendarView
+    android:id="@+id/calendarView"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_marginTop="55dp"
+    app:abbreviationsBarColor="#7b7f96"
+    app:abbreviationsLabelsColor="@android:color/white"
+    app:daysLabelsColor="@android:color/white"
+    app:headerColor="@color/cinza_escuro"
+    app:layout_constraintLeft_toLeftOf="parent"
+    app:layout_constraintRight_toRightOf="parent"
+    app:layout_constraintTop_toTopOf="parent"
+    app:pagesColor="#888b99"
+    app:selectionColor="@color/branco"
+    app:selectionLabelColor="#888b99"
+    app:disabledDaysLabelsColor="@color/cinza_escuro"
+    app:anotherMonthsDaysLabelsColor="#88898f"
+    app:todayLabelColor="@color/preto"
+    app:type="many_days_picker" />
+
+<Button
+    android:id="@+id/getDateButton"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:text="Salvar"
+    app:layout_constraintLeft_toLeftOf="parent"
+    app:layout_constraintRight_toRightOf="parent"
+    app:layout_constraintTop_toBottomOf="@id/calendarView" />
+
+</android.support.constraint.ConstraintLayout>
