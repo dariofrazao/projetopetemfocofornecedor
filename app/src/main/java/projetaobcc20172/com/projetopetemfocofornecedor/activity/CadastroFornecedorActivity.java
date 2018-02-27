@@ -5,7 +5,6 @@ import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.RequiresApi;
-import android.support.annotation.VisibleForTesting;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.text.InputType;
@@ -16,7 +15,6 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import projetaobcc20172.com.projetopetemfocofornecedor.R;
 import projetaobcc20172.com.projetopetemfocofornecedor.model.Fornecedor;
@@ -31,7 +29,7 @@ import projetaobcc20172.com.projetopetemfocofornecedor.utils.MaskUtil;
  */
 public class CadastroFornecedorActivity extends AppCompatActivity {
 
-    private EditText mNome, mEmail, mTelefone, mCpfCnpj;
+    private EditText mNome, mTelefone, mCpfCnpj;
     private Spinner mSpinnerHorarios;
     private Fornecedor mFornecedor;
 
@@ -42,7 +40,7 @@ public class CadastroFornecedorActivity extends AppCompatActivity {
         setContentView(R.layout.activity_cadastro_fornecedor);
 
         mFornecedor = (Fornecedor) getIntent().getSerializableExtra("fornecedor");
-
+        EditText mEmail;
         Toolbar toolbar;
         toolbar = findViewById(R.id.tb_cadastro_fornecedor);
         mNome = findViewById(R.id.etCadastroNomeFornecedor);

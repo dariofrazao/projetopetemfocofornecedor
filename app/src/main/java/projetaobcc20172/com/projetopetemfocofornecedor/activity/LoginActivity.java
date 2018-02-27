@@ -31,7 +31,6 @@ import projetaobcc20172.com.projetopetemfocofornecedor.utils.Utils;
 public class LoginActivity extends AppCompatActivity {
 
     private FirebaseAuth mAutenticacao;
-    private Fornecedor mFornecedor;
     //private static Boolean loginAutomatico = false;
     private static final int RC_SIGN_IN = 1;
     private GoogleApiClient mGoogleApiClient;
@@ -162,7 +161,7 @@ public class LoginActivity extends AppCompatActivity {
     //Método que salva o usuário logado pelo Google no banco
     private boolean salvarUsuarioGoogle(GoogleSignInAccount account) {
         try {
-
+            Fornecedor mFornecedor;
             mFornecedor = new Fornecedor();
             mFornecedor.setId(account.getId());
             mFornecedor.setNome(account.getDisplayName());

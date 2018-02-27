@@ -88,7 +88,7 @@ public class MainActivity extends AppCompatActivity {
                 p.salvarNota(dataSnapshot.child("nota").getValue(Float.class));
                 p.salvarDadosUser(idUsuarioLogado, nome, email);
 
-                fornecedor = new Fornecedor(nome, nomeBusca, email, cpfCnpj, telefone, senha, senha, horarios);
+                fornecedor = new Fornecedor(nome, nomeBusca, email, cpfCnpj, telefone, horarios);
                 fornecedor.setEndereco(end);
                 fornecedor.setId(id);
             }
