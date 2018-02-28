@@ -19,7 +19,6 @@ import java.util.Date;
 import java.util.List;
 
 import projetaobcc20172.com.projetopetemfocofornecedor.R;
-import projetaobcc20172.com.projetopetemfocofornecedor.database.services.CupomDaoImpl;
 import projetaobcc20172.com.projetopetemfocofornecedor.database.services.PromocaoDaoImpl;
 import projetaobcc20172.com.projetopetemfocofornecedor.model.Promocao;
 import projetaobcc20172.com.projetopetemfocofornecedor.utils.Utils;
@@ -33,7 +32,6 @@ public class InfoPromocaoActivity extends AppCompatActivity {
     private TextView mTitulo, mDescricao, mValor, mDatas;
     private Promocao mPromocao;
     private String mIdUsuarioLogado;
-    private Button mExcluir, mVoltar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
