@@ -2,6 +2,7 @@ package projetaobcc20172.com.projetopetemfocofornecedor.activity;
 
 import android.annotation.SuppressLint;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.os.Bundle;
@@ -10,6 +11,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import java.text.SimpleDateFormat;
@@ -30,19 +32,16 @@ public class InfoPromocaoActivity extends AppCompatActivity {
     private TextView mTitulo, mDescricao, mValor, mDatas;
     private Promocao mPromocao;
     private String mIdUsuarioLogado;
-    private Button mExcluir, mVoltar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_info_promocao);
 
-        mTitulo = findViewById(R.id.tvTitulo);
-        mDescricao = findViewById(R.id.tvDescricao);
-        mValor = findViewById(R.id.tvValor);
-        mDatas = findViewById(R.id.tvData);
-        mVoltar = findViewById(R.id.btnVoltar);
-        mExcluir = findViewById(R.id.btnExcluir);
+        mTitulo = findViewById(R.id.tvNomePromocaoInfo);
+        mDescricao = findViewById(R.id.tvDescricaoPromocaoInfo);
+        mValor = findViewById(R.id.tvValorPromocaoInfo);
+        mDatas = findViewById(R.id.tvValidadePromocaoInfo);
 
         mPromocao = (Promocao) getIntent().getSerializableExtra("Promocao");
 
@@ -60,19 +59,16 @@ public class InfoPromocaoActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
 
         preencherCampos();
-        voltar();
-
-        //excluirListener();
-
-        //esconde botoes pois no momento nao estao sendo utilizados
-        Button mEditar =findViewById(R.id.btnEditar);
-        mEditar.setVisibility(View.INVISIBLE);
-        mExcluir.setVisibility(View.INVISIBLE);
+        excluirPromocaoListener();
+        editarPromocaoListener();
 
     }
 
     @SuppressLint("SetTextI18n")
     public void preencherCampos() {
+        ImageView mImagemCupom;
+        mImagemCupom = findViewById(R.id.ivDetalhesPromocao);
+        mImagemCupom.setImageResource(R.drawable.ic_action_promocao);
         mTitulo.setText("Nome: " + mPromocao.getTitulo());
         mDescricao.setText("Descrição: " + mPromocao.getDescricao());
         mValor.setText("Valor: " + mPromocao.getValor());
@@ -89,19 +85,24 @@ public class InfoPromocaoActivity extends AppCompatActivity {
         mDatas.setText("Datas válidas: \n" + mDatasValidas);
     }
 
-    public void voltar() {
-        mVoltar.setOnClickListener(new View.OnClickListener() {
+    private void editarPromocaoListener() {
+        Button mEditarPromocao =findViewById(R.id.btnEditarPromocaoInfo);
+        mEditarPromocao.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                InfoPromocaoActivity.super.onBackPressed();
+                //Enviar para a Activity de Edição do serviço seus atuais dados salvos para exibição
+                Intent intent = new Intent(InfoPromocaoActivity.this, CadastroPromocaoActivity.class);
+                intent.putExtra("promocao", mPromocao);
+                startActivity(intent);
                 finish();
             }
         });
     }
 
     //Método para excluir uma promocao
-    public void excluirListener() {
-        mExcluir.setOnClickListener(new View.OnClickListener() {
+    public void excluirPromocaoListener() {
+        Button mExcluirPromocao =findViewById(R.id.btnExcluirPromocaoInfo);
+        mExcluirPromocao.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 final DialogInterface.OnClickListener dialogClickListener = new DialogInterface.OnClickListener() {

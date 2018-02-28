@@ -9,6 +9,7 @@
     <include
         android:id="@+id/tb_main"
         layout="@layout/toolbar">
+
     </include>
 
     <LinearLayout
@@ -23,117 +24,89 @@
         <View
             android:layout_width="match_parent"
             android:layout_height="1dp"
-            android:layout_marginBottom="2dp"
-            android:layout_marginTop="40dp" />
+            android:layout_marginTop="60dp"
+            android:layout_marginBottom="2dp"/>
+
+        <ImageView
+            android:id="@+id/ivDetalhesPromocao"
+            android:layout_width="match_parent"
+            android:layout_height="150dp"/>
 
         <TextView
-            android:id="@+id/tvTitulo"
+            android:id="@+id/tvNomePromocaoInfo"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="6dp"
-            android:text="Título"
-            android:gravity="left"
+            android:gravity="center"
+            android:textColor="@android:color/black"
+            android:textSize="20sp"
+            android:textStyle="bold|italic" />
+
+        <TextView
+            android:id="@+id/tvDescricaoPromocaoInfo"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="6dp"
+            android:gravity="center"
+            android:textColor="@android:color/black"
+            android:textSize="20sp"
+            android:textStyle="bold|italic" />
+
+        <TextView
+            android:id="@+id/tvValorPromocaoInfo"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:textColor="@android:color/black"
             android:textAppearance="?android:attr/textAppearanceMedium"
-            android:textStyle="bold" />
+            android:textSize="16sp"
+            android:textStyle="bold"/>
 
         <View
             android:layout_width="match_parent"
             android:layout_height="1dp"
-            android:layout_marginBottom="2dp"
-            android:layout_marginTop="2dp" />
+            android:layout_marginBottom="1dp"
+            android:layout_marginTop="1dp" />
 
         <TextView
-            android:id="@+id/tvDescricao"
+            android:id="@+id/tvValidadePromocaoInfo"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="6dp"
-            android:text="Descrição"
-            android:gravity="left"
+            android:gravity="center"
             android:textAppearance="?android:attr/textAppearanceMedium"
-            android:textStyle="bold" />
+            android:textSize="16sp"
+            android:textColor="@android:color/holo_red_dark"
+            android:textStyle="bold"/>
 
         <View
             android:layout_width="match_parent"
             android:layout_height="1dp"
-            android:layout_marginBottom="2dp"
-            android:layout_marginTop="2dp" />
+            android:layout_marginBottom="1dp"
+            android:layout_marginTop="50dp" />
 
-        <TextView
-            android:id="@+id/tvValor"
+        <Button
+            android:id="@+id/btnEditarPromocaoInfo"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="6dp"
-            android:text="Valor"
-            android:gravity="left"
-            android:textAppearance="?android:attr/textAppearanceMedium"
-            android:textStyle="bold" />
+            android:layout_margin="4dp"
+            android:background="@drawable/shapebutton"
+            android:drawableLeft="@drawable/ic_edit"
+            android:paddingLeft="15dp"
+            android:paddingRight="140dp"
+            android:text="Editar"
+            android:textAlignment="viewEnd"
+            />
 
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:layout_marginBottom="2dp"
-            android:layout_marginTop="2dp" />
-
-
-        <TextView
-            android:id="@+id/tvData"
+        <Button
+            android:id="@+id/btnExcluirPromocaoInfo"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="6dp"
-            android:text="Data de vencimento"
-            android:gravity="left"
-            android:textAppearance="?android:attr/textAppearanceMedium"
-            android:textStyle="bold" />
-
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:layout_marginBottom="2dp"
-            android:layout_marginTop="2dp" />
-
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="1dp"
-                    android:layout_marginTop="10dp"
-                    android:layout_marginBottom="2dp"/>
-
-                <Button
-                    android:id="@+id/btnVoltar"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="4dp"
-                    android:background="@drawable/shapebutton"
-                    android:text="Voltar" />
-
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="1dp"
-                    android:layout_marginTop="2dp"
-                    android:layout_marginBottom="2dp" />
-
-                <Button
-                    android:id="@+id/btnEditar"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="4dp"
-                    android:background="@drawable/shapebuttonborder"
-                    android:text="Editar" />
-
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="1dp"
-                    android:layout_marginTop="2dp"
-                    android:layout_marginBottom="2dp" />
-
-                <Button
-                    android:id="@+id/btnExcluir"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="4dp"
-                    android:background="@drawable/shapebuttonborder"
-                    android:text="Excluir" />
-
-
+            android:layout_margin="4dp"
+            android:background="@drawable/shapebuttonborder"
+            android:drawableLeft="@drawable/ic_remove"
+            android:paddingLeft="15dp"
+            android:paddingRight="40dp"
+            android:text="Excluir" />
 
     </LinearLayout>
 
